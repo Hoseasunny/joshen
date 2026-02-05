@@ -3,15 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007BFF">
     <title>JOSHEM General Cleaning Services Ltd</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image" href="icons/bubble.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header / Navigation -->
     <header class="header">
+
+    <div class="mobile-drawer" aria-hidden="true">
+        <div class="mobile-drawer-header">
+            <div class="logo">JOSHEM</div>
+            <button class="drawer-close" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="cta-buttons mobile-cta">
+            <a href="tel:+0717785782" class="btn primary-btn">Call Now</a>
+            <a href="https://wa.me/254717785782" target="_blank" class="btn whatsapp-btn">WhatsApp</a>
+        </div>
+    </div>
+    <div class="drawer-backdrop" aria-hidden="true"></div>
+
         <div class="container header-container">
             <div class="logo">JOSHEM</div>
+            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="nav">
                 <a href="#home">Home</a>
                 <a href="#services">Services</a>
@@ -28,9 +56,9 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container hero-content">
-            <h1 class="hero-title">Professional Cleaning Services You Can Trust</h1>
-            <p class="hero-subtitle">Residential, Office & Commercial Cleaning – Spotless Results Every Time</p>
-            <div class="hero-buttons">
+            <h1 class="hero-title hero-float">Professional Cleaning Services You Can Trust</h1>
+            <p class="hero-subtitle hero-float hero-delay-1">Residential, Office & Commercial Cleaning – Spotless Results Every Time</p>
+            <div class="hero-buttons hero-slide-right">
                 <a href="tel:+0717785782" class="btn primary-btn">Call Now</a>
                 <a href="https://wa.me/254717785782" target="_blank" class="btn whatsapp-btn">Chat on WhatsApp</a>
             </div>
@@ -52,19 +80,19 @@
 
      Trust Indicators 
     <section class="trust-section"> -->
-        <div class="container trust-cards">
+        <div class="container trust-cards hero-float hero-delay-2">
             <div class="trust-card">
-                <img src="icons/trainedd.jpg" alt="Trained Staff">
+                <img src="icons/trainedd.jpg" alt="Trained Staff" width="60" height="60" loading="lazy">
                 <h3>Trained Staff</h3>
                 <p>Professional cleaners with experience and care.</p>
             </div>
             <div class="trust-card">
-                <img src="icons/eco-friendly.jpg" alt="Eco-friendly">
+                <img src="icons/eco-friendly.jpg" alt="Eco-friendly" width="60" height="60" loading="lazy">
                 <h3>Eco-Friendly</h3>
                 <p>We use safe and environmentally friendly products.</p>
             </div>
             <div class="trust-card">
-                <img src="icons/satisfaction.jpg" alt="Satisfaction Guaranteed">
+                <img src="icons/satisfaction.jpg" alt="Satisfaction Guaranteed" width="60" height="60" loading="lazy">
                 <h3>Satisfaction Guaranteed</h3>
                 <p>Your satisfaction is our top priority.</p>
             </div>
@@ -80,49 +108,49 @@
         <div class="services-cards">
             <div class="service-card" style="background-image:url('icons/residential.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/residential.jpg" alt="Residential Cleaning">
+                <div class="service-card-text"><img src="icons/residential.jpg" alt="Residential Cleaning" width="60" height="60" loading="lazy">
                 <h3>Residential Cleaning</h3>
                 <p>Keep your home fresh and spotless.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/office.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/office.jpg" alt="Office Cleaning">
+                <div class="service-card-text"><img src="icons/office.jpg" alt="Office Cleaning" width="60" height="60" loading="lazy">
                 <h3>Office & Commercial</h3>
                 <p>Clean and professional workspace maintenance.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/sofa.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/sofa.jpg" alt="Upholstery Cleaning">
+                <div class="service-card-text"><img src="icons/sofa.jpg" alt="Upholstery Cleaning" width="60" height="60" loading="lazy">
                 <h3>Sofa & Upholstery</h3>
                 <p>Deep cleaning for fabric furniture.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/carpet.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/carpet.jpg" alt="Carpet Cleaning">
+                <div class="service-card-text"><img src="icons/carpet.jpg" alt="Carpet Cleaning" width="60" height="60" loading="lazy">
                 <h3>Carpet & Rug</h3>
                 <p>Removal of dust, allergens, and stains.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/laundry.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/laundry.jpg" alt="Laundry Services">
+                <div class="service-card-text"><img src="icons/laundry.jpg" alt="Laundry Services" width="60" height="60" loading="lazy">
                 <h3>Laundry Services</h3>
                 <p>Washing, drying, and folding with care.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/move.jpg') ; 
             background-size:cover;  ">
-                <div class="service-card-text"><img src="icons/move.jpg" alt="Move-In/Out Cleaning">
+                <div class="service-card-text"><img src="icons/move.jpg" alt="Move-In/Out Cleaning" width="60" height="60" loading="lazy">
                 <h3>Move-In / Move-Out</h3>
                 <p>Full deep cleaning for a fresh start.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
             </div>
             <div class="service-card" style="background-image:url('icons/washroom.jpg') ; 
             background-size:cover; ">
-                <div class="service-card-text"><img src="icons/washroom.jpg" alt="Washroom Cleaning">
+                <div class="service-card-text"><img src="icons/washroom.jpg" alt="Washroom Cleaning" width="60" height="60" loading="lazy">
                 <h3>Washroom & Toilet</h3>
                 <p>Sanitized and sparkling bathrooms.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a></div>
@@ -130,7 +158,7 @@
             <div class="service-card" style="background-image:url('icons/outdoor.jpg') ; 
             background-size:cover;  ">
                 <div class="service-card-text">
-                    <img src="icons/outdoor.jpg" alt="Outdoor Cleaning">
+                    <img src="icons/outdoor.jpg" alt="Outdoor Cleaning" width="60" height="60" loading="lazy">
                 <h3>Outdoor & Compound</h3>
                 <p>Yard, pavement, and compound cleaning.</p>
                 <a href="#services-detail" class="learn-more">Learn More</a>
@@ -145,27 +173,27 @@
             <h2>Why Choose Joshem</h2>
             <div class="why-cards">
                 <div class="why-card">
-                    <img src="icons/professional.jpg" alt="Professional Cleaners">
+                    <img src="icons/professional.jpg" alt="Professional Cleaners" width="50" height="50" loading="lazy">
                     <p>Professional & trained cleaners</p>
                 </div>
                 <div class="why-card">
-                    <img src="icons/equipment.jpg" alt="Modern Equipment">
+                    <img src="icons/equipment.jpg" alt="Modern Equipment" width="50" height="50" loading="lazy">
                     <p>Modern cleaning equipment</p>
                 </div>
                 <div class="why-card">
-                    <img src="icons/safe.jpg" alt="Safe Products">
+                    <img src="icons/safe.jpg" alt="Safe Products" width="50" height="50" loading="lazy">
                     <p>Safe & effective cleaning products</p>
                 </div>
                 <div class="why-card">
-                    <img src="icons/flexible.jpg" alt="Flexible Scheduling">
+                    <img src="icons/flexible.jpg" alt="Flexible Scheduling" width="50" height="50" loading="lazy">
                     <p>Flexible scheduling</p>
                 </div>
                 <div class="why-card">
-                    <img src="icons/affordable.jpg" alt="Affordable Pricing">
+                    <img src="icons/affordable.jpg" alt="Affordable Pricing" width="50" height="50" loading="lazy">
                     <p>Affordable pricing</p>
                 </div>
                 <div class="why-card">
-                    <img src="icons/customer.jpg" alt="Customer Satisfaction">
+                    <img src="icons/customer.jpg" alt="Customer Satisfaction" width="50" height="50" loading="lazy">
                     <p>Customer satisfaction focused</p>
                 </div>
             </div>
@@ -206,18 +234,34 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <h2>Contact Us</h2>
-            <div class="contact-info">
-                <p><strong>Phone:</strong> 0717785782 | 0797923747 | 0702549341</p>
-                <p><strong>Email:</strong> joshemcleaners@gmail.com</p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/254717785782" target="_blank">0717785782</a></p>
+            <div class="contact-content">
+                <div class="contact-details">
+                    <div class="contact-info">
+                        <p><strong>Phone:</strong> 0717785782 | 0797923747 | 0702549341</p>
+                        <p><strong>Email:</strong> joshemcleaners@gmail.com</p>
+                        <p><strong>WhatsApp:</strong> <a href="https://wa.me/254717785782" target="_blank">0717785782</a></p>
+                    </div>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Name" required>
+                        <input type="tel" placeholder="Phone" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea placeholder="Message" required></textarea>
+                        <button type="submit" class="btn primary-btn">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-map">
+                    <h3>Our Location</h3>
+                    <div class="map-embed">
+                        <iframe
+                            title="Joshem Location Map"
+                            src="https://www.google.com/maps?q=Westlands%2C%20Nairobi&output=embed"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </div>
             </div>
-            <form class="contact-form">
-                <input type="text" placeholder="Name" required>
-                <input type="tel" placeholder="Phone" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" required></textarea>
-                <button type="submit" class="btn primary-btn">Send Message</button>
-            </form>
         </div>
     </section>
 
@@ -228,6 +272,13 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    
+    <a href="https://wa.me/254717785782" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M19.11 17.06c-.23-.12-1.36-.67-1.57-.74-.21-.08-.37-.12-.52.12-.15.23-.6.74-.74.9-.14.15-.27.17-.5.06-.23-.12-.96-.35-1.83-1.12-.68-.6-1.14-1.34-1.27-1.57-.13-.23-.01-.35.1-.47.1-.1.23-.27.35-.4.12-.14.15-.23.23-.38.08-.15.04-.29-.02-.4-.06-.12-.52-1.25-.72-1.71-.19-.46-.38-.4-.52-.41-.13-.01-.29-.01-.44-.01s-.4.06-.61.29c-.21.23-.8.78-.8 1.9s.82 2.2.93 2.35c.12.15 1.61 2.45 3.9 3.43.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.36-.56 1.55-1.11.19-.55.19-1.02.13-1.11-.06-.09-.21-.14-.44-.26zM16.06 27.8c-1.9 0-3.76-.5-5.4-1.45l-3.78.99 1.01-3.69A11.7 11.7 0 0 1 4.3 16.2c0-6.5 5.28-11.8 11.76-11.8 6.5 0 11.78 5.3 11.78 11.8 0 6.5-5.29 11.8-11.78 11.8zm0-21.5c-5.37 0-9.73 4.38-9.73 9.9 0 2 0 3.97 1.16 5.63l.18.26-.68 2.47 2.53-.66.25.16c1.6 1 3.47 1.53 5.4 1.53 5.37 0 9.74-4.38 9.74-9.8 0-5.52-4.37-9.9-9.85-9.9z"/>
+        </svg>
+    </a>
+
+<script src="script.js"></script>
 </body>
 </html>
