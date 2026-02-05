@@ -92,13 +92,15 @@ body {
 .hero-section {
     position: relative;
     text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(to bottom right, #007BFF, #28a745); /* blue to green gradient */
+    padding: 60px 20px;
+    background-image: url('icons/bubble.jpg');
+    background-size: cover;
+    background-position: center;
     color: #fff;
     overflow: hidden;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* 3D effect */
+    /*border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.507); /* 3D effect */
 }
 
 .hero-title {
@@ -107,7 +109,7 @@ body {
     font-weight: 700;
     margin-bottom: 15px;
     animation: fadeIn 1s ease forwards;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.253);
 }
 
 .hero-subtitle {
@@ -126,7 +128,7 @@ body {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: rgba(255, 255, 0, 0.2); /* soft yellow bubbles */
+    background: rgba(0, 195, 255, 0.247); /* soft yellow bubbles */
     border-radius: 50%;
     bottom: -50px;
     animation: rise 6s infinite linear;
@@ -144,13 +146,18 @@ body {
     100% { opacity: 1; transform: translateY(0);}
 }
 
-/* Trust Section */
+/* Trust Section 
 .trust-section {
     padding: 60px 0;
-    background: #e0f7fa; /* very light cyan */
-}
+    background-image: url('icons/bubble.jpg');
+    background-size: cover;
+    background-position: center;
+}*/
 
 .trust-cards {
+    margin: 80px 0 0 0;
+    width: 100%;
+    align-self: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -159,7 +166,7 @@ body {
 
 .trust-card {
     flex: 1 1 30%;
-    background: #fff;
+    background: #28a745; /* green */
     padding: 25px;
     border-radius: 20px;
     text-align: center;
@@ -169,6 +176,14 @@ body {
 
 .trust-card:hover {
     transform: translateY(-10px);
+}
+
+.trust-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* 3D effect on icons */
 }
 
 /* Services Section */
@@ -201,7 +216,18 @@ body {
     border-radius: 20px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
     box-shadow: 0 12px 30px rgba(0,0,0,0.25); /* solid 3D look */
+}
+
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(6px);
+    z-index: 0;
+
 }
 
 .service-card:hover {
@@ -211,8 +237,22 @@ body {
 
 .service-card img {
     width: 60px;
+    height: 60px;
+    border-radius: 50%;
     margin-bottom: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* 3D effect on images */
 }
+
+.service-card-text{
+    position: relative; 
+    z-index: 1; 
+}
+
+.service-card h3, .service-card p {
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}   
 
 .learn-more {
     display: inline-block;
@@ -231,6 +271,7 @@ body {
     padding: 60px 0;
     background: #28a745; /* green background */
     color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .why-container h2 {
@@ -240,7 +281,7 @@ body {
 
 .why-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     text-align: center;
 }
@@ -259,7 +300,20 @@ body {
 
 .why-card img {
     width: 50px;
-    margin-bottom: 10px;
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* 3D effect on icons */
+}
+
+.cta-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 40px;
 }
 
 /* CTA Banner */
