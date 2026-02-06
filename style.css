@@ -5,11 +5,17 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     color: #333;
     line-height: 1.6;
     background: #f4f8fa; /* subtle light background */
+    width: 100%;
 }
 
 /* Container */
@@ -247,10 +253,12 @@ body {
 .service-card {
     background: #ffffff;
     padding: 25px;
+    width: 100%;
     border-radius: 20px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
+    z-index: 1;
     overflow: hidden;
     box-shadow: 0 12px 30px rgba(0,0,0,0.25); /* solid 3D look */
 }
@@ -606,12 +614,9 @@ body {
 @media(max-width:768px) {
     .services-cards {
         grid-template-columns: 1fr;
+        padding: 0 10px;
     }
-    .service-card {
-        width: 100%;
-        margin: 0 10px;
-    }
-
+    
     .contact-content {
         grid-template-columns: 1fr;
     }
