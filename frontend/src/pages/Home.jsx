@@ -67,18 +67,22 @@ const testimonials = [
 
 const faqItems = [
   {
+    icon: "clock",
     q: "How quickly can I get a booking?",
     a: "Most bookings are confirmed within minutes, and same-day slots are available based on area coverage."
   },
   {
+    icon: "shield",
     q: "Do you bring cleaning supplies?",
     a: "Yes. Our teams arrive with professional supplies and equipment unless you request specific products."
   },
   {
+    icon: "track",
     q: "Can I track my order in real time?",
     a: "Yes. You can monitor status from confirmation to completion through your tracking dashboard."
   },
   {
+    icon: "calendar",
     q: "Do you clean offices outside business hours?",
     a: "Yes. We support early morning, evening, and weekend schedules for minimal disruption."
   }
@@ -136,6 +140,7 @@ const blogPosts = [
 ];
 
 const trackingStages = ["Pending", "Confirmed", "Assigned", "In Progress", "Completed"];
+const trustBadges = ["Verified Reviews", "Insured Teams", "Eco-Safe Products"];
 
 function iconFor(type) {
   switch (type) {
@@ -195,10 +200,19 @@ function buildChatReply(message) {
   return "Thanks for your message. I can help with booking, pricing, tracking, and service recommendations.";
 }
 
+function faqIconFor(type) {
+  if (type === "clock") return "⏱";
+  if (type === "shield") return "🛡";
+  if (type === "track") return "📍";
+  return "📅";
+}
+
 export default function Home() {
+  const heroRef = useRef(null);
   const statsRef = useRef(null);
   const [countValues, setCountValues] = useState(counters.map(() => 0));
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activeService, setActiveService] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const [lightbox, setLightbox] = useState(null);
   const [trackingIndex, setTrackingIndex] = useState(1);
@@ -217,6 +231,17 @@ export default function Home() {
   });
   const [bookingErrors, setBookingErrors] = useState({});
   const [bookingSuccess, setBookingSuccess] = useState("");
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, index) => ({
+        id: index,
+        left: `${6 + (index * 7) % 86}%`,
+        size: `${10 + (index % 5) * 6}px`,
+        delay: `${index * 0.28}s`,
+        duration: `${5 + (index % 4)}s`
+      })),
+    []
+  );
 
   const suggestedService = useMemo(() => {
     const note = bookingForm.notes.toLowerCase();
@@ -246,6 +271,39 @@ export default function Home() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const heroNode = heroRef.current;
+    if (!heroNode) return undefined;
+    let frame = null;
+
+    const onMouseMove = (event) => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const bounds = heroNode.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        heroNode.style.setProperty("--mx", `${x.toFixed(3)}`);
+        heroNode.style.setProperty("--my", `${y.toFixed(3)}`);
+      });
+    };
+
+    const onScroll = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        heroNode.style.setProperty("--sy", `${window.scrollY * 0.08}px`);
+      });
+    };
+
+    heroNode.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      heroNode.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -323,11 +381,53 @@ export default function Home() {
     setBookingSuccess("Booking request submitted. Our AI scheduler will confirm your slot shortly.");
   }
 
+  function onServiceClick(title) {
+    setActiveService(title);
+    setTimeout(() => setActiveService(""), 300);
+  }
+
+  function onTiltMove(event) {
+    const node = event.currentTarget;
+    const rect = node.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+    const rotateY = (px - 0.5) * 10;
+    const rotateX = (0.5 - py) * 10;
+    node.style.setProperty("--tilt-x", `${rotateX.toFixed(2)}deg`);
+    node.style.setProperty("--tilt-y", `${rotateY.toFixed(2)}deg`);
+  }
+
+  function resetTilt(event) {
+    const node = event.currentTarget;
+    node.style.setProperty("--tilt-x", "0deg");
+    node.style.setProperty("--tilt-y", "0deg");
+  }
+
   return (
     <div className="home modern-home" id="top">
-      <section className="hero reveal" id="home">
+      <section className="hero reveal depth-near" id="home" ref={heroRef}>
+        <div className="hero-scene" aria-hidden="true">
+          <span className="layer layer-one" />
+          <span className="layer layer-two" />
+          <span className="layer layer-three" />
+          <span className="tool tool-spray">spray</span>
+          <span className="tool tool-bucket">wash</span>
+          {particles.map((particle) => (
+            <span
+              key={particle.id}
+              className="sparkle"
+              style={{
+                left: particle.left,
+                width: particle.size,
+                height: particle.size,
+                animationDelay: particle.delay,
+                animationDuration: particle.duration
+              }}
+            />
+          ))}
+        </div>
         <div className="container hero-grid">
-          <div className="hero-copy">
+          <div className="hero-copy hero-enter">
             <span className="eyebrow">Trusted cleaning for modern homes and businesses</span>
             <h1>Professional cleaning that is easy to book, track, and trust.</h1>
             <p>
@@ -349,6 +449,19 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+            <div className="tracking-progress" aria-label="Order progress">
+              {trackingStages.map((stage, index) => (
+                <div key={`progress-${stage}`} className="progress-row">
+                  <span>{stage}</span>
+                  <div className="progress-track">
+                    <span
+                      className={`progress-fill ${index <= trackingIndex ? "active" : ""}`}
+                      style={{ width: index <= trackingIndex ? "100%" : "0%" }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
             <p className="mini-note">Live status refresh every few seconds.</p>
           </div>
         </div>
@@ -382,7 +495,18 @@ export default function Home() {
           </div>
           <div className="service-grid">
             {services.map((service) => (
-              <article key={service.title} className="service-tile">
+            <article
+              key={service.title}
+              className={`service-tile ${activeService === service.title ? "pulse" : ""}`}
+              style={{ "--tilt-x": "0deg", "--tilt-y": "0deg" }}
+              onMouseMove={onTiltMove}
+              onMouseLeave={resetTilt}
+              onClick={() => onServiceClick(service.title)}
+              role="button"
+              tabIndex={0}
+                onKeyDown={(event) => event.key === "Enter" && onServiceClick(service.title)}
+                aria-label={`Open ${service.title}`}
+              >
                 <div className="service-icon" aria-hidden="true">{iconFor(service.icon)}</div>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
@@ -408,7 +532,7 @@ export default function Home() {
             >
               ‹
             </button>
-            <article className="testimonial-active">
+            <article key={activeTestimonial} className="testimonial-active flip-card">
               <img src={testimonials[activeTestimonial].photo} alt={`${testimonials[activeTestimonial].name} portrait`} loading="lazy" />
               <p>"{testimonials[activeTestimonial].quote}"</p>
               <div className="rating" aria-label={`${testimonials[activeTestimonial].rating} out of 5 stars`}>
@@ -417,6 +541,11 @@ export default function Home() {
               </div>
               <h4>{testimonials[activeTestimonial].name}</h4>
               <small>{testimonials[activeTestimonial].role}</small>
+              <div className="trust-badges" aria-label="Trust badges">
+                {trustBadges.map((badge) => (
+                  <span key={badge}>{badge}</span>
+                ))}
+              </div>
             </article>
             <button
               type="button"
@@ -430,7 +559,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section faq reveal" id="faq">
+      <section className="section faq reveal depth-far" id="faq">
         <div className="container">
           <div className="section-head">
             <h2>Frequently asked questions</h2>
@@ -445,7 +574,10 @@ export default function Home() {
                   onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
                   aria-expanded={openFaq === index}
                 >
-                  <span>{item.q}</span>
+                  <span className="faq-label">
+                    <span className="faq-icon" aria-hidden="true">{faqIconFor(item.icon)}</span>
+                    <span>{item.q}</span>
+                  </span>
                   <span aria-hidden="true">{openFaq === index ? "−" : "+"}</span>
                 </button>
                 <div className="faq-answer">
@@ -457,7 +589,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section gallery reveal" id="gallery">
+      <section className="section gallery reveal depth-mid" id="gallery">
         <div className="container">
           <div className="section-head">
             <h2>Before and after gallery</h2>
@@ -469,6 +601,9 @@ export default function Home() {
                 key={item.src}
                 type="button"
                 className="gallery-item"
+                style={{ "--tilt-x": "0deg", "--tilt-y": "0deg" }}
+                onMouseMove={onTiltMove}
+                onMouseLeave={resetTilt}
                 onClick={() => setLightbox(item)}
                 aria-label={`Open image: ${item.tag}`}
               >
