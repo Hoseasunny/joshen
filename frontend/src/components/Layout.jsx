@@ -1,11 +1,13 @@
 ﻿import { Link, NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../state/AuthContext.jsx";
 
 export default function Layout({ children }) {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const touchStartX = useRef(0);
+  const touchCurrentX = useRef(0);
 
   function closeMenu() {
     setMenuOpen(false);
@@ -22,6 +24,22 @@ export default function Layout({ children }) {
     return () => window.removeEventListener("keydown", onEsc);
   }, []);
 
+  function onDrawerTouchStart(event) {
+    touchStartX.current = event.touches[0]?.clientX || 0;
+    touchCurrentX.current = touchStartX.current;
+  }
+
+  function onDrawerTouchMove(event) {
+    touchCurrentX.current = event.touches[0]?.clientX || touchCurrentX.current;
+  }
+
+  function onDrawerTouchEnd() {
+    const delta = touchCurrentX.current - touchStartX.current;
+    if (delta > 60) {
+      closeMenu();
+    }
+  }
+
   return (
     <div className="app">
       <header className="site-header">
@@ -31,47 +49,72 @@ export default function Layout({ children }) {
             <small>Cleaning Services</small>
           </Link>
 
-          <button
-            type="button"
-            className="menu-toggle"
-            aria-label="Toggle navigation menu"
-            aria-expanded={menuOpen}
-            aria-controls="site-drawer-nav"
-            onClick={() => setMenuOpen((prev) => !prev)}
-          >
-            <span className="menu-bars" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
-            <span>Menu</span>
-          </button>
+          <nav className="top-links" aria-label="Top links">
+            <a href="/#home">Home</a>
+            <a href="/#services">Services</a>
+            <a href="/#testimonials">Testimonials</a>
+            <a href="/#faq">FAQ</a>
+            <a href="/#blog">Blog</a>
+            <a href="/#contact">Contact</a>
+          </nav>
 
-          <div className="header-cta">
-            {user ? (
-              <>
-                <span className="user-pill">Hi, {user.name}</span>
-                <button type="button" className="btn ghost" onClick={logout}>
-                  Sign out
-                </button>
-              </>
-            ) : (
-              <>
-                <NavLink to="/login" className="btn ghost" onClick={closeMenu}>
-                  Sign in
-                </NavLink>
-                <NavLink to="/booking" className="btn solid" onClick={closeMenu}>
-                  Book Now
-                </NavLink>
-              </>
-            )}
+          <div className="header-right">
+            <div className="header-cta">
+              {user ? (
+                <>
+                  <span className="user-pill">Hi, {user.name}</span>
+                  <button type="button" className="btn ghost" onClick={logout}>
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/login" className="btn ghost" onClick={closeMenu}>
+                    Sign in
+                  </NavLink>
+                  <NavLink to="/booking" className="btn solid" onClick={closeMenu}>
+                    Book Now
+                  </NavLink>
+                </>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="menu-toggle"
+              aria-label="Toggle navigation menu"
+              aria-expanded={menuOpen}
+              aria-controls="site-drawer-nav"
+              onClick={() => setMenuOpen((prev) => !prev)}
+            >
+              <span className="menu-bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+              <span>Menu</span>
+            </button>
           </div>
         </div>
       </header>
 
       <div className={`menu-overlay ${menuOpen ? "show" : ""}`} onClick={closeMenu} aria-hidden={!menuOpen} />
 
-      <nav id="site-drawer-nav" className={`site-nav drawer ${menuOpen ? "open" : ""}`} aria-label="Primary navigation">
+      <nav
+        id="site-drawer-nav"
+        className={`site-nav drawer ${menuOpen ? "open" : ""}`}
+        aria-label="Primary navigation"
+        onTouchStart={onDrawerTouchStart}
+        onTouchMove={onDrawerTouchMove}
+        onTouchEnd={onDrawerTouchEnd}
+      >
+        <div className="drawer-head">
+          <strong>Navigation</strong>
+          <button type="button" className="drawer-close" onClick={closeMenu} aria-label="Close menu">
+            X
+          </button>
+        </div>
+
         <button
           type="button"
           className="drawer-item accordion-trigger"

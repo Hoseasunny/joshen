@@ -96,6 +96,24 @@ svg {
   padding: 14px 0;
 }
 
+.top-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.top-links a {
+  color: var(--off-white);
+  font-weight: 700;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+.top-links a:hover {
+  color: rgb(3, 252, 24);
+  text-shadow: 0 0 12px rgba(3, 252, 24, 0.52);
+}
+
 .brand {
   color: var(--off-white);
   display: grid;
@@ -206,6 +224,38 @@ svg {
   transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.drawer-head strong {
+  color: #fff;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.drawer-close {
+  border: 1px solid rgba(243, 250, 7, 0.5);
+  background: rgba(8, 107, 4, 0.52);
+  color: #fff;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.drawer-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
 .drawer-item:hover,
 .drawer-subitem:hover {
   color: rgb(3, 252, 24);
@@ -265,11 +315,20 @@ svg {
   box-shadow: 0 0 14px rgba(3, 252, 24, 0.35);
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-left: auto;
+}
+
 .header-cta {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+  flex-wrap: nowrap;
 }
 
 .btn {
@@ -1735,9 +1794,17 @@ main {
     justify-self: end;
   }
 
-  .header-cta {
-    justify-content: flex-end;
-    flex-wrap: wrap;
+  .top-links {
+    display: none;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+
+  .header-cta .btn {
+    padding: 8px 12px;
+    font-size: 0.82rem;
   }
 
   .hero-grid,
@@ -1759,6 +1826,24 @@ main {
   .site-nav.drawer {
     width: 70vw;
     top: 68px;
+  }
+
+  .header-grid {
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+  }
+
+  .header-right {
+    justify-content: flex-end;
+  }
+
+  .header-cta .btn {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+
+  .user-pill {
+    display: none;
   }
 
   .testimonial-slider {
