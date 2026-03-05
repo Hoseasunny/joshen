@@ -49,16 +49,25 @@ export default function Layout({ children }) {
             <p>Professional, reliable, and modern cleaning for homes and businesses.</p>
           </div>
           <div>
+            <h5>Quick links</h5>
+            <p><Link to="/">Home</Link></p>
+            <p><Link to="/booking">Book a Service</Link></p>
+            <p><Link to="/tracking">Track Order</Link></p>
+          </div>
+          <div>
             <h5>Contact</h5>
-            <p>Phone: 0717785782</p>
-            <p>Email: joshemcleaners@gmail.com</p>
+            <p><a href="tel:+254717785782">+254 717 785 782</a></p>
+            <p><a href="mailto:joshemcleaners@gmail.com">joshemcleaners@gmail.com</a></p>
+            <p>Nairobi, Kenya</p>
           </div>
           <div>
             <h5>Services</h5>
-            <p>Residential, Office, Upholstery, Laundry, Outdoor</p>
+            <p>Residential Cleaning</p>
+            <p>Office Cleaning</p>
+            <p>Laundry and Upholstery</p>
           </div>
         </div>
-        <p className="footer-copy">© 2026 JOSHEM General Cleaning Services LTD</p>
+        <p className="footer-copy">Copyright 2026 JOSHEM General Cleaning Services LTD</p>
       </footer>
     </div>
   );

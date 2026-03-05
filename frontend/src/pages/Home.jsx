@@ -21,6 +21,74 @@ const statusList = [
   "Cancelled"
 ];
 
+const whyChooseUs = [
+  {
+    title: "Verified cleaning teams",
+    text: "Each cleaner is vetted and trained for safe, reliable, and detail-focused service."
+  },
+  {
+    title: "Flexible booking windows",
+    text: "Choose a schedule that fits your day with fast rescheduling when plans change."
+  },
+  {
+    title: "Live status tracking",
+    text: "See your cleaning progress in real time from assignment to completion."
+  },
+  {
+    title: "Quality-first process",
+    text: "We follow clear checklists and quality reviews to keep standards consistently high."
+  }
+];
+
+const galleryItems = [
+  "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80"
+];
+
+const testimonials = [
+  {
+    quote: "Booking took less than five minutes and the team arrived right on time. Excellent service.",
+    name: "Mercy N."
+  },
+  {
+    quote: "I like the tracking updates. I always know exactly what stage my order is in.",
+    name: "David O."
+  },
+  {
+    quote: "Our office cleaning quality has improved a lot since switching to JOSHEM.",
+    name: "Amina K."
+  }
+];
+
+const contacts = [
+  {
+    title: "Phone",
+    value: "0717 785 782",
+    href: "tel:+254717785782"
+  },
+  {
+    title: "Email",
+    value: "joshemcleaners@gmail.com",
+    href: "mailto:joshemcleaners@gmail.com"
+  },
+  {
+    title: "Working Hours",
+    value: "Mon - Sat, 7:00 AM - 7:00 PM"
+  },
+  {
+    title: "Location",
+    value: "Nairobi, Kenya"
+  }
+];
+
+/**
+ * Home page component
+ * @returns {JSX.Element} Home page with hero section, services section, split section, and callout section
+ */
 export default function Home() {
   return (
     <div className="home">
@@ -95,6 +163,73 @@ export default function Home() {
             <p>Join the digital cleaning platform built for speed, trust, and transparency.</p>
           </div>
           <Link to="/register" className="btn solid">Start now</Link>
+        </div>
+      </section>
+
+      <section className="section why-choose">
+        <div className="container">
+          <div className="section-head">
+            <h2>Why choose us</h2>
+            <p>Built for dependable results, transparent updates, and convenience at every step.</p>
+          </div>
+          <div className="feature-grid">
+            {whyChooseUs.map((feature) => (
+              <article key={feature.title} className="feature-card">
+                <h3>{feature.title}</h3>
+                <p>{feature.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section gallery">
+        <div className="container">
+          <div className="section-head">
+            <h2>Gallery</h2>
+            <p>A glimpse of the spaces and surfaces our teams bring back to life.</p>
+          </div>
+          <div className="gallery-grid">
+            {galleryItems.map((image, index) => (
+              <article key={image} className="gallery-item">
+                <img src={image} alt={`Cleaning result showcase ${index + 1}`} loading="lazy" />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section testimonials">
+        <div className="container">
+          <div className="section-head">
+            <h2>Testimonials</h2>
+            <p>What customers say after using JOSHEM services.</p>
+          </div>
+          <div className="testimonial-grid">
+            {testimonials.map((testimonial) => (
+              <article key={testimonial.name} className="testimonial-card">
+                <p>"{testimonial.quote}"</p>
+                <h4>{testimonial.name}</h4>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section contacts">
+        <div className="container">
+          <div className="section-head">
+            <h2>Contact us</h2>
+            <p>Reach out for inquiries, quotes, and fast booking support.</p>
+          </div>
+          <div className="contact-grid">
+            {contacts.map((contact) => (
+              <article key={contact.title} className="contact-card">
+                <h3>{contact.title}</h3>
+                {contact.href ? <a href={contact.href}>{contact.value}</a> : <p>{contact.value}</p>}
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </div>
