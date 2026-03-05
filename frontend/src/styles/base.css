@@ -1,19 +1,19 @@
 ﻿:root {
-  --blue-900: #0b3e69;
-  --blue-700: #1267a7;
-  --blue-500: #1f8cd6;
-  --green-700: #1f7a52;
-  --green-500: #36a96a;
-  --green-100: #e8f7ef;
-  --white: #ffffff;
-  --off-white: #f7fbff;
-  --ink: #173047;
-  --ink-soft: #47627a;
-  --accent: #e6f3ff;
-  --border: #d8e7f4;
-  --shadow-small: 0 4px 12px rgba(6, 33, 55, 0.07);
-  --shadow-medium: 0 10px 26px rgba(6, 33, 55, 0.12);
-  --shadow-large: 0 18px 40px rgba(6, 33, 55, 0.16);
+  --blue-900: rgb(3, 44, 252);
+  --blue-700: rgb(3, 211, 252);
+  --blue-500: rgb(7, 250, 250);
+  --green-700: rgb(8, 107, 4);
+  --green-500: rgb(3, 252, 24);
+  --green-100: rgba(3, 252, 24, 0.16);
+  --white: #f3fdff;
+  --off-white: #dffcff;
+  --ink: #e7fcff;
+  --ink-soft: #b9f4ff;
+  --accent: rgba(7, 250, 250, 0.14);
+  --border: rgba(7, 250, 250, 0.38);
+  --shadow-small: 0 6px 16px rgba(3, 3, 38, 0.35);
+  --shadow-medium: 0 14px 28px rgba(3, 3, 38, 0.44);
+  --shadow-large: 0 20px 44px rgba(3, 3, 38, 0.54);
 }
 
 * {
@@ -28,8 +28,10 @@ html {
 
 body {
   font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
-  color: var(--ink);
-  background: radial-gradient(circle at 0 0, #f1f9ff, #f7fbff 45%, #f0faef 100%);
+  color: var(--off-white);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(7, 250, 250, 0.22), transparent 38%),
+    linear-gradient(150deg, rgb(3, 44, 252) 0%, rgba(3, 44, 252, 0.94) 48%, rgb(8, 107, 4) 100%);
   min-height: 100vh;
 }
 
@@ -50,13 +52,13 @@ button {
 }
 
 a {
-  color: var(--blue-700);
+  color: var(--blue-500);
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 a:hover {
-  color: var(--green-700);
+  color: rgb(243, 250, 7);
 }
 
 img,
@@ -81,7 +83,7 @@ svg {
   top: 0;
   z-index: 80;
   backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(3, 44, 252, 0.78);
   border-bottom: 1px solid var(--border);
   animation: navSlideIn 0.45s ease;
 }
@@ -95,7 +97,7 @@ svg {
 }
 
 .brand {
-  color: var(--blue-700);
+  color: var(--off-white);
   display: grid;
   gap: 2px;
   line-height: 1;
@@ -117,8 +119,8 @@ svg {
 .menu-toggle {
   display: none;
   border: 1px solid var(--border);
-  background: var(--white);
-  color: var(--ink);
+  background: rgba(3, 44, 252, 0.82);
+  color: var(--off-white);
   border-radius: 999px;
   padding: 8px 14px;
   font-weight: 700;
@@ -130,25 +132,25 @@ svg {
   justify-content: center;
   gap: 14px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--off-white);
 }
 
 .site-nav a,
 .dropdown-trigger {
-  color: var(--ink);
+  color: var(--off-white);
   font-size: 0.92rem;
   position: relative;
   transition: color 0.2s ease, text-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .site-nav a.active {
-  color: var(--green-700);
+  color: rgb(3, 252, 24);
 }
 
 .site-nav a:hover,
 .dropdown-trigger:hover {
-  color: var(--blue-700);
-  text-shadow: 0 0 14px rgba(31, 140, 214, 0.35);
+  color: rgb(243, 250, 7);
+  text-shadow: 0 0 14px rgba(3, 252, 24, 0.58);
   transform: translateY(-1px);
 }
 
@@ -169,7 +171,7 @@ svg {
   top: calc(100% + 10px);
   left: 0;
   min-width: 190px;
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: var(--shadow-medium);
@@ -241,19 +243,20 @@ svg {
 }
 
 .btn.solid {
-  background: linear-gradient(95deg, var(--green-700), var(--green-500));
-  color: var(--white);
+  background: linear-gradient(95deg, rgb(3, 252, 24), rgb(243, 250, 7));
+  color: rgb(3, 44, 252);
+  box-shadow: 0 0 24px rgba(3, 252, 24, 0.45);
 }
 
 .btn.ghost {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: var(--border);
-  color: var(--ink);
+  background: rgba(3, 44, 252, 0.26);
+  border-color: rgba(7, 250, 250, 0.55);
+  color: var(--off-white);
 }
 
 .user-pill {
   background: var(--accent);
-  color: var(--blue-900);
+  color: var(--off-white);
   border-radius: 999px;
   padding: 6px 12px;
   font-size: 0.82rem;
@@ -292,8 +295,8 @@ main {
 .hero {
   padding: 96px 0 74px;
   background:
-    linear-gradient(120deg, rgba(31, 140, 214, 0.1), rgba(54, 169, 106, 0.12)),
-    radial-gradient(circle at 100% 0, rgba(18, 103, 167, 0.15), transparent 58%);
+    linear-gradient(130deg, rgba(3, 44, 252, 0.92), rgba(3, 211, 252, 0.4)),
+    radial-gradient(circle at 100% 0, rgba(7, 250, 250, 0.26), transparent 58%);
   background-size: 180% 180%;
   animation: heroShift 14s ease-in-out infinite;
   position: relative;
@@ -335,7 +338,7 @@ main {
   height: 380px;
   top: -110px;
   left: -120px;
-  background: radial-gradient(circle, rgba(31, 140, 214, 0.22), rgba(31, 140, 214, 0));
+  background: radial-gradient(circle, rgba(3, 211, 252, 0.3), rgba(3, 211, 252, 0));
   transform: translate3d(calc(var(--mx) * -30px), calc(var(--my) * -24px + var(--sy)), -60px);
 }
 
@@ -344,7 +347,7 @@ main {
   height: 420px;
   right: -140px;
   top: 20%;
-  background: radial-gradient(circle, rgba(54, 169, 106, 0.2), rgba(54, 169, 106, 0));
+  background: radial-gradient(circle, rgba(7, 250, 250, 0.25), rgba(7, 250, 250, 0));
   transform: translate3d(calc(var(--mx) * 38px), calc(var(--my) * 20px + var(--sy)), -90px);
 }
 
@@ -353,7 +356,7 @@ main {
   height: 260px;
   left: 40%;
   bottom: -130px;
-  background: radial-gradient(circle, rgba(18, 103, 167, 0.16), rgba(18, 103, 167, 0));
+  background: radial-gradient(circle, rgba(3, 44, 252, 0.34), rgba(3, 44, 252, 0));
   transform: translate3d(calc(var(--mx) * -24px), calc(var(--my) * 18px + var(--sy)), -70px);
 }
 
@@ -362,9 +365,9 @@ main {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--blue-900);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(3, 44, 252, 0.55);
+  color: var(--off-white);
+  border: 1px solid rgba(7, 250, 250, 0.5);
   backdrop-filter: blur(6px);
   padding: 8px 12px;
   box-shadow: var(--shadow-small);
@@ -386,7 +389,7 @@ main {
   position: absolute;
   top: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(195, 232, 255, 0.4));
+  background: radial-gradient(circle at 35% 35%, rgba(243, 250, 7, 0.9), rgba(7, 250, 250, 0.4));
   animation: bubbleFloat linear infinite;
 }
 
@@ -424,7 +427,7 @@ main {
 }
 
 .hero-card {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(3, 44, 252, 0.45);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 22px;
@@ -512,7 +515,7 @@ main {
 }
 
 .stats {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
 }
 
 .counter-grid {
@@ -522,7 +525,7 @@ main {
 }
 
 .counter-card {
-  background: linear-gradient(160deg, #ffffff, #f5fbff);
+  background: linear-gradient(160deg, rgba(3, 44, 252, 0.48), rgba(3, 211, 252, 0.22));
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 18px;
@@ -531,13 +534,13 @@ main {
 }
 
 .counter-card h3 {
-  color: var(--blue-700);
+  color: var(--off-white);
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   margin-bottom: 4px;
 }
 
 .services {
-  background: linear-gradient(170deg, rgba(31, 140, 214, 0.06), rgba(54, 169, 106, 0.07));
+  background: linear-gradient(170deg, rgba(3, 211, 252, 0.18), rgba(3, 44, 252, 0.45));
 }
 
 .service-grid {
@@ -547,7 +550,7 @@ main {
 }
 
 .service-tile {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(3, 44, 252, 0.38);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 18px;
@@ -603,7 +606,7 @@ main {
 }
 
 .testimonials {
-  background: var(--white);
+  background: linear-gradient(170deg, rgba(8, 107, 4, 0.56), rgba(3, 44, 252, 0.58));
 }
 
 .testimonial-slider {
@@ -618,15 +621,15 @@ main {
   height: 44px;
   border-radius: 50%;
   border: 1px solid var(--border);
-  background: var(--white);
-  color: var(--blue-700);
+  background: rgba(3, 44, 252, 0.82);
+  color: var(--off-white);
   font-size: 1.8rem;
   line-height: 0;
   cursor: pointer;
 }
 
 .testimonial-active {
-  background: linear-gradient(150deg, #ffffff, #f7fcff);
+  background: linear-gradient(150deg, rgba(8, 107, 4, 0.52), rgba(3, 211, 252, 0.22));
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 24px;
@@ -652,7 +655,7 @@ main {
 .testimonial-active p {
   font-size: 1.1rem;
   line-height: 1.65;
-  color: var(--ink);
+  color: var(--off-white);
   margin-bottom: 12px;
 }
 
@@ -675,17 +678,17 @@ main {
 
 .trust-badges span {
   border-radius: 999px;
-  background: #eef7ff;
-  border: 1px solid #d2e8f8;
+  background: rgba(3, 211, 252, 0.24);
+  border: 1px solid rgba(7, 250, 250, 0.5);
   padding: 5px 10px;
   font-family: "Manrope", "Segoe UI", sans-serif;
   font-size: 0.75rem;
-  color: var(--blue-900);
+  color: var(--off-white);
   font-weight: 700;
 }
 
 .faq {
-  background: linear-gradient(165deg, #f4fbff, #eef8f0);
+  background: linear-gradient(165deg, rgba(3, 44, 252, 0.46), rgba(3, 211, 252, 0.26));
 }
 
 .faq-list {
@@ -694,7 +697,7 @@ main {
 }
 
 .faq-item {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
@@ -704,7 +707,7 @@ main {
   width: 100%;
   border: 0;
   background: transparent;
-  color: var(--ink);
+  color: var(--off-white);
   text-align: left;
   font-size: 1rem;
   font-weight: 800;
@@ -727,8 +730,8 @@ main {
   border-radius: 8px;
   display: inline-grid;
   place-items: center;
-  background: #edf8f2;
-  border: 1px solid #d0ebdb;
+  background: rgba(8, 107, 4, 0.55);
+  border: 1px solid rgba(3, 252, 24, 0.4);
   font-size: 0.9rem;
 }
 
@@ -749,7 +752,7 @@ main {
 }
 
 .gallery {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
 }
 
 .gallery-grid {
@@ -790,8 +793,8 @@ main {
   position: absolute;
   left: 8px;
   bottom: 8px;
-  background: rgba(11, 62, 105, 0.8);
-  color: var(--white);
+  background: rgba(3, 44, 252, 0.8);
+  color: var(--off-white);
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 0.75rem;
@@ -799,7 +802,7 @@ main {
 }
 
 .contact-section {
-  background: linear-gradient(160deg, rgba(31, 140, 214, 0.07), rgba(54, 169, 106, 0.12));
+  background: linear-gradient(160deg, rgba(3, 211, 252, 0.2), rgba(3, 44, 252, 0.52));
 }
 
 .contact-layout {
@@ -809,7 +812,7 @@ main {
 }
 
 .smart-booking {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 18px;
@@ -821,7 +824,7 @@ main {
 .smart-booking label {
   font-size: 0.86rem;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--off-white);
 }
 
 .smart-booking input,
@@ -835,9 +838,14 @@ main {
   border: 1px solid #c5dbed;
   padding: 10px 12px;
   font-family: "Manrope", "Segoe UI", sans-serif;
-  color: var(--ink);
-  background: #fcfeff;
+  color: var(--off-white);
+  background: rgba(3, 44, 252, 0.56);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.smart-booking input::placeholder,
+.smart-booking textarea::placeholder {
+  color: rgba(223, 252, 255, 0.72);
 }
 
 .smart-booking input:focus,
@@ -857,8 +865,8 @@ main {
 }
 
 .ai-hint {
-  background: #f4fbff;
-  border: 1px dashed #a7c8e2;
+  background: rgba(3, 44, 252, 0.45);
+  border: 1px dashed rgba(7, 250, 250, 0.5);
   border-radius: 10px;
   padding: 8px;
   color: var(--ink-soft);
@@ -869,8 +877,8 @@ main {
 }
 
 .ai-hint button {
-  border: 1px solid #b8d7ed;
-  background: var(--white);
+  border: 1px solid rgba(7, 250, 250, 0.5);
+  background: rgba(3, 44, 252, 0.82);
   border-radius: 999px;
   padding: 6px 12px;
   cursor: pointer;
@@ -893,7 +901,7 @@ main {
 }
 
 .contact-cards article {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 14px;
@@ -905,7 +913,7 @@ main {
 }
 
 .map-wrap {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
@@ -919,7 +927,7 @@ main {
 }
 
 .blog {
-  background: var(--white);
+  background: linear-gradient(160deg, rgba(3, 44, 252, 0.5), rgba(3, 211, 252, 0.18));
 }
 
 .blog-grid {
@@ -931,7 +939,7 @@ main {
 .blog-card {
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: linear-gradient(160deg, #ffffff, #f6fbff);
+  background: linear-gradient(160deg, rgba(3, 44, 252, 0.42), rgba(3, 211, 252, 0.18));
   padding: 16px;
   display: grid;
   gap: 8px;
@@ -956,8 +964,8 @@ main {
   right: 16px;
   bottom: 16px;
   z-index: 70;
-  background: #21c063;
-  color: var(--white);
+  background: linear-gradient(90deg, rgb(3, 252, 24), rgb(243, 250, 7));
+  color: rgb(3, 44, 252);
   border-radius: 999px;
   padding: 12px 16px;
   font-family: "Manrope", "Segoe UI", sans-serif;
@@ -976,8 +984,8 @@ main {
 .chatbot-toggle {
   border: 0;
   border-radius: 999px;
-  background: var(--blue-700);
-  color: var(--white);
+  background: linear-gradient(90deg, rgb(3, 252, 24), rgb(243, 250, 7));
+  color: rgb(3, 44, 252);
   padding: 10px 14px;
   font-weight: 800;
   cursor: pointer;
@@ -987,7 +995,7 @@ main {
 .chatbot-panel {
   margin-top: 10px;
   width: min(340px, 90vw);
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 12px;
@@ -1014,13 +1022,13 @@ main {
 }
 
 .chat-bot {
-  background: #eef7ff;
-  color: var(--blue-900);
+  background: rgba(3, 211, 252, 0.24);
+  color: var(--off-white);
 }
 
 .chat-user {
-  background: #ebf8f0;
-  color: #165137;
+  background: rgba(8, 107, 4, 0.4);
+  color: var(--off-white);
   justify-self: end;
 }
 
@@ -1058,7 +1066,7 @@ main {
 }
 
 .lightbox p {
-  color: var(--white);
+  color: var(--off-white);
   margin-top: 10px;
   font-family: "Manrope", "Segoe UI", sans-serif;
 }
@@ -1067,7 +1075,7 @@ main {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(3, 44, 252, 0.78);
   border: 0;
   border-radius: 999px;
   padding: 9px 14px;
@@ -1165,12 +1173,12 @@ main {
 .auth-card,
 .panel,
 .booking-info {
-  background: var(--white);
+  background: rgba(3, 44, 252, 0.82);
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: var(--shadow-small);
   padding: 22px;
-  color: var(--ink);
+  color: var(--off-white);
 }
 
 .auth-card {
@@ -1272,8 +1280,8 @@ main {
 
 .site-footer {
   margin-top: auto;
-  background: linear-gradient(110deg, var(--blue-900), var(--blue-700));
-  color: var(--white);
+  background: linear-gradient(120deg, rgb(8, 107, 4), rgb(3, 44, 252));
+  color: var(--off-white);
   padding: 44px 0 18px;
 }
 
@@ -1393,7 +1401,7 @@ main {
   border: 1px solid #c5dbed;
   border-radius: 12px;
   padding: 11px 12px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(3, 44, 252, 0.78);
   font-family: "Manrope", "Segoe UI", sans-serif;
 }
 
@@ -1463,7 +1471,7 @@ main {
   display: grid;
   gap: 8px;
   cursor: pointer;
-  color: var(--ink);
+  color: var(--off-white);
   box-shadow: var(--shadow-small);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   transform-style: preserve-3d;
@@ -1556,7 +1564,7 @@ main {
 }
 
 .track-chat-widget {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(3, 44, 252, 0.45);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 12px;
@@ -1587,7 +1595,7 @@ main {
   overflow: auto;
   background: #fff;
   border-radius: 16px;
-  border: 1px solid #d8e7f4;
+  border: 1px solid rgba(7, 250, 250, 0.38);
   box-shadow: var(--shadow-large);
   padding: 16px;
   display: grid;
@@ -1642,7 +1650,7 @@ main {
     display: none;
     flex-wrap: wrap;
     justify-content: flex-start;
-    background: var(--white);
+    background: rgba(3, 44, 252, 0.82);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 10px;
@@ -1726,3 +1734,5 @@ main {
     opacity: 0;
   }
 }
+
+
