@@ -1,14 +1,26 @@
 ﻿import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../state/AuthContext.jsx";
 
 export default function Layout({ children }) {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   function closeMenu() {
     setMenuOpen(false);
+    setServicesOpen(false);
   }
+
+  useEffect(() => {
+    const onEsc = (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, []);
 
   return (
     <div className="app">
@@ -24,32 +36,16 @@ export default function Layout({ children }) {
             className="menu-toggle"
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
+            aria-controls="site-drawer-nav"
             onClick={() => setMenuOpen((prev) => !prev)}
           >
-            Menu
+            <span className="menu-bars" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span>Menu</span>
           </button>
-
-          <nav className={`site-nav ${menuOpen ? "open" : ""}`} aria-label="Primary navigation">
-            <a href="/#home" onClick={closeMenu}>Home</a>
-            <a href="/#about" onClick={closeMenu}>About</a>
-
-            <div className="nav-dropdown">
-              <button type="button" className="dropdown-trigger" aria-haspopup="true">
-                Services
-              </button>
-              <div className="dropdown-menu">
-                <a href="/#services" onClick={closeMenu}>All Services</a>
-                <a href="/#gallery" onClick={closeMenu}>Gallery</a>
-                <NavLink to="/booking" onClick={closeMenu}>Book Service</NavLink>
-              </div>
-            </div>
-
-            <a href="/#testimonials" onClick={closeMenu}>Testimonials</a>
-            <a href="/#faq" onClick={closeMenu}>FAQ</a>
-            <a href="/#blog" onClick={closeMenu}>Blog</a>
-            <NavLink to="/tracking" onClick={closeMenu}>Track</NavLink>
-            {user?.role === "admin" && <NavLink to="/admin" onClick={closeMenu}>Admin</NavLink>}
-          </nav>
 
           <div className="header-cta">
             {user ? (
@@ -72,6 +68,51 @@ export default function Layout({ children }) {
           </div>
         </div>
       </header>
+
+      <div className={`menu-overlay ${menuOpen ? "show" : ""}`} onClick={closeMenu} aria-hidden={!menuOpen} />
+
+      <nav id="site-drawer-nav" className={`site-nav drawer ${menuOpen ? "open" : ""}`} aria-label="Primary navigation">
+        <button
+          type="button"
+          className="drawer-item accordion-trigger"
+          aria-expanded={servicesOpen}
+          aria-controls="drawer-services"
+          onClick={() => setServicesOpen((prev) => !prev)}
+        >
+          <span><span className="nav-icon" aria-hidden="true">🧽</span>Services</span>
+          <span aria-hidden="true">{servicesOpen ? "−" : "+"}</span>
+        </button>
+
+        <div id="drawer-services" className={`drawer-submenu ${servicesOpen ? "open" : ""}`}>
+          <a href="/#services" className="drawer-subitem" onClick={closeMenu}>All Services</a>
+          <a href="/#gallery" className="drawer-subitem" onClick={closeMenu}>Gallery</a>
+          <NavLink to="/booking" className="drawer-subitem" onClick={closeMenu}>Book Service</NavLink>
+        </div>
+
+        <a href="/#home" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">🏠</span>Home
+        </a>
+        <a href="/#testimonials" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">⭐</span>Testimonials
+        </a>
+        <a href="/#faq" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">❓</span>FAQ
+        </a>
+        <a href="/#blog" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">📰</span>Blog
+        </a>
+        <a href="/#contact" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">📞</span>Contact
+        </a>
+        <NavLink to="/tracking" className="drawer-item" onClick={closeMenu}>
+          <span className="nav-icon" aria-hidden="true">📍</span>Track
+        </NavLink>
+        {user?.role === "admin" && (
+          <NavLink to="/admin" className="drawer-item" onClick={closeMenu}>
+            <span className="nav-icon" aria-hidden="true">🛠</span>Admin
+          </NavLink>
+        )}
+      </nav>
 
       <main>{children}</main>
 
