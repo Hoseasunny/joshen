@@ -5,6 +5,8 @@ import { healthRouter } from "./routes/health.js";
 import { authRouter } from "./routes/auth.js";
 import { servicesRouter } from "./routes/services.js";
 import { ordersRouter } from "./routes/orders.js";
+import { paymentsRouter } from "./routes/payments.js";
+import { notificationsRouter } from "./routes/notifications.js";
 import { adminRouter } from "./routes/admin.js";
 
 dotenv.config();
@@ -21,6 +23,8 @@ app.use("/api/health", healthRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/services", servicesRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/payments", paymentsRouter);
+app.use("/api/notifications", notificationsRouter);
 app.use("/api/admin", adminRouter);
 
 app.use((err, req, res, next) => {
