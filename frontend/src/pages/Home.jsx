@@ -1,133 +1,391 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const services = [
-  "Residential Cleaning + Washroom",
-  "Office Cleaning + Washroom",
-  "Laundry Services",
-  "Sofa & Upholstery Cleaning",
-  "Carpet & Rug Cleaning",
-  "Washroom & Toilet Cleaning Only",
-  "Upholstery & Fabric Cleaning",
-  "Move-In / Move-Out Cleaning",
-  "Outdoor & Compound Cleaning"
-];
-
-const statusList = [
-  "Pending",
-  "Confirmed",
-  "Assigned",
-  "In Progress",
-  "Completed",
-  "Cancelled"
-];
-
-const whyChooseUs = [
   {
-    title: "Verified cleaning teams",
-    text: "Each cleaner is vetted and trained for safe, reliable, and detail-focused service."
+    title: "Residential Cleaning",
+    description: "Deep cleaning for apartments and homes with eco-safe products and checklist quality control.",
+    icon: "home"
   },
   {
-    title: "Flexible booking windows",
-    text: "Choose a schedule that fits your day with fast rescheduling when plans change."
+    title: "Office Cleaning",
+    description: "Flexible daily, weekly, and after-hours office cleaning built for productive workspaces.",
+    icon: "office"
   },
   {
-    title: "Live status tracking",
-    text: "See your cleaning progress in real time from assignment to completion."
+    title: "Laundry and Ironing",
+    description: "Pickup-ready laundry workflow with fabric-safe handling and same-day options.",
+    icon: "laundry"
   },
   {
-    title: "Quality-first process",
-    text: "We follow clear checklists and quality reviews to keep standards consistently high."
+    title: "Carpet and Upholstery",
+    description: "Targeted stain treatment, deodorizing, and texture-safe extraction methods.",
+    icon: "sofa"
+  },
+  {
+    title: "Move-In and Move-Out",
+    description: "Complete transition cleaning for tenants, landlords, and property managers.",
+    icon: "move"
+  },
+  {
+    title: "Outdoor and Compound",
+    description: "Compound sweeping, pressure washing, and external surface care for first impressions.",
+    icon: "outdoor"
   }
 ];
 
-const galleryItems = [
-  "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80"
+const counters = [
+  { label: "Clients served", value: 3200, suffix: "+" },
+  { label: "Years in business", value: 9, suffix: "+" },
+  { label: "Jobs completed", value: 14800, suffix: "+" },
+  { label: "Satisfaction score", value: 98, suffix: "%" }
 ];
 
 const testimonials = [
   {
-    quote: "Booking took less than five minutes and the team arrived right on time. Excellent service.",
-    name: "Mercy N."
+    name: "Mercy N.",
+    role: "Homeowner",
+    quote: "The team was punctual, polite, and detail-focused. My house looked brand new.",
+    photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=180&q=80",
+    rating: 5
   },
   {
-    quote: "I like the tracking updates. I always know exactly what stage my order is in.",
-    name: "David O."
+    name: "David O.",
+    role: "Facility Manager",
+    quote: "Live tracking and status updates make operations easier for our office branches.",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=180&q=80",
+    rating: 5
   },
   {
-    quote: "Our office cleaning quality has improved a lot since switching to JOSHEM.",
-    name: "Amina K."
+    name: "Amina K.",
+    role: "Business Owner",
+    quote: "Booking and rescheduling are seamless. The cleaners are consistent and professional.",
+    photo: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=180&q=80",
+    rating: 4
   }
 ];
 
-const contacts = [
+const faqItems = [
   {
-    title: "Phone",
-    value: "0717 785 782",
-    href: "tel:+254717785782"
+    q: "How quickly can I get a booking?",
+    a: "Most bookings are confirmed within minutes, and same-day slots are available based on area coverage."
   },
   {
-    title: "Email",
-    value: "joshemcleaners@gmail.com",
-    href: "mailto:joshemcleaners@gmail.com"
+    q: "Do you bring cleaning supplies?",
+    a: "Yes. Our teams arrive with professional supplies and equipment unless you request specific products."
   },
   {
-    title: "Working Hours",
-    value: "Mon - Sat, 7:00 AM - 7:00 PM"
+    q: "Can I track my order in real time?",
+    a: "Yes. You can monitor status from confirmation to completion through your tracking dashboard."
   },
   {
-    title: "Location",
-    value: "Nairobi, Kenya"
+    q: "Do you clean offices outside business hours?",
+    a: "Yes. We support early morning, evening, and weekend schedules for minimal disruption."
   }
 ];
 
-/**
- * Home page component
- * @returns {JSX.Element} Home page with hero section, services section, split section, and callout section
- */
+const galleryItems = [
+  {
+    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80",
+    alt: "Sparkling modern kitchen after deep cleaning",
+    tag: "Kitchen Refresh"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1000&q=80",
+    alt: "Living room carpet and upholstery after stain removal",
+    tag: "Living Room"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1000&q=80",
+    alt: "Bathroom sanitization and washroom detailing",
+    tag: "Washroom Care"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?auto=format&fit=crop&w=1000&q=80",
+    alt: "Office desk and floor cleaning service",
+    tag: "Office Zone"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1000&q=80",
+    alt: "Before and after cleaning supplies in organized cart",
+    tag: "Pro Team"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1000&q=80",
+    alt: "Freshly cleaned and organized bedroom",
+    tag: "Bedroom Reset"
+  }
+];
+
+const blogPosts = [
+  {
+    title: "5 AI-backed ways to keep your home cleaner between visits",
+    excerpt: "Simple routines driven by usage patterns and high-touch zone prioritization.",
+    date: "March 2026"
+  },
+  {
+    title: "How to reduce office dust buildup by 40%",
+    excerpt: "A practical workflow combining ventilation checks, zoning, and scheduling strategy.",
+    date: "February 2026"
+  },
+  {
+    title: "Before/After checklist for move-out cleaning",
+    excerpt: "A room-by-room framework to secure faster handovers and fewer disputes.",
+    date: "January 2026"
+  }
+];
+
+const trackingStages = ["Pending", "Confirmed", "Assigned", "In Progress", "Completed"];
+
+function iconFor(type) {
+  switch (type) {
+    case "home":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 11.4 12 4l9 7.4V21h-6v-5h-6v5H3z" />
+        </svg>
+      );
+    case "office":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 20V6l8-3v17H4zm10 0V8h6v12h-6zM7 9h2v2H7V9zm0 4h2v2H7v-2z" />
+        </svg>
+      );
+    case "laundry":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 3h16v18H4V3zm3 2h2v2H7V5zm4 0h6v2h-6V5zm1 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12z" />
+        </svg>
+      );
+    case "sofa":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 10a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6h-2v2h-2v-2H8v2H6v-2H4v-6zm4 0h8v4H8v-4z" />
+        </svg>
+      );
+    case "move":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 7h11v11H3V7zm13 3h5l-2.5 4L16 10zm-9 0h3v3H7v-3z" />
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 18h18v2H3v-2zm3-3 3-7h6l3 7H6zm5-9h2v2h-2V6z" />
+        </svg>
+      );
+  }
+}
+
+function buildChatReply(message) {
+  const input = message.toLowerCase();
+  if (input.includes("price") || input.includes("cost")) {
+    return "Pricing depends on space size and service type. Share your location and service and I can suggest the best package.";
+  }
+  if (input.includes("book") || input.includes("booking")) {
+    return "You can book instantly from the smart booking form below or the Book Now button in the hero section.";
+  }
+  if (input.includes("track") || input.includes("status")) {
+    return "Use the Track page for full progress updates. Typical flow: Pending -> Confirmed -> Assigned -> In Progress -> Completed.";
+  }
+  if (input.includes("time") || input.includes("hour")) {
+    return "Our standard service window is Monday to Saturday, 7:00 AM to 7:00 PM, with flexible business bookings.";
+  }
+  return "Thanks for your message. I can help with booking, pricing, tracking, and service recommendations.";
+}
+
 export default function Home() {
+  const statsRef = useRef(null);
+  const [countValues, setCountValues] = useState(counters.map(() => 0));
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [openFaq, setOpenFaq] = useState(0);
+  const [lightbox, setLightbox] = useState(null);
+  const [trackingIndex, setTrackingIndex] = useState(1);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [chatMessages, setChatMessages] = useState([
+    { role: "bot", text: "Hi, I am JOSHEM AI assistant. Ask me about booking, pricing, or tracking." }
+  ]);
+  const [bookingForm, setBookingForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    date: "",
+    notes: ""
+  });
+  const [bookingErrors, setBookingErrors] = useState({});
+  const [bookingSuccess, setBookingSuccess] = useState("");
+
+  const suggestedService = useMemo(() => {
+    const note = bookingForm.notes.toLowerCase();
+    if (!note) return "";
+    if (note.includes("office") || note.includes("work")) return "Office Cleaning";
+    if (note.includes("sofa") || note.includes("carpet")) return "Carpet and Upholstery";
+    if (note.includes("move") || note.includes("tenant")) return "Move-In and Move-Out";
+    if (note.includes("compound") || note.includes("outside")) return "Outdoor and Compound";
+    return "Residential Cleaning";
+  }, [bookingForm.notes]);
+
+  useEffect(() => {
+    document.title = "JOSHEM Cleaning Services | Professional Modern Cleaning";
+
+    const sections = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTrackingIndex((prev) => (prev + 1) % trackingStages.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const statsNode = statsRef.current;
+    if (!statsNode) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry.isIntersecting) return;
+
+        const duration = 1200;
+        const start = performance.now();
+
+        const animate = (timestamp) => {
+          const progress = Math.min((timestamp - start) / duration, 1);
+          setCountValues(counters.map((counter) => Math.floor(counter.value * progress)));
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+
+        requestAnimationFrame(animate);
+        observer.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(statsNode);
+    return () => observer.disconnect();
+  }, []);
+
+  function submitChat(event) {
+    event.preventDefault();
+    const trimmed = chatInput.trim();
+    if (!trimmed) return;
+    const userMessage = { role: "user", text: trimmed };
+    const botMessage = { role: "bot", text: buildChatReply(trimmed) };
+    setChatMessages((prev) => [...prev, userMessage, botMessage]);
+    setChatInput("");
+  }
+
+  function validateBooking() {
+    const errors = {};
+    if (bookingForm.name.trim().length < 2) errors.name = "Enter your full name.";
+    if (!/^\S+@\S+\.\S+$/.test(bookingForm.email)) errors.email = "Enter a valid email.";
+    if (!/^\+?[0-9\s-]{10,15}$/.test(bookingForm.phone)) errors.phone = "Enter a valid phone number.";
+    if (!bookingForm.service.trim()) errors.service = "Choose a service.";
+    if (!bookingForm.date) errors.date = "Select a preferred date.";
+    return errors;
+  }
+
+  function submitBooking(event) {
+    event.preventDefault();
+    const errors = validateBooking();
+    setBookingErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setBookingSuccess("");
+      return;
+    }
+    setBookingSuccess("Booking request submitted. Our AI scheduler will confirm your slot shortly.");
+  }
+
   return (
-    <div className="home">
-      <section className="hero">
+    <div className="home modern-home" id="top">
+      <section className="hero reveal" id="home">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow">Modern cleaning platform</span>
-            <h1>Book. Track. Relax. A smarter way to keep everything spotless.</h1>
+            <span className="eyebrow">Trusted cleaning for modern homes and businesses</span>
+            <h1>Professional cleaning that is easy to book, track, and trust.</h1>
             <p>
-              JOSHEM delivers professional cleaning with real-time order tracking, trusted teams,
-              and flexible scheduling built for busy homes and growing businesses.
+              JOSHEM combines vetted teams, AI-assisted scheduling, and real-time tracking to deliver
+              consistent results across residential and commercial spaces.
             </p>
             <div className="hero-actions">
-              <Link to="/register" className="btn solid">Create account</Link>
-              <Link to="/booking" className="btn ghost">Book a service</Link>
+              <Link to="/booking" className="btn solid">Book Now</Link>
+              <a href="#services" className="btn ghost">Explore Services</a>
             </div>
           </div>
-          <div className="hero-card">
-            <h3>Live order flow</h3>
-            <ul>
-              {statusList.map((status) => (
-                <li key={status}>{status}</li>
+          <div className="hero-card" aria-label="Live order tracking preview">
+            <h3>AI Order Tracking Dashboard</h3>
+            <ul className="flow-list">
+              {trackingStages.map((stage, index) => (
+                <li key={stage} className={index <= trackingIndex ? "is-live" : ""}>
+                  <span className="dot" aria-hidden="true" />
+                  <span>{stage}</span>
+                </li>
               ))}
             </ul>
+            <p className="mini-note">Live status refresh every few seconds.</p>
           </div>
         </div>
       </section>
 
-      <section className="section services">
+      <section className="section stats reveal" id="about" ref={statsRef}>
         <div className="container">
           <div className="section-head">
-            <h2>Services that fit every space</h2>
-            <p>Choose from a full catalog of residential, commercial, and specialty cleaning.</p>
+            <h2>Built on consistency, transparency, and quality</h2>
+            <p>
+              We help households and businesses maintain cleaner spaces through process-driven
+              operations and responsive support.
+            </p>
+          </div>
+          <div className="counter-grid" aria-label="Company statistics">
+            {counters.map((counter, index) => (
+              <article key={counter.label} className="counter-card">
+                <h3>{countValues[index].toLocaleString()}{counter.suffix}</h3>
+                <p>{counter.label}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section services reveal" id="services">
+        <div className="container">
+          <div className="section-head">
+            <h2>Our services</h2>
+            <p>Comprehensive cleaning options delivered by trained professionals.</p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
-              <article key={service} className="service-tile">
-                <h3>{service}</h3>
-                <p>Trusted teams, safe products, and flexible scheduling.</p>
+              <article key={service.title} className="service-tile">
+                <div className="service-icon" aria-hidden="true">{iconFor(service.icon)}</div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
                 <Link to="/booking">Book this service</Link>
               </article>
             ))}
@@ -135,103 +393,281 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section split">
-        <div className="container split-grid">
-          <div>
-            <h2>Designed for customers and operations</h2>
-            <p>
-              The platform connects booking, scheduling, and tracking in one experience. Customers
-              stay informed while the admin team manages assignments, statuses, and analytics.
-            </p>
-          </div>
-          <div className="split-card">
-            <h4>What you can do</h4>
-            <ul>
-              <li>Create an account and manage your profile.</li>
-              <li>Book cleaning services in minutes.</li>
-              <li>Track order status updates end-to-end.</li>
-              <li>Admins assign cleaners and monitor performance.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="section callout">
-        <div className="container callout-grid">
-          <div>
-            <h2>Ready to experience a cleaner workflow?</h2>
-            <p>Join the digital cleaning platform built for speed, trust, and transparency.</p>
-          </div>
-          <Link to="/register" className="btn solid">Start now</Link>
-        </div>
-      </section>
-
-      <section className="section why-choose">
+      <section className="section testimonials reveal" id="testimonials">
         <div className="container">
           <div className="section-head">
-            <h2>Why choose us</h2>
-            <p>Built for dependable results, transparent updates, and convenience at every step.</p>
+            <h2>What our clients say</h2>
+            <p>Verified feedback from homes, offices, and facilities we support.</p>
           </div>
-          <div className="feature-grid">
-            {whyChooseUs.map((feature) => (
-              <article key={feature.title} className="feature-card">
-                <h3>{feature.title}</h3>
-                <p>{feature.text}</p>
+          <div className="testimonial-slider" aria-live="polite">
+            <button
+              type="button"
+              className="slider-control"
+              aria-label="Previous testimonial"
+              onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+            >
+              ‹
+            </button>
+            <article className="testimonial-active">
+              <img src={testimonials[activeTestimonial].photo} alt={`${testimonials[activeTestimonial].name} portrait`} loading="lazy" />
+              <p>"{testimonials[activeTestimonial].quote}"</p>
+              <div className="rating" aria-label={`${testimonials[activeTestimonial].rating} out of 5 stars`}>
+                {"★".repeat(testimonials[activeTestimonial].rating)}
+                {"☆".repeat(5 - testimonials[activeTestimonial].rating)}
+              </div>
+              <h4>{testimonials[activeTestimonial].name}</h4>
+              <small>{testimonials[activeTestimonial].role}</small>
+            </article>
+            <button
+              type="button"
+              className="slider-control"
+              aria-label="Next testimonial"
+              onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section faq reveal" id="faq">
+        <div className="container">
+          <div className="section-head">
+            <h2>Frequently asked questions</h2>
+            <p>Answers to common concerns before you place a booking.</p>
+          </div>
+          <div className="faq-list">
+            {faqItems.map((item, index) => (
+              <article key={item.q} className={`faq-item ${openFaq === index ? "open" : ""}`}>
+                <button
+                  type="button"
+                  className="faq-question"
+                  onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                  aria-expanded={openFaq === index}
+                >
+                  <span>{item.q}</span>
+                  <span aria-hidden="true">{openFaq === index ? "−" : "+"}</span>
+                </button>
+                <div className="faq-answer">
+                  <p>{item.a}</p>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section gallery">
+      <section className="section gallery reveal" id="gallery">
         <div className="container">
           <div className="section-head">
-            <h2>Gallery</h2>
-            <p>A glimpse of the spaces and surfaces our teams bring back to life.</p>
+            <h2>Before and after gallery</h2>
+            <p>Tap any image to view details in lightbox mode.</p>
           </div>
           <div className="gallery-grid">
-            {galleryItems.map((image, index) => (
-              <article key={image} className="gallery-item">
-                <img src={image} alt={`Cleaning result showcase ${index + 1}`} loading="lazy" />
+            {galleryItems.map((item) => (
+              <button
+                key={item.src}
+                type="button"
+                className="gallery-item"
+                onClick={() => setLightbox(item)}
+                aria-label={`Open image: ${item.tag}`}
+              >
+                <img src={item.src} alt={item.alt} loading="lazy" />
+                <span>{item.tag}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section contact-section reveal" id="contact">
+        <div className="container contact-layout">
+          <div>
+            <div className="section-head section-left">
+              <h2>Contact and smart booking</h2>
+              <p>Use our AI-assisted booking form for faster service matching and validation.</p>
+            </div>
+            <form className="smart-booking" onSubmit={submitBooking} noValidate>
+              <label htmlFor="name">Full name</label>
+              <input
+                id="name"
+                value={bookingForm.name}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, name: event.target.value }))}
+                aria-invalid={Boolean(bookingErrors.name)}
+              />
+              {bookingErrors.name && <p className="field-error">{bookingErrors.name}</p>}
+
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={bookingForm.email}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, email: event.target.value }))}
+                aria-invalid={Boolean(bookingErrors.email)}
+              />
+              {bookingErrors.email && <p className="field-error">{bookingErrors.email}</p>}
+
+              <label htmlFor="phone">Phone</label>
+              <input
+                id="phone"
+                value={bookingForm.phone}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, phone: event.target.value }))}
+                aria-invalid={Boolean(bookingErrors.phone)}
+              />
+              {bookingErrors.phone && <p className="field-error">{bookingErrors.phone}</p>}
+
+              <label htmlFor="service">Service</label>
+              <input
+                id="service"
+                list="services"
+                value={bookingForm.service}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, service: event.target.value }))}
+                aria-invalid={Boolean(bookingErrors.service)}
+                placeholder="Start typing to get suggestions"
+              />
+              <datalist id="services">
+                {services.map((service) => (
+                  <option key={service.title} value={service.title} />
+                ))}
+              </datalist>
+              {bookingErrors.service && <p className="field-error">{bookingErrors.service}</p>}
+
+              <label htmlFor="date">Preferred date</label>
+              <input
+                id="date"
+                type="date"
+                value={bookingForm.date}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, date: event.target.value }))}
+                aria-invalid={Boolean(bookingErrors.date)}
+              />
+              {bookingErrors.date && <p className="field-error">{bookingErrors.date}</p>}
+
+              <label htmlFor="notes">Notes for AI suggestion</label>
+              <textarea
+                id="notes"
+                rows="3"
+                value={bookingForm.notes}
+                onChange={(event) => setBookingForm((prev) => ({ ...prev, notes: event.target.value }))}
+                placeholder="Example: small office, 4 rooms, weekends preferred"
+              />
+
+              {suggestedService && (
+                <p className="ai-hint">
+                  Suggested service: <strong>{suggestedService}</strong>
+                  <button
+                    type="button"
+                    onClick={() => setBookingForm((prev) => ({ ...prev, service: suggestedService }))}
+                  >
+                    Use suggestion
+                  </button>
+                </p>
+              )}
+
+              <button type="submit" className="btn solid">Submit booking request</button>
+              {bookingSuccess && <p className="success-note">{bookingSuccess}</p>}
+            </form>
+          </div>
+
+          <div className="contact-side">
+            <div className="contact-cards">
+              <article>
+                <h3>Phone</h3>
+                <a href="tel:+254717785782">+254 717 785 782</a>
+              </article>
+              <article>
+                <h3>Email</h3>
+                <a href="mailto:joshemcleaners@gmail.com">joshemcleaners@gmail.com</a>
+              </article>
+              <article>
+                <h3>Hours</h3>
+                <p>Mon - Sat, 7:00 AM - 7:00 PM</p>
+              </article>
+            </div>
+
+            <div className="map-wrap">
+              <iframe
+                title="JOSHEM Cleaning Services location map"
+                src="https://www.google.com/maps?q=Nairobi%2C%20Kenya&z=12&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section blog reveal" id="blog">
+        <div className="container">
+          <div className="section-head">
+            <h2>Cleaning tips and insights</h2>
+            <p>AI-assisted guides and best practices from our operations team.</p>
+          </div>
+          <div className="blog-grid">
+            {blogPosts.map((post) => (
+              <article key={post.title} className="blog-card">
+                <small>{post.date}</small>
+                <h3>{post.title}</h3>
+                <p>{post.excerpt}</p>
+                <a href="#contact">Read more</a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section testimonials">
-        <div className="container">
-          <div className="section-head">
-            <h2>Testimonials</h2>
-            <p>What customers say after using JOSHEM services.</p>
-          </div>
-          <div className="testimonial-grid">
-            {testimonials.map((testimonial) => (
-              <article key={testimonial.name} className="testimonial-card">
-                <p>"{testimonial.quote}"</p>
-                <h4>{testimonial.name}</h4>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <a
+        className="whatsapp-float"
+        href="https://wa.me/254717785782"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat with JOSHEM on WhatsApp"
+      >
+        WhatsApp
+      </a>
 
-      <section className="section contacts">
-        <div className="container">
-          <div className="section-head">
-            <h2>Contact us</h2>
-            <p>Reach out for inquiries, quotes, and fast booking support.</p>
+      <div className={`chatbot ${chatOpen ? "open" : ""}`} aria-live="polite">
+        <button
+          type="button"
+          className="chatbot-toggle"
+          onClick={() => setChatOpen((prev) => !prev)}
+          aria-expanded={chatOpen}
+          aria-label="Toggle AI assistant"
+        >
+          {chatOpen ? "Close AI" : "AI Help"}
+        </button>
+
+        {chatOpen && (
+          <div className="chatbot-panel">
+            <h3>JOSHEM AI Support</h3>
+            <div className="chat-log">
+              {chatMessages.map((message, index) => (
+                <p key={`${message.role}-${index}`} className={`chat-${message.role}`}>
+                  {message.text}
+                </p>
+              ))}
+            </div>
+            <form onSubmit={submitChat} className="chat-form">
+              <input
+                value={chatInput}
+                onChange={(event) => setChatInput(event.target.value)}
+                placeholder="Ask about booking or tracking"
+                aria-label="Message AI support"
+              />
+              <button type="submit" className="btn solid">Send</button>
+            </form>
           </div>
-          <div className="contact-grid">
-            {contacts.map((contact) => (
-              <article key={contact.title} className="contact-card">
-                <h3>{contact.title}</h3>
-                {contact.href ? <a href={contact.href}>{contact.value}</a> : <p>{contact.value}</p>}
-              </article>
-            ))}
-          </div>
+        )}
+      </div>
+
+      {lightbox && (
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Gallery preview">
+          <button type="button" className="lightbox-close" onClick={() => setLightbox(null)}>
+            Close
+          </button>
+          <img src={lightbox.src} alt={lightbox.alt} />
+          <p>{lightbox.tag}</p>
         </div>
-      </section>
+      )}
     </div>
   );
 }
