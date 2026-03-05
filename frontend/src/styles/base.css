@@ -1303,6 +1303,321 @@ main {
   opacity: 0.9;
 }
 
+.tracking-dashboard-section {
+  position: relative;
+  overflow: hidden;
+  --track-mx: 0;
+  --track-my: 0;
+}
+
+.tracking-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.track-icon {
+  position: absolute;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: rgba(11, 62, 105, 0.65);
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 8px 11px;
+  box-shadow: var(--shadow-small);
+}
+
+.icon-spray {
+  top: 8%;
+  left: 8%;
+  transform: translate3d(calc(var(--track-mx) * -24px), calc(var(--track-my) * -18px), 0);
+}
+
+.icon-mop {
+  right: 10%;
+  bottom: 10%;
+  transform: translate3d(calc(var(--track-mx) * 28px), calc(var(--track-my) * 16px), 0);
+}
+
+.icon-bubble,
+.icon-bubble.small {
+  border-radius: 50%;
+  padding: 0;
+  border: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(193, 229, 249, 0.4));
+  animation: trackBubble 7s linear infinite;
+}
+
+.icon-bubble {
+  width: 36px;
+  height: 36px;
+  left: 34%;
+  top: 90%;
+}
+
+.icon-bubble.small {
+  width: 20px;
+  height: 20px;
+  right: 30%;
+  top: 86%;
+  animation-delay: 1.8s;
+}
+
+.tracking-dashboard {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 18px;
+}
+
+.tracking-top {
+  display: grid;
+  gap: 12px;
+}
+
+.tracking-top p {
+  color: var(--ink-soft);
+}
+
+.tracking-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.tracking-controls input,
+.tracking-controls select {
+  border: 1px solid #c5dbed;
+  border-radius: 12px;
+  padding: 11px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+.tracking-controls input:focus,
+.tracking-controls select:focus {
+  outline: none;
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(54, 169, 106, 0.14);
+}
+
+.smart-notifications {
+  display: grid;
+  gap: 9px;
+}
+
+.notif {
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-small);
+}
+
+.notif strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+}
+
+.notif p {
+  color: var(--ink-soft);
+}
+
+.notif.complete {
+  background: #edf9f1;
+  border-color: #cdecd9;
+}
+
+.notif.progress {
+  background: #fff8df;
+  border-color: #f0e3ae;
+}
+
+.notif.delayed {
+  background: #ffeceb;
+  border-color: #f5c5c2;
+}
+
+.tracking-content-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 14px;
+}
+
+.tracking-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.track-order-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(240, 248, 255, 0.88));
+  padding: 14px;
+  text-align: left;
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--ink);
+  box-shadow: var(--shadow-small);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+.track-order-card:hover {
+  transform: perspective(900px) rotateX(calc(var(--track-my) * -8deg)) rotateY(calc(var(--track-mx) * 8deg)) translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-dot.complete {
+  background: #2ca562;
+  box-shadow: 0 0 0 6px rgba(44, 165, 98, 0.18);
+}
+
+.status-dot.progress {
+  background: #f0b429;
+  box-shadow: 0 0 0 6px rgba(240, 180, 41, 0.2);
+}
+
+.status-dot.delayed {
+  background: #d3423f;
+  box-shadow: 0 0 0 6px rgba(211, 66, 63, 0.2);
+}
+
+.order-progress {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #ddeaf5;
+  overflow: hidden;
+}
+
+.progress-live {
+  height: 100%;
+  display: block;
+  transition: width 0.5s ease;
+  background-size: 200% 100%;
+  animation: progressFlow 1.8s linear infinite;
+}
+
+.progress-live.complete {
+  background-image: linear-gradient(90deg, #2ca562, #3dc97a);
+}
+
+.progress-live.progress {
+  background-image: linear-gradient(90deg, #e7ae22, #f3c047);
+}
+
+.progress-live.delayed {
+  background-image: linear-gradient(90deg, #c93f3c, #e05f5c);
+}
+
+.step-indicator {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-indicator li {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #e1edf8;
+  color: #56708a;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.step-indicator li.done {
+  background: #2ca562;
+  color: #fff;
+}
+
+.track-chat-widget {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: var(--shadow-small);
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.track-chat-widget h3 {
+  font-size: 1rem;
+}
+
+.track-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 24, 36, 0.72);
+  display: grid;
+  place-items: center;
+  z-index: 95;
+  padding: 16px;
+  animation: overlayIn 0.2s ease;
+}
+
+.track-modal {
+  width: min(760px, 100%);
+  max-height: 88vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #d8e7f4;
+  box-shadow: var(--shadow-large);
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  animation: zoomPop 0.25s ease;
+}
+
+.track-modal-close {
+  justify-self: end;
+  border: 1px solid #d4e4f2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.track-modal-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.track-modal-meta article {
+  background: #f4f9ff;
+  border: 1px solid #dceaf7;
+  border-radius: 12px;
+  padding: 10px;
+}
+
 @media (max-width: 1060px) {
   .header-grid {
     grid-template-columns: auto auto;
@@ -1357,7 +1672,8 @@ main {
   }
 
   .hero-grid,
-  .contact-layout {
+  .contact-layout,
+  .tracking-content-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1390,5 +1706,23 @@ main {
   .chatbot {
     left: 12px;
     bottom: 72px;
+  }
+
+  .tracking-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes trackBubble {
+  0% {
+    transform: translateY(0) scale(0.75);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-440px) scale(1.12);
+    opacity: 0;
   }
 }
