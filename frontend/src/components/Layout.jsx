@@ -63,16 +63,16 @@ export default function Layout({ children }) {
               {user ? (
                 <>
                   <span className="user-pill">Hi, {user.name}</span>
-                  <button type="button" className="btn ghost" onClick={logout}>
+                  <button type="button" className="btn nav-signin" onClick={logout}>
                     Sign out
                   </button>
                 </>
               ) : (
                 <>
-                  <NavLink to="/login" className="btn ghost" onClick={closeMenu}>
+                  <NavLink to="/login" className="btn nav-signin" onClick={closeMenu}>
                     Sign in
                   </NavLink>
-                  <NavLink to="/booking" className="btn solid" onClick={closeMenu}>
+                  <NavLink to="/booking" className="btn solid nav-book" onClick={closeMenu}>
                     Book Now
                   </NavLink>
                 </>

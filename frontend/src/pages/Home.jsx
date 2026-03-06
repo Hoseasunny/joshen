@@ -208,6 +208,7 @@ function faqIconFor(type) {
 }
 
 export default function Home() {
+  const homeRef = useRef(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
   const [countValues, setCountValues] = useState(counters.map(() => 0));
@@ -274,6 +275,26 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const homeNode = homeRef.current;
+    if (!homeNode) return undefined;
+    let frame = null;
+
+    const onScroll = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        homeNode.style.setProperty("--page-shift", `${window.scrollY.toFixed(1)}px`);
+      });
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     const heroNode = heroRef.current;
     if (!heroNode) return undefined;
     let frame = null;
@@ -292,7 +313,8 @@ export default function Home() {
     const onScroll = () => {
       if (frame) cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        heroNode.style.setProperty("--sy", `${window.scrollY * 0.08}px`);
+        const scrollFactor = window.matchMedia("(max-width: 740px)").matches ? 0.035 : 0.08;
+        heroNode.style.setProperty("--sy", `${window.scrollY * scrollFactor}px`);
       });
     };
 
@@ -404,7 +426,7 @@ export default function Home() {
   }
 
   return (
-    <div className="home modern-home" id="top">
+    <div className="home modern-home" id="top" ref={homeRef}>
       <section className="hero reveal depth-near" id="home" ref={heroRef}>
         <div className="hero-scene" aria-hidden="true">
           <span className="layer layer-one" />
@@ -435,8 +457,8 @@ export default function Home() {
               consistent results across residential and commercial spaces.
             </p>
             <div className="hero-actions">
-              <Link to="/booking" className="btn solid">Book Now</Link>
-              <a href="#services" className="btn ghost">Explore Services</a>
+              <Link to="/booking" className="btn solid nav-book">Book Now</Link>
+              <a href="#services" className="btn ghost hero-secondary">Explore Services</a>
             </div>
           </div>
           <div className="hero-card" aria-label="Live order tracking preview">
@@ -510,7 +532,7 @@ export default function Home() {
                 <div className="service-icon" aria-hidden="true">{iconFor(service.icon)}</div>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <Link to="/booking">Book this service</Link>
+                <Link to="/booking" className="service-link">Book this service</Link>
               </article>
             ))}
           </div>
