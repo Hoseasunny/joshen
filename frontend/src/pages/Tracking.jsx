@@ -4,6 +4,14 @@ import { authRequest } from "../lib/api.js";
 
 const STATUS_FLOW = ["pending", "confirmed", "assigned", "in progress", "completed"];
 
+const STATUS_ICONS = {
+  pending: "📅",
+  confirmed: "📅",
+  assigned: "👤",
+  "in progress": "🧹",
+  completed: "✅"
+};
+
 const ETA_MINUTES = {
   pending: 110,
   confirmed: 80,
@@ -291,7 +299,8 @@ export default function Tracking() {
                       <ol className="step-indicator" aria-label="Order step progression">
                         {STATUS_FLOW.map((item, idx) => (
                           <li key={`${order.id}-${item}`} className={idx <= step ? "done" : ""}>
-                            {idx + 1}
+                            <span className="step-icon">{STATUS_ICONS[item]}</span>
+                            <span className="step-label">{item.replace(" ", "\n")}</span>
                           </li>
                         ))}
                       </ol>
@@ -362,8 +371,11 @@ export default function Tracking() {
                 ))}
               </ul>
             )}
-            <h4>Notes</h4>
-            <p>{selected.notes || "No additional notes provided for this order."}</p>
+            <div className="track-modal-actions">
+              <button className="btn" onClick={() => alert("Reschedule feature coming soon!")}>Reschedule</button>
+              <button className="btn" onClick={() => alert("Cancel feature coming soon!")}>Cancel</button>
+              <button className="btn solid" onClick={() => alert("Contact Support: support@joshem.com")}>Contact Support</button>
+            </div>
           </div>
         </div>
       )}

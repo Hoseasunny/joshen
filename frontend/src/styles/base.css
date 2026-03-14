@@ -1554,12 +1554,13 @@ main {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.status-pending { background: rgba(250, 204, 21, 0.2); }
-.status-confirmed { background: rgba(0, 0, 0, 0.22); }
-.status-assigned { background: rgba(22, 163, 74, 0.2); }
-.status-in-progress { background: rgba(30, 58, 138, 0.24); }
-.status-completed { background: rgba(22, 163, 74, 0.24); }
-.status-cancelled { background: rgba(250, 204, 21, 0.22); }
+.status-pending { background: rgba(30, 58, 138, 0.2); color: var(--blue); }
+.status-confirmed { background: rgba(30, 58, 138, 0.2); color: var(--blue); }
+.status-assigned { background: rgba(250, 204, 21, 0.2); color: var(--yellow); }
+.status-in-progress { background: rgba(250, 204, 21, 0.2); color: var(--yellow); }
+.status-completed { background: rgba(22, 163, 74, 0.2); color: var(--green); }
+.status-cancelled { background: rgba(239, 68, 68, 0.2); color: #dc2626; }
+.status-delayed { background: rgba(239, 68, 68, 0.2); color: #dc2626; }
 
 .timeline {
   list-style: none;
@@ -2147,18 +2148,18 @@ main {
 }
 
 .status-dot.complete {
-  background: rgb(8, 107, 4);
-  box-shadow: 0 0 0 6px rgba(8, 107, 4, 0.16);
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.16);
 }
 
 .status-dot.progress {
-  background: rgb(243, 250, 7);
-  box-shadow: 0 0 0 6px rgba(243, 250, 7, 0.18);
+  background: var(--blue);
+  box-shadow: 0 0 0 6px rgba(30, 58, 138, 0.18);
 }
 
 .status-dot.delayed {
-  background: rgb(243, 250, 7);
-  box-shadow: 0 0 0 6px rgba(243, 250, 7, 0.18);
+  background: #dc2626;
+  box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.18);
 }
 
 .order-progress {
@@ -2178,15 +2179,15 @@ main {
 }
 
 .progress-live.complete {
-  background-image: linear-gradient(90deg, rgb(8, 107, 4), rgb(8, 107, 4));
+  background-image: linear-gradient(90deg, var(--green), var(--green));
 }
 
 .progress-live.progress {
-  background-image: linear-gradient(90deg, rgb(243, 250, 7), rgb(243, 250, 7));
+  background-image: linear-gradient(90deg, var(--blue), var(--blue));
 }
 
 .progress-live.delayed {
-  background-image: linear-gradient(90deg, rgb(243, 250, 7), rgb(243, 250, 7));
+  background-image: linear-gradient(90deg, #dc2626, #dc2626);
 }
 
 .step-indicator {
@@ -2197,21 +2198,39 @@ main {
 }
 
 .step-indicator li {
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: rgb(255, 255, 255);
-  font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: 0.74rem;
-  font-weight: 700;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .step-indicator li.done {
-  background: rgb(8, 107, 4);
-  color: rgb(255, 255, 255);
+  color: var(--green);
+}
+
+.step-icon {
+  font-size: 1.2rem;
+}
+
+.step-label {
+  white-space: pre-line;
+  line-height: 1.2;
+}
+
+@media (max-width: 767px) {
+  .step-indicator {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .step-indicator li {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+  }
 }
 
 .track-chat-widget {
@@ -2275,6 +2294,16 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 12px;
   padding: 10px;
+}
+
+.track-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.track-modal-actions .btn {
+  flex: 1;
 }
 
 @media (max-width: 1060px) {
