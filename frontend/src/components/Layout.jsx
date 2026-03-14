@@ -54,7 +54,7 @@ export default function Layout({ children }) {
             <a href="/#services">Services</a>
             <a href="/#testimonials">Testimonials</a>
             <a href="/#faq">FAQ</a>
-            <a href="/#blog">Blog</a>
+            <Link to="/blog">Blog</Link>
             <a href="/#contact">Contact</a>
           </nav>
 

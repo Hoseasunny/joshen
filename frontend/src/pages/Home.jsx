@@ -123,19 +123,28 @@ const galleryItems = [
 
 const blogPosts = [
   {
+    title: "The Ultimate Guide to Sparkling Clean Homes: Why Professional Cleaning Services Are a Game-Changer",
+    excerpt: "Discover why professional cleaning is essential for modern living and how JOSHEM can transform your space.",
+    date: "March 14, 2026",
+    slug: "sparkling-clean-homes"
+  },
+  {
     title: "5 AI-backed ways to keep your home cleaner between visits",
     excerpt: "Simple routines driven by usage patterns and high-touch zone prioritization.",
-    date: "March 2026"
+    date: "March 2026",
+    slug: "ai-cleaning-tips"
   },
   {
     title: "How to reduce office dust buildup by 40%",
     excerpt: "A practical workflow combining ventilation checks, zoning, and scheduling strategy.",
-    date: "February 2026"
+    date: "February 2026",
+    slug: "office-dust-reduction"
   },
   {
     title: "Before/After checklist for move-out cleaning",
     excerpt: "A room-by-room framework to secure faster handovers and fewer disputes.",
-    date: "January 2026"
+    date: "January 2026",
+    slug: "move-out-checklist"
   }
 ];
 
@@ -765,7 +774,7 @@ export default function Home() {
                 <small>{post.date}</small>
                 <h3>{post.title}</h3>
                 <p>{post.excerpt}</p>
-                <a href="#contact">Read more</a>
+                <Link to={`/blog/${post.slug}`}>Read more</Link>
               </article>
             ))}
           </div>
