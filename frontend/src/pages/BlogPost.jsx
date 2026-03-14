@@ -5,6 +5,8 @@ export default function BlogPost() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
+  const [expandedSections, setExpandedSections] = useState({});
+  const [completedSections, setCompletedSections] = useState({});
 
   useEffect(() => {
     // Mock fetch based on slug
@@ -164,97 +166,100 @@ export default function BlogPost() {
         title: "Before/After checklist for move-out cleaning",
         author: "JOSHEM Team",
         date: "January 2026",
-        featuredImage: "https://via.placeholder.com/800x400?text=Move+Out+Checklist",
+        featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
         body: `
           <h2>Introduction</h2>
           <p>Moving out can be stressful enough without worrying about cleaning standards and security deposit recovery. At JOSHEM, we've helped thousands of tenants and landlords navigate move-out cleaning successfully. This comprehensive before/after checklist ensures you cover all bases, minimize disputes, and maximize your chances of getting your full security deposit back.</p>
 
-          <h2>Pre-Move-Out Preparation (2-3 Weeks Before)</h2>
+          <div class="pull-quote">
+            <p>"Take before photos of each room to document existing conditions and protect your security deposit."</p>
+          </div>
+
+          <h2 id="preparation">Pre-Move-Out Preparation (2-3 Weeks Before) <span class="time-estimate">~30 min</span></h2>
           <p>Start early to avoid last-minute rushes and ensure thorough cleaning.</p>
           <h3>Documentation</h3>
-          <ul>
-            <li>Review lease agreement for cleaning requirements</li>
-            <li>Take before photos of each room</li>
-            <li>Note any existing damage or wear</li>
-            <li>Schedule professional cleaning if needed</li>
+          <ul class="checklist">
+            <li><span class="icon">📸</span> Take before photos of each room</li>
+            <li><span class="icon">📋</span> Review lease agreement for cleaning requirements</li>
+            <li><span class="icon">🔍</span> Note any existing damage or wear</li>
+            <li><span class="icon">🧽</span> Schedule professional cleaning if needed</li>
           </ul>
 
           <h3>Deep Clean Schedule</h3>
-          <ul>
-            <li>Declutter and remove personal items</li>
-            <li>Deep clean appliances and fixtures</li>
-            <li>Clean carpets and upholstery</li>
-            <li>Wash walls and ceilings</li>
+          <ul class="checklist">
+            <li><span class="icon">🗂️</span> Declutter and remove personal items</li>
+            <li><span class="icon">🔧</span> Deep clean appliances and fixtures</li>
+            <li><span class="icon">🧼</span> Clean carpets and upholstery</li>
+            <li><span class="icon">🖌️</span> Wash walls and ceilings</li>
           </ul>
 
-          <h2>Kitchen Cleaning Checklist</h2>
+          <h2 id="kitchen">Kitchen Cleaning Checklist <span class="time-estimate">~2 hours</span></h2>
           <p>The kitchen is often the most scrutinized area during move-out inspections.</p>
           <h3>Appliances</h3>
-          <ul>
-            <li>✓ Oven: Remove racks, clean interior and exterior</li>
-            <li>✓ Refrigerator: Defrost, clean shelves and drawers</li>
-            <li>✓ Microwave: Clean interior and exterior</li>
-            <li>✓ Dishwasher: Run cleaning cycle, clean filter</li>
+          <ul class="checklist">
+            <li><span class="icon">🍳</span> Oven: Remove racks, clean interior and exterior</li>
+            <li><span class="icon">❄️</span> Refrigerator: Defrost, clean shelves and drawers</li>
+            <li><span class="icon">🔄</span> Microwave: Clean interior and exterior</li>
+            <li><span class="icon">🚿</span> Dishwasher: Run cleaning cycle, clean filter</li>
           </ul>
 
           <h3>Surfaces and Fixtures</h3>
-          <ul>
-            <li>✓ Countertops: Degrease and polish</li>
-            <li>✓ Cabinets: Clean interior and exterior</li>
-            <li>✓ Sink and faucet: Remove lime deposits</li>
-            <li>✓ Backsplash: Remove grease and grime</li>
+          <ul class="checklist">
+            <li><span class="icon">🧮</span> Countertops: Degrease and polish</li>
+            <li><span class="icon">🏪</span> Cabinets: Clean interior and exterior</li>
+            <li><span class="icon">🚰</span> Sink and faucet: Remove lime deposits</li>
+            <li><span class="icon">🧱</span> Backsplash: Remove grease and grime</li>
           </ul>
 
-          <h2>Bathroom Deep Clean</h2>
+          <h2 id="bathroom">Bathroom Deep Clean <span class="time-estimate">~1.5 hours</span></h2>
           <p>Bathrooms require special attention to prevent mold and mildew issues.</p>
           <h3>Fixtures</h3>
-          <ul>
-            <li>✓ Shower/tub: Clean tiles, remove soap scum</li>
-            <li>✓ Toilet: Clean interior and exterior, remove stains</li>
-            <li>✓ Sink: Clean basin, faucet, and drain</li>
-            <li>✓ Mirrors: Streak-free cleaning</li>
+          <ul class="checklist">
+            <li><span class="icon">🛁</span> Shower/tub: Clean tiles, remove soap scum</li>
+            <li><span class="icon">🚽</span> Toilet: Clean interior and exterior, remove stains</li>
+            <li><span class="icon">🪞</span> Mirrors: Streak-free cleaning</li>
           </ul>
 
           <h3>Surfaces</h3>
-          <ul>
-            <li>✓ Walls and ceiling: Remove mildew spots</li>
-            <li>✓ Floor: Clean grout lines thoroughly</li>
-            <li>✓ Exhaust fan: Clean or replace filter</li>
-            <li>✓ Baseboards: Dust and clean</li>
+          <ul class="checklist">
+            <li><span class="icon">🧽</span> Walls and ceiling: Remove mildew spots</li>
+            <li><span class="icon">🧼</span> Floor: Clean grout lines thoroughly</li>
+            <li><span class="icon">💨</span> Exhaust fan: Clean or replace filter</li>
+            <li><span class="icon">📏</span> Baseboards: Dust and clean</li>
           </ul>
 
-          <h2>Living Areas and Bedrooms</h2>
+          <h2 id="living">Living Areas and Bedrooms <span class="time-estimate">~1 hour per room</span></h2>
           <p>These spaces should look move-in ready for the next tenant.</p>
           <h3>Walls and Ceilings</h3>
-          <ul>
-            <li>✓ Remove scuffs, marks, and tape residue</li>
-            <li>✓ Clean light fixtures and switch plates</li>
-            <li>✓ Dust ceiling fans and vents</li>
+          <ul class="checklist">
+            <li><span class="icon">🖼️</span> Remove scuffs, marks, and tape residue</li>
+            <li><span class="icon">💡</span> Clean light fixtures and switch plates</li>
+            <li><span class="icon">🌪️</span> Dust ceiling fans and vents</li>
           </ul>
 
           <h3>Floors</h3>
-          <ul>
-            <li>✓ Vacuum carpets thoroughly</li>
-            <li>✓ Mop hard floors, clean baseboards</li>
-            <li>✓ Remove pet hair and stains</li>
+          <ul class="checklist">
+            <li><span class="icon">🧹</span> Vacuum carpets thoroughly</li>
+            <li><span class="icon">🧽</span> Mop hard floors, clean baseboards</li>
+            <li><span class="icon">🐾</span> Remove pet hair and stains</li>
           </ul>
 
-          <h2>Final Walk-Through</h2>
+          <h2 id="final">Final Walk-Through <span class="time-estimate">~30 minutes</span></h2>
           <p>Complete these steps the day before or morning of your move-out inspection.</p>
           <h3>Complete Cleanup</h3>
-          <ul>
-            <li>✓ Empty all trash and recycling</li>
-            <li>✓ Clean windows inside and out</li>
-            <li>✓ Clean door frames and doors</li>
-            <li>✓ Clean light switches and outlets</li>
+          <ul class="checklist">
+            <li><span class="icon">🗑️</span> Empty all trash and recycling</li>
+            <li><span class="icon">🪟</span> Clean windows inside and out</li>
+            <li><span class="icon">🚪</span> Clean door frames and doors</li>
+            <li><span class="icon">🔌</span> Clean light switches and outlets</li>
           </ul>
 
           <h3>Final Inspection</h3>
-          <ul>
-            <li>✓ Take after photos of each room</li>
-            <li>✓ Test all appliances and fixtures</li>
-            <li>✓ Ensure all keys are returned</li>
-            <li>✓ Complete move-out paperwork</li>
+          <ul class="checklist">
+            <li><span class="icon">📸</span> Take after photos of each room</li>
+            <li><span class="icon">🔧</span> Test all appliances and fixtures</li>
+            <li><span class="icon">🗝️</span> Ensure all keys are returned</li>
+            <li><span class="icon">📝</span> Complete move-out paperwork</li>
           </ul>
 
           <h2>Common Move-Out Mistakes to Avoid</h2>
@@ -279,19 +284,34 @@ export default function BlogPost() {
           <h2>JOSHEM Move-Out Cleaning Services</h2>
           <p>Our specialized move-out cleaning packages are designed to meet landlord standards and give you the best chance at full deposit recovery. We provide detailed checklists, before/after photos, and cleaning reports to support your move-out process.</p>
           <p>Contact JOSHEM today for a move-out cleaning quote and ensure your transition goes smoothly. We're here to help you move forward with confidence!</p>
-        `
+        `,
+        sections: [
+          { id: 'preparation', title: 'Pre-Move-Out Preparation', time: '~30 min' },
+          { id: 'kitchen', title: 'Kitchen Cleaning', time: '~2 hours' },
+          { id: 'bathroom', title: 'Bathroom Deep Clean', time: '~1.5 hours' },
+          { id: 'living', title: 'Living Areas & Bedrooms', time: '~1 hour per room' },
+          { id: 'final', title: 'Final Walk-Through', time: '~30 min' }
+        ]
       }
     };
 
     const mockPost = posts[slug];
     if (mockPost) {
       setPost(mockPost);
+      // Initialize expanded sections
+      if (mockPost.sections) {
+        const initialExpanded = {};
+        mockPost.sections.forEach(section => {
+          initialExpanded[section.id] = true; // Start expanded
+        });
+        setExpandedSections(initialExpanded);
+      }
     }
 
     const mockRelated = [
-      { id: 1, title: "5 AI-backed ways to keep your home cleaner between visits", slug: "ai-cleaning-tips" },
-      { id: 2, title: "How to reduce office dust buildup by 40%", slug: "office-dust-reduction" },
-      { id: 3, title: "Before/After checklist for move-out cleaning", slug: "move-out-checklist" }
+      { id: 1, title: "5 AI-backed ways to keep your home cleaner between visits", slug: "ai-cleaning-tips", image: "https://via.placeholder.com/300x200?text=AI+Tips" },
+      { id: 2, title: "How to reduce office dust buildup by 40%", slug: "office-dust-reduction", image: "https://via.placeholder.com/300x200?text=Office+Dust" },
+      { id: 3, title: "Before/After checklist for move-out cleaning", slug: "move-out-checklist", image: "https://via.placeholder.com/300x200?text=Move+Out" }
     ].filter(r => r.slug !== slug);
 
     setRelatedPosts(mockRelated);
