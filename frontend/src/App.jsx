@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Booking from "./pages/Booking.jsx";
 import Tracking from "./pages/Tracking.jsx";
 import Admin from "./pages/Admin.jsx";
+import BlogPost from "./pages/BlogPost.jsx";
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth();
@@ -60,6 +61,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
       </Layout>
     </AuthProvider>
