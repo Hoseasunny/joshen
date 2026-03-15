@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "db:setup": "node setup-db.js"
+    "db:setup": "node setup-db.js",
+    "admin:create": "node scripts/create-admin.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -15,6 +16,7 @@
     "express": "^4.19.2",
     "is-number": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^8.0.2",
     "pg": "^8.12.0",
     "zod": "^3.23.8"
   },

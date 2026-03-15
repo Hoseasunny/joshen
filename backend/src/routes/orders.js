@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "../db.js";
 import { requireAuth } from "../middleware.js";
 import { STATUSES } from "../constants.js";
+import { sendEmail } from "../utils/email.js";
 
 export const ordersRouter = Router();
 
@@ -71,6 +72,46 @@ ordersRouter.post("/", requireAuth, async (req, res) => {
     [req.user.id, "Order Created", "Your cleaning service order has been created successfully.", "success", order.id]
   );
 
+  // Notify admins about new order
+  const adminResult = await db.query("SELECT id, email, name FROM users WHERE role = 'admin'");
+  if (adminResult.rows.length > 0) {
+    const adminNotifications = adminResult.rows.map((row) => [
+      row.id,
+      "New Order",
+      `New order from ${req.user.name || "a customer"} for ${scheduledAt}.`,
+      "info",
+      order.id
+    ]);
+    await db.query(
+      "INSERT INTO notifications (user_id, title, message, type, related_order_id) VALUES " +
+        adminNotifications.map((_, index) => `($${index * 5 + 1}, $${index * 5 + 2}, $${index * 5 + 3}, $${index * 5 + 4}, $${index * 5 + 5})`).join(", "),
+      adminNotifications.flat()
+    );
+
+    try {
+      await Promise.all(
+        adminResult.rows
+          .filter((row) => row.email)
+          .map((row) =>
+            sendEmail({
+              to: row.email,
+              subject: "New JOSHEM Order",
+              text:
+                `Hello ${row.name || "Admin"},\n\n` +
+                `A new order has been placed.\n` +
+                `Customer: ${req.user.name || "Customer"}\n` +
+                `Service ID: ${serviceId}\n` +
+                `Scheduled: ${scheduledAt}\n` +
+                `Order ID: ${order.id}\n\n` +
+                "Log in to the admin dashboard to update the status.\n"
+            })
+          )
+      );
+    } catch (err) {
+      console.warn("Admin email notification failed:", err.message);
+    }
+  }
+
   res.status(201).json(order);
 });
 
@@ -115,7 +156,7 @@ ordersRouter.get("/:id/history", requireAuth, async (req, res) => {
 });
 
 ordersRouter.patch("/:id/status", requireAuth, async (req, res) => {
-  if (req.user.role !== "admin" && req.user.role !== "cleaner") {
+  if (req.user.role !== "admin") {
     return res.status(403).json({ error: "Forbidden" });
   }
 
@@ -149,8 +190,9 @@ ordersRouter.patch("/:id/status", requireAuth, async (req, res) => {
 
   // Create notifications based on status change
   const order = result.rows[0];
-  const userResult = await db.query("SELECT name FROM users WHERE id = $1", [order.user_id]);
+  const userResult = await db.query("SELECT name, email FROM users WHERE id = $1", [order.user_id]);
   const customerName = userResult.rows[0]?.name || "Customer";
+  const customerEmail = userResult.rows[0]?.email;
 
   let notificationTitle = "";
   let notificationMessage = "";
@@ -189,6 +231,18 @@ ordersRouter.patch("/:id/status", requireAuth, async (req, res) => {
       "INSERT INTO notifications (user_id, title, message, type, related_order_id) VALUES ($1, $2, $3, $4, $5)",
       [order.user_id, notificationTitle, notificationMessage, notificationType, order.id]
     );
+  }
+
+  if (customerEmail && notificationTitle) {
+    try {
+      await sendEmail({
+        to: customerEmail,
+        subject: `JOSHEM Order Update: ${notificationTitle}`,
+        text: `Hi ${customerName},\n\n${notificationMessage}\n\nOrder ID: ${order.id}\nStatus: ${status}\n\nThank you,\nJOSHEM Cleaning Services`
+      });
+    } catch (err) {
+      console.warn("Customer email notification failed:", err.message);
+    }
   }
 
   res.json(result.rows[0]);
@@ -234,32 +288,4 @@ ordersRouter.post("/:id/review", requireAuth, async (req, res) => {
   res.status(201).json(result.rows[0]);
 });
 
-ordersRouter.get("/:id/history", requireAuth, async (req, res) => {
-  const result = await db.query(
-    "SELECT status, updated_at FROM order_status_history WHERE order_id = $1 ORDER BY updated_at ASC",
-    [req.params.id]
-  );
-  res.json(result.rows);
-});
-
-ordersRouter.patch("/:id/status", requireAuth, async (req, res) => {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
-  const { status, assignedCleanerId } = req.body;
-  if (!STATUSES.includes(status)) {
-    return res.status(400).json({ error: "Invalid status" });
-  }
-  const result = await db.query(
-    "UPDATE orders SET status = $1, assigned_cleaner_id = COALESCE($2, assigned_cleaner_id) WHERE id = $3 RETURNING *",
-    [status, assignedCleanerId || null, req.params.id]
-  );
-  if (!result.rows[0]) {
-    return res.status(404).json({ error: "Not found" });
-  }
-  await db.query(
-    "INSERT INTO order_status_history (order_id, status, updated_by) VALUES ($1, $2, $3)",
-    [req.params.id, status, req.user.id]
-  );
-  res.json(result.rows[0]);
-});
+// duplicate history/status endpoints removed
