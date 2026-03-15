@@ -174,6 +174,7 @@ export default function Layout({ children }) {
             <p><a href="/#services">Services</a></p>
             <p><a href="/#contact">Contact</a></p>
             <p><a href="/#blog">Blog</a></p>
+            <p><a href="/privacy">Privacy Policy</a></p>
           </div>
           <div>
             <h5>Contact</h5>

@@ -7,14 +7,18 @@ import { db } from "../db.js";
 export const authRouter = Router();
 
 const registerSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().min(7),
-  password: z.string().min(6)
+  name: z.string().trim().min(2),
+  email: z.string().trim().email().transform((value) => value.toLowerCase()),
+  phone: z.string().trim().min(7),
+  password: z
+    .string()
+    .min(8)
+    .regex(/[A-Za-z]/, "Password must include a letter")
+    .regex(/[0-9]/, "Password must include a number")
 });
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().trim().email().transform((value) => value.toLowerCase()),
   password: z.string().min(6)
 });
 
