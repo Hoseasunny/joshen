@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../state/AuthContext.jsx";
+import Seo from "../components/Seo.jsx";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -22,6 +23,12 @@ export default function Login() {
 
   return (
     <section className="auth-section">
+      <Seo
+        title="Login"
+        description="Sign in to manage bookings, track cleaning progress, and update your JOSHEM profile."
+        canonical="https://joshemcleaning.com/login"
+        noIndex
+      />
       <div className="container auth-card">
         <h2>Welcome back</h2>
         <p>Sign in to manage bookings and track cleaning progress.</p>

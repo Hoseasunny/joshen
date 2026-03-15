@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../state/AuthContext.jsx";
 import { authRequest } from "../lib/api.js";
+import Seo from "../components/Seo.jsx";
 
 export default function Admin() {
   const { token } = useAuth();
@@ -23,6 +24,12 @@ export default function Admin() {
 
   return (
     <section className="section">
+      <Seo
+        title="Admin"
+        description="Admin dashboard for managing orders, analytics, and customer activity."
+        canonical="https://joshemcleaning.com/admin"
+        noIndex
+      />
       <div className="container admin-grid">
         <div className="panel">
           <h2>Admin dashboard</h2>

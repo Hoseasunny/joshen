@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../state/AuthContext.jsx";
+import Seo from "../components/Seo.jsx";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -30,6 +31,12 @@ export default function Register() {
 
   return (
     <section className="auth-section">
+      <Seo
+        title="Create Account"
+        description="Create a JOSHEM account to book services, manage appointments, and track progress."
+        canonical="https://joshemcleaning.com/register"
+        noIndex
+      />
       <div className="container auth-card">
         <h2>Create your account</h2>
         <p>Book services, track progress, and manage your profile.</p>

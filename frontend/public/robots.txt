@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /tracking
+Disallow: /booking
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://joshemcleaning.com/sitemap.xml

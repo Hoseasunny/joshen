@@ -1,5 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
+import Seo from "../components/Seo.jsx";
 
 const services = [
   {
@@ -444,6 +445,11 @@ export default function Home() {
 
   return (
     <div className={`home modern-home ${chatOpen ? "chat-open" : ""}`} id="top" ref={homeRef}>
+      <Seo
+        title="Professional Cleaning in Nairobi"
+        description="JOSHEM Cleaning Services offers trusted residential and commercial cleaning with online booking, live order tracking, and responsive customer support."
+        canonical="https://joshemcleaning.com/"
+      />
       <section className="hero reveal depth-near" id="home" ref={heroRef}>
         <div className="hero-scene" aria-hidden="true">
           <span className="layer layer-one" />

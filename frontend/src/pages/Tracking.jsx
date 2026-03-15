@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "../state/AuthContext.jsx";
 import { authRequest } from "../lib/api.js";
+import Seo from "../components/Seo.jsx";
 
 const STATUS_FLOW = ["pending", "confirmed", "assigned", "in progress", "completed"];
 
@@ -219,6 +220,12 @@ export default function Tracking() {
 
   return (
     <section className="section tracking-dashboard-section" ref={wrapperRef}>
+      <Seo
+        title="Order Tracking"
+        description="Monitor cleaning orders in real time with status updates and ETA insights."
+        canonical="https://joshemcleaning.com/tracking"
+        noIndex
+      />
       <div className="tracking-bg" aria-hidden="true">
         <span className="track-icon icon-spray">spray</span>
         <span className="track-icon icon-mop">mop</span>

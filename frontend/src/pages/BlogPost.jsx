@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Seo from "../components/Seo.jsx";
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -16,6 +17,7 @@ export default function BlogPost() {
         author: "JOSHEM Team",
         date: "March 14, 2026",
         featuredImage: "https://via.placeholder.com/800x400?text=Sparkling+Clean+Home",
+        summary: "Learn how professional cleaning improves health, saves time, and keeps homes consistently spotless.",
         body: `
           <h2>Introduction</h2>
           <p>Imagine walking into your home after a long day at work, greeted by the fresh scent of cleanliness and the sight of gleaming surfaces. No dust bunnies in the corners, no sticky fingerprints on the fridge, just pure, sparkling perfection. Sounds like a dream? With professional cleaning services from JOSHEM, this can be your everyday reality.</p>
@@ -65,6 +67,7 @@ export default function BlogPost() {
         author: "JOSHEM Team",
         date: "March 2026",
         featuredImage: "https://via.placeholder.com/800x400?text=AI+Cleaning+Tips",
+        summary: "Five practical, data-driven habits to maintain cleanliness between professional cleaning visits.",
         body: `
           <h2>Introduction</h2>
           <p>In today's smart home era, artificial intelligence isn't just for entertainment—it's revolutionizing how we maintain clean spaces. At JOSHEM, we've analyzed thousands of cleaning patterns to develop AI-backed strategies that help homeowners keep their spaces pristine between professional cleanings. Here are five proven methods that leverage data and smart habits to maximize cleanliness with minimal effort.</p>
@@ -104,6 +107,7 @@ export default function BlogPost() {
         author: "JOSHEM Team",
         date: "February 2026",
         featuredImage: "https://via.placeholder.com/800x400?text=Office+Dust+Reduction",
+        summary: "A structured approach to reduce office dust with ventilation, zoning, and better cleaning schedules.",
         body: `
           <h2>Introduction</h2>
           <p>Office dust isn't just an aesthetic issue—it's a productivity killer and potential health hazard. Studies show that excessive dust can reduce concentration, trigger allergies, and even affect air quality. At JOSHEM, our commercial cleaning teams have helped hundreds of offices reduce dust buildup by implementing systematic approaches. Here's how you can achieve similar results with a 40% reduction in dust accumulation.</p>
@@ -167,6 +171,7 @@ export default function BlogPost() {
         author: "JOSHEM Team",
         date: "January 2026",
         featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+        summary: "A room-by-room move-out cleaning checklist to protect deposits and speed up handovers.",
         body: `
           <h2>Introduction</h2>
           <p>Moving out can be stressful enough without worrying about cleaning standards and security deposit recovery. At JOSHEM, we've helped thousands of tenants and landlords navigate move-out cleaning successfully. This comprehensive before/after checklist ensures you cover all bases, minimize disputes, and maximize your chances of getting your full security deposit back.</p>
@@ -319,8 +324,17 @@ export default function BlogPost() {
 
   if (!post) return <div>Post not found. <Link to="/blog">Back to Blog</Link></div>;
 
+  const canonicalUrl = `https://joshemcleaning.com/blog/${slug}`;
+
   return (
     <section className="section blog-post-section">
+      <Seo
+        title={post.title}
+        description={post.summary}
+        canonical={canonicalUrl}
+        image={post.featuredImage}
+        type="article"
+      />
       <div className="container blog-post-container">
         <article className="blog-post">
           <header className="blog-hero">

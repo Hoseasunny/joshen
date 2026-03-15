@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo from "../components/Seo.jsx";
 
 const blogPosts = [
   {
@@ -38,6 +39,11 @@ const blogPosts = [
 export default function Blog() {
   return (
     <section className="section blog-page">
+      <Seo
+        title="Cleaning Tips and Insights"
+        description="AI-assisted guides and best practices from the JOSHEM team to keep homes and offices consistently clean."
+        canonical="https://joshemcleaning.com/blog"
+      />
       <div className="container">
         <div className="section-head">
           <h1>Cleaning Tips and Insights</h1>

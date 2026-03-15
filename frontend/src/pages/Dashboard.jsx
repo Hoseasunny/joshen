@@ -4,6 +4,7 @@ import { useAuth } from "../state/AuthContext.jsx";
 import { authRequest } from "../lib/api.js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Seo from "../components/Seo.jsx";
 
 export default function Dashboard() {
   const { user, token } = useAuth();
@@ -67,6 +68,12 @@ export default function Dashboard() {
 
   return (
     <>
+      <Seo
+        title="Dashboard"
+        description="Manage your bookings, preferences, and service history in your JOSHEM dashboard."
+        canonical="https://joshemcleaning.com/dashboard"
+        noIndex
+      />
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">

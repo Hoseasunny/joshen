@@ -3,6 +3,7 @@ import { useAuth } from "../state/AuthContext.jsx";
 import { authRequest } from "../lib/api.js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Seo from "../components/Seo.jsx";
 
 export default function Booking() {
   const { token } = useAuth();
@@ -79,6 +80,12 @@ export default function Booking() {
   if (success) {
     return (
       <section className="section">
+        <Seo
+          title="Book a Service"
+          description="Schedule a cleaning service, pick a time, and confirm your address."
+          canonical="https://joshemcleaning.com/booking"
+          noIndex
+        />
         <div className="container">
           <div className="success-card">
             <div className="success-icon">✓</div>
@@ -99,6 +106,12 @@ export default function Booking() {
 
   return (
     <section className="section">
+      <Seo
+        title="Book a Service"
+        description="Schedule a cleaning service, pick a time, and confirm your address."
+        canonical="https://joshemcleaning.com/booking"
+        noIndex
+      />
       <div className="container booking-container">
         <div className="booking-card">
           <div className="progress-bar">
