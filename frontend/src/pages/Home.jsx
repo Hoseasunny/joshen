@@ -220,6 +220,7 @@ export default function Home() {
   const homeRef = useRef(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
+  const chatLogRef = useRef(null);
   const [countValues, setCountValues] = useState(counters.map(() => 0));
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeService, setActiveService] = useState("");
@@ -352,6 +353,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!chatOpen) return;
+    const logNode = chatLogRef.current;
+    if (!logNode) return;
+    logNode.scrollTo({ top: logNode.scrollHeight, behavior: "smooth" });
+  }, [chatOpen, chatMessages]);
+
+  useEffect(() => {
     const statsNode = statsRef.current;
     if (!statsNode) return undefined;
 
@@ -435,7 +443,7 @@ export default function Home() {
   }
 
   return (
-    <div className="home modern-home" id="top" ref={homeRef}>
+    <div className={`home modern-home ${chatOpen ? "chat-open" : ""}`} id="top" ref={homeRef}>
       <section className="hero reveal depth-near" id="home" ref={heroRef}>
         <div className="hero-scene" aria-hidden="true">
           <span className="layer layer-one" />
@@ -805,7 +813,7 @@ export default function Home() {
         {chatOpen && (
           <div className="chatbot-panel">
             <h3>JOSHEM AI Support</h3>
-            <div className="chat-log">
+            <div className="chat-log" ref={chatLogRef}>
               {chatMessages.map((message, index) => (
                 <p key={`${message.role}-${index}`} className={`chat-${message.role}`}>
                   {message.text}
