@@ -23,6 +23,16 @@ const ETA_MINUTES = {
   cancelled: 0
 };
 
+const STATUS_LABELS = {
+  pending: "Pending",
+  confirmed: "Confirmed",
+  assigned: "Assigned",
+  "in progress": "In Progress",
+  completed: "Completed",
+  delayed: "Delayed",
+  cancelled: "Cancelled"
+};
+
 function normalizeStatus(status) {
   return String(status || "").toLowerCase().replace(/[_-]+/g, " ").trim();
 }
@@ -40,6 +50,11 @@ function getStatusTone(status) {
   if (normalized === "completed") return "complete";
   if (normalized === "delayed" || normalized === "cancelled") return "delayed";
   return "progress";
+}
+
+function getStatusClass(status) {
+  const normalized = normalizeStatus(status);
+  return `status-${normalized.replace(/\s+/g, "-")}`;
 }
 
 function buildEta(order) {
@@ -80,6 +95,7 @@ export default function Tracking() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [notifications, setNotifications] = useState([]);
+  const [notifyPrefs, setNotifyPrefs] = useState({ email: true, sms: false });
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState([
     { role: "bot", text: "Hello. I can help with ETA, delays, and tracking updates." }
@@ -286,6 +302,7 @@ export default function Tracking() {
                   const step = getStatusStep(status);
                   const percent = Math.max(8, Math.min(100, (step / (STATUS_FLOW.length - 1)) * 100));
                   const tone = getStatusTone(status);
+                  const statusClass = getStatusClass(status);
                   return (
                     <button
                       key={order.id}
@@ -294,23 +311,41 @@ export default function Tracking() {
                       onClick={() => setSelected(order)}
                     >
                       <div className="order-head">
-                        <strong>{order.service_name}</strong>
-                        <span className={`status-dot ${tone}`} />
+                        <div>
+                          <strong>{order.service_name}</strong>
+                          <p className="order-sub">Order #{order.id} Â· {new Date(order.scheduled_at).toLocaleString()}</p>
+                        </div>
+                        <span className={`status-pill ${statusClass}`}>
+                          {STATUS_ICONS[status] || "ðŸ“¦"} {STATUS_LABELS[status] || status}
+                        </span>
                       </div>
-                      <p>Order #{order.id}</p>
-                      <p>{new Date(order.scheduled_at).toLocaleString()}</p>
-                      <p>Predictive ETA: {buildEta(order)}</p>
+                      <div className="order-badges">
+                        <span className="eta-badge">ETA: {buildEta(order)}</span>
+                        <span className={`status-dot ${tone}`} aria-hidden="true" />
+                      </div>
                       <div className="order-progress">
                         <span className={`progress-live ${tone}`} style={{ width: `${percent}%` }} />
                       </div>
                       <ol className="step-indicator" aria-label="Order step progression">
                         {STATUS_FLOW.map((item, idx) => (
                           <li key={`${order.id}-${item}`} className={idx <= step ? "done" : ""}>
-                            <span className="step-icon">{STATUS_ICONS[item]}</span>
-                            <span className="step-label">{item.replace(" ", "\n")}</span>
+                            <span className="step-icon-circle">{STATUS_ICONS[item]}</span>
+                            <span className="step-label">{STATUS_LABELS[item]}</span>
                           </li>
                         ))}
                       </ol>
+                      <div className="order-actions-row">
+                        <button
+                          type="button"
+                          className="btn ghost"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            alert("Contact Support: support@joshem.com");
+                          }}
+                        >
+                          Contact Support
+                        </button>
+                      </div>
                     </button>
                   );
                 })}
@@ -319,6 +354,28 @@ export default function Tracking() {
           </div>
 
           <aside className="track-chat-widget">
+            <div className="tracking-preferences">
+              <h3>Notifications</h3>
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={notifyPrefs.email}
+                  onChange={(event) => setNotifyPrefs((prev) => ({ ...prev, email: event.target.checked }))}
+                />
+                <span>Email updates</span>
+              </label>
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={notifyPrefs.sms}
+                  onChange={(event) => setNotifyPrefs((prev) => ({ ...prev, sms: event.target.checked }))}
+                />
+                <span>SMS updates</span>
+              </label>
+              <p className="muted">
+                Preferences are saved to your device for now. Weâ€™ll connect this to real alerts next.
+              </p>
+            </div>
             <h3>AI Support Assistant</h3>
             <div className="chat-log">
               {chatMessages.map((message, index) => (

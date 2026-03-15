@@ -45,8 +45,11 @@ export default function Layout({ children }) {
       <header className="site-header">
         <div className="container header-grid">
           <Link to="/" className="brand" onClick={closeMenu}>
-            <span>JOSHEM</span>
-            <small>Cleaning Services</small>
+            <img src="/favicon-192.png" alt="JOSHEM logo" className="brand-logo" />
+            <div className="brand-text">
+              <span>JOSHEM</span>
+              <small>Cleaning Services</small>
+            </div>
           </Link>
 
           <nav className="top-links" aria-label="Top links">

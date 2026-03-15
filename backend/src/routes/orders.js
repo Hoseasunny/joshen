@@ -16,6 +16,56 @@ const createSchema = z.object({
   specialInstructions: z.string().optional()
 });
 
+function buildOrderCreatedEmail({ customerName, orderId, scheduledAt }) {
+  const subject = "Your JOSHEM order is confirmed";
+  const text =
+    `Hi ${customerName},\n\n` +
+    "We have received your cleaning request and created your order.\n" +
+    `Order ID: ${orderId}\n` +
+    `Scheduled: ${scheduledAt}\n\n` +
+    "You can track progress from your dashboard at any time. We will email you as the status changes.\n\n" +
+    "Thank you,\nJOSHEM Cleaning Services";
+
+  const html =
+    `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6;">` +
+    `<h2 style="color:#1E3A8A; margin-bottom: 8px;">Order received</h2>` +
+    `<p>Hi ${customerName},</p>` +
+    `<p>We have received your cleaning request and created your order.</p>` +
+    `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:10px; margin:12px 0;">` +
+    `<strong>Order ID:</strong> ${orderId}<br/>` +
+    `<strong>Scheduled:</strong> ${scheduledAt}` +
+    `</div>` +
+    `<p>You can track progress from your dashboard any time. We will email you as the status changes.</p>` +
+    `<p style="margin-top:18px;">Thank you,<br/>JOSHEM Cleaning Services</p>` +
+    `</div>`;
+
+  return { subject, text, html };
+}
+
+function buildStatusEmail({ customerName, orderId, status, message }) {
+  const subject = `Order update: ${status}`;
+  const text =
+    `Hi ${customerName},\n\n` +
+    `${message}\n\n` +
+    `Order ID: ${orderId}\n` +
+    `Status: ${status}\n\n` +
+    "Thank you,\nJOSHEM Cleaning Services";
+
+  const html =
+    `<div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6;">` +
+    `<h2 style="color:#1E3A8A; margin-bottom: 8px;">Order update</h2>` +
+    `<p>Hi ${customerName},</p>` +
+    `<p>${message}</p>` +
+    `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:10px; margin:12px 0;">` +
+    `<strong>Order ID:</strong> ${orderId}<br/>` +
+    `<strong>Status:</strong> ${status}` +
+    `</div>` +
+    `<p style="margin-top:18px;">Thank you,<br/>JOSHEM Cleaning Services</p>` +
+    `</div>`;
+
+  return { subject, text, html };
+}
+
 ordersRouter.get("/", requireAuth, async (req, res) => {
   const result = await db.query(
     `SELECT o.*, s.name AS service_name, s.base_price, s.price_per_hour,
@@ -71,6 +121,23 @@ ordersRouter.post("/", requireAuth, async (req, res) => {
     "INSERT INTO notifications (user_id, title, message, type, related_order_id) VALUES ($1, $2, $3, $4, $5)",
     [req.user.id, "Order Created", "Your cleaning service order has been created successfully.", "success", order.id]
   );
+
+  // Email customer on order creation
+  try {
+    const userResult = await db.query("SELECT name, email FROM users WHERE id = $1", [req.user.id]);
+    const customerName = userResult.rows[0]?.name || "Customer";
+    const customerEmail = userResult.rows[0]?.email;
+    if (customerEmail) {
+      const email = buildOrderCreatedEmail({
+        customerName,
+        orderId: order.id,
+        scheduledAt
+      });
+      await sendEmail({ to: customerEmail, ...email });
+    }
+  } catch (err) {
+    console.warn("Customer email notification failed:", err.message);
+  }
 
   // Notify admins about new order
   const adminResult = await db.query("SELECT id, email, name FROM users WHERE role = 'admin'");
@@ -235,11 +302,13 @@ ordersRouter.patch("/:id/status", requireAuth, async (req, res) => {
 
   if (customerEmail && notificationTitle) {
     try {
-      await sendEmail({
-        to: customerEmail,
-        subject: `JOSHEM Order Update: ${notificationTitle}`,
-        text: `Hi ${customerName},\n\n${notificationMessage}\n\nOrder ID: ${order.id}\nStatus: ${status}\n\nThank you,\nJOSHEM Cleaning Services`
+      const email = buildStatusEmail({
+        customerName,
+        orderId: order.id,
+        status: notificationTitle.replace("Order ", ""),
+        message: notificationMessage
       });
+      await sendEmail({ to: customerEmail, ...email });
     } catch (err) {
       console.warn("Customer email notification failed:", err.message);
     }
