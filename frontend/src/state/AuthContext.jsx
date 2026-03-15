@@ -24,6 +24,7 @@ export function AuthProvider({ children }) {
     setUser(data.user);
     setToken(data.token);
     localStorage.setItem("joshem_auth", JSON.stringify(data));
+    return data;
   };
 
   const register = async (payload) => {
@@ -31,7 +32,7 @@ export function AuthProvider({ children }) {
       method: "POST",
       body: JSON.stringify(payload)
     });
-    await login(payload.email, payload.password);
+    return login(payload.email, payload.password);
   };
 
   const logout = () => {

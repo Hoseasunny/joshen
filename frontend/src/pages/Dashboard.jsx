@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../state/AuthContext.jsx";
 import { authRequest } from "../lib/api.js";
 import DatePicker from "react-datepicker";
@@ -65,6 +65,10 @@ export default function Dashboard() {
   };
 
   const unreadCount = notifications.filter(n => !n.is_read).length;
+
+  if (user?.role === "admin") {
+    return <Navigate to="/admin" replace />;
+  }
 
   return (
     <>

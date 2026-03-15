@@ -14,8 +14,9 @@ export default function Login() {
     event.preventDefault();
     setError("");
     try {
-      await login(email, password);
-      navigate("/dashboard");
+      const data = await login(email, password);
+      const role = data?.user?.role;
+      navigate(role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
       setError(err.message);
     }

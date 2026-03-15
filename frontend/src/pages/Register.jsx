@@ -22,8 +22,9 @@ export default function Register() {
     event.preventDefault();
     setError("");
     try {
-      await register(form);
-      navigate("/dashboard");
+      const data = await register(form);
+      const role = data?.user?.role;
+      navigate(role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
       setError(err.message);
     }

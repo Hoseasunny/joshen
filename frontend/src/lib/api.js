@@ -11,7 +11,14 @@ export async function apiRequest(path, options = {}) {
   const response = await fetch(`${API_BASE}${path}`, config);
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || "Request failed");
+    let message = error.error || "Request failed";
+    if (Array.isArray(error.details) && error.details.length > 0) {
+      const detailText = error.details
+        .map((item) => `${item.path?.join(".") || "field"}: ${item.message}`)
+        .join(", ");
+      message = `${message} (${detailText})`;
+    }
+    throw new Error(message);
   }
   return response.json();
 }

@@ -43,9 +43,9 @@ export default function Booking() {
     setMessage("");
     if (!validate()) return;
     const payload = {
-      serviceId: selectedService.id,
+      serviceId: Number(selectedService.id),
       scheduledAt: selectedDate.toISOString(),
-      address: form.address,
+      address: form.address.trim(),
       notes: form.notes
     };
     try {
