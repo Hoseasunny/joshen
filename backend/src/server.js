@@ -54,6 +54,9 @@ const authLimiter = rateLimit({
 });
 
 app.use("/api/health", healthRouter);
+app.get("/", (req, res) => {
+  res.status(200).send("OK");
+});
 app.use("/api/auth", authLimiter, authRouter);
 app.use("/api", apiLimiter);
 app.use("/api/services", servicesRouter);
