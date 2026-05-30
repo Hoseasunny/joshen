@@ -5,7 +5,6 @@ import {
   ChevronRight,
   MessageCircle,
   Phone,
-  Search,
   Star,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -713,7 +712,13 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={rootRef} className="min-h-screen overflow-x-hidden font-body">
+    <motion.div
+      ref={rootRef}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="min-h-screen overflow-x-hidden font-body"
+    >
       <Navbar />
       <main>
         <Hero />
@@ -729,6 +734,6 @@ export default function App() {
         <CTA />
       </main>
       <Footer />
-    </div>
+    </motion.div>
   );
 }
