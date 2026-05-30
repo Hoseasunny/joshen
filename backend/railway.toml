@@ -1,7 +1,0 @@
-[build]
-builder = "RAILPACK"
-buildCommand = "npm install"
-watchPatterns = ["backend/**"]
-
-[deploy]
-startCommand = "npm start"

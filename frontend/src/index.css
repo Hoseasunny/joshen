@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-blue: #0a4d9d;
+  --brand-green: #4caf50;
+  --sky-blue: #6ec6ff;
+  --brand-dark: #062a5c;
+  --light-gray: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #334155;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Poppins', sans-serif;
+}
+
+::selection {
+  background: rgba(76, 175, 80, 0.22);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-shadow-soft {
+  text-shadow: 0 10px 30px rgba(10, 77, 157, 0.12);
+}
+
+.bubble-layer {
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -120px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    180deg,
+    rgba(110, 198, 255, 0.2),
+    rgba(76, 175, 80, 0.12)
+  );
+  filter: blur(0.2px);
+  animation: floatUp linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.85);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(var(--drift, 20px), -125vh, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+.pulse-cta {
+  box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.35);
+  animation: pulseGlow 2.2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.38);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.parallax-shape {
+  will-change: transform;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.focus-glow:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.slider-track {
+  transition: clip-path 0.08s linear;
+}
+
+.timeline-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.faq-open {
+  max-height: 240px;
+  opacity: 1;
+}
+
+.faq-closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.menu-panel {
+  transform: translateX(110%);
+  transition: transform 0.35s ease;
+}
+
+.menu-panel.open {
+  transform: translateX(0);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(10, 77, 157, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 77, 157, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
