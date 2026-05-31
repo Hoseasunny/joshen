@@ -33,6 +33,20 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+const WHATSAPP_NUMBER = '254700000000';
+
+function buildWhatsAppUrl({ name = '', phone = '', service = '' } = {}) {
+  const lines = [
+    'Hi JOSHEM, I need a quote for cleaning services.',
+    service ? `Service: ${service}` : 'Service: Cleaning service',
+    name ? `Name: ${name}` : null,
+    phone ? `Phone: ${phone}` : null,
+    'Location: Nairobi',
+  ].filter(Boolean);
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+}
+
 function BubbleField({ count = 16, small = false }) {
   const bubbles = useMemo(() => {
     return Array.from({ length: count }, (_, index) => ({
@@ -85,16 +99,16 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <a
-              href="#contact"
+              href="#quick-quote"
               className="pulse-cta inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90 sm:px-8 sm:py-4 sm:text-base"
             >
               Get Free Quote
             </a>
             <a
-              href="#contact"
+              href={buildWhatsAppUrl({ service: 'Office cleaning' })}
               className="inline-flex items-center justify-center rounded-full border-2 border-brandBlue px-6 py-3 text-sm font-semibold text-brandBlue transition hover:-translate-y-0.5 hover:bg-brandBlue hover:text-white sm:px-8 sm:py-4 sm:text-base"
             >
-              Contact Us Today
+              WhatsApp Us
             </a>
           </div>
 
@@ -154,6 +168,105 @@ function Hero() {
           d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32V120H0Z"
         />
       </svg>
+    </section>
+  );
+}
+
+function QuickQuote() {
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    service: '',
+  });
+
+  const update = event => {
+    setForm(previous => ({ ...previous, [event.target.name]: event.target.value }));
+  };
+
+  const whatsappUrl = buildWhatsAppUrl(form);
+
+  return (
+    <section
+      id="quick-quote"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm mobile-compact-section section-spacious"
+    >
+      <div className="yellow-green-wash absolute inset-x-0 top-0 h-48 opacity-30" />
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="glass rounded-[2rem] p-6 shadow-[0_20px_60px_rgba(10,77,157,0.10)] sm:p-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Request in 30 seconds</p>
+                <h2 className="mt-3 text-3xl font-heading text-brandBlue sm:text-4xl">Quick Quote</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+                  Share your name, phone, and service needed, then send the quickest request by WhatsApp.
+                </p>
+              </div>
+              <a
+                href={buildWhatsAppUrl({ service: 'Office cleaning' })}
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+              >
+                WhatsApp Fastest
+              </a>
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-[1fr_1fr_1.2fr]">
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={update}
+                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                  placeholder="Your name"
+                />
+              </label>
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-slate-700">Phone</span>
+                <input
+                  name="phone"
+                  value={form.phone}
+                  onChange={update}
+                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                  placeholder="+254..."
+                />
+              </label>
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-slate-700">Service Needed</span>
+                <select
+                  name="service"
+                  value={form.service}
+                  onChange={update}
+                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                >
+                  <option value="">Select a service</option>
+                  {services.map(service => (
+                    <option key={service.title} value={service.title}>
+                      {service.title}
+                    </option>
+                  ))}
+                  <option value="Domestic Workers Services">Domestic Workers Services</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={whatsappUrl}
+                className="inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
+              >
+                Send on WhatsApp
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-full border-2 border-brandGreen px-6 py-3 text-sm font-semibold text-brandGreen transition hover:-translate-y-0.5 hover:bg-brandGreen hover:text-white"
+              >
+                Full Quote Form
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -449,6 +562,7 @@ function Contact() {
     name: '',
     phone: '',
     email: '',
+    location: '',
     service: '',
     message: '',
   });
@@ -463,7 +577,7 @@ function Contact() {
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
     const phoneValid = /^[0-9+\-\s()]{7,}$/.test(form.phone);
 
-    if (!form.name || !form.phone || !form.email || !form.service || !form.message) {
+    if (!form.name || !form.phone || !form.email || !form.location || !form.service || !form.message) {
       setFeedback('Please fill in all fields.');
       return;
     }
@@ -477,7 +591,7 @@ function Contact() {
     }
 
     setFeedback('Thanks! Your message has been sent successfully. We will contact you shortly.');
-    setForm({ name: '', phone: '', email: '', service: '', message: '' });
+    setForm({ name: '', phone: '', email: '', location: '', service: '', message: '' });
   };
 
   return (
@@ -489,8 +603,8 @@ function Contact() {
         <div className="yellow-green-glow pointer-events-none absolute left-10 top-10 h-72 w-72 rounded-full opacity-20 blur-3xl" />
         <SectionHeading
           eyebrow="Contact"
-          title="Get In Touch"
-          subtitle="We'd love to hear from you. Reach out for a free quote!"
+          title="Detailed Request Form"
+          subtitle="Need more detail? Share the extra information below for a fuller quote."
         />
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.45fr_0.9fr]">
           <Reveal>
@@ -525,6 +639,16 @@ function Contact() {
                     onChange={update}
                     className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
                     placeholder="you@example.com"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-2 block text-sm font-medium text-slate-700">Location</span>
+                  <input
+                    name="location"
+                    value={form.location}
+                    onChange={update}
+                    className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                    placeholder="Nairobi / Westlands"
                   />
                 </label>
                 <label className="block">
@@ -609,6 +733,33 @@ function Contact() {
         </div>
       </div>
     </section>
+  );
+}
+
+function MobileBottomBar() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/20 bg-[linear-gradient(135deg,rgba(245,252,245,0.98)_0%,rgba(224,246,230,0.98)_100%)] px-3 py-2 shadow-[0_-10px_30px_rgba(10,77,157,0.12)] backdrop-blur-xl md:hidden">
+      <div className="mx-auto grid max-w-7xl grid-cols-3 gap-2">
+        <a
+          href="tel:+254700000000"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-white/95 px-3 py-3 text-sm font-semibold text-brandBlue shadow-sm"
+        >
+          <Phone size={16} /> Call
+        </a>
+        <a
+          href={buildWhatsAppUrl({ service: 'Office cleaning' })}
+          className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-3 py-3 text-sm font-semibold text-white shadow-sm"
+        >
+          <MessageCircle size={16} /> WhatsApp
+        </a>
+        <a
+          href="#quick-quote"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-brandGreen px-3 py-3 text-sm font-semibold text-white shadow-sm"
+        >
+          Quote
+        </a>
+      </div>
+    </div>
   );
 }
 
@@ -762,8 +913,9 @@ export default function App() {
       className="min-h-screen overflow-x-hidden font-body"
     >
       <Navbar />
-      <main>
+      <main className="pb-24 md:pb-0">
         <Hero />
+        <QuickQuote />
         <About />
         <Services />
         <WhyChooseUs />
@@ -776,6 +928,7 @@ export default function App() {
         <CTA />
       </main>
       <Footer />
+      <MobileBottomBar />
     </motion.div>
   );
 }
