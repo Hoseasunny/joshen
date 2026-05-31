@@ -66,19 +66,21 @@ function BubbleField({ count = 16, small = false }) {
 
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E3F2FD_0%,#BBDEFB_50%,#E8F5E9_100%)] pt-28">
+    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-compact-section">
       <BubbleField count={18} />
       <div className="soft-grid absolute inset-0 opacity-40" />
+      <div className="yellow-green-wash absolute inset-x-0 top-0 h-72 opacity-70" />
+      <div className="yellow-green-glow absolute -left-20 top-16 h-96 w-96 rounded-full blur-3xl" />
       <div className="absolute left-0 top-24 h-72 w-72 rounded-full bg-skyBlue/20 blur-3xl parallax-shape" data-parallax="0.18" />
       <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-brandGreen/15 blur-3xl parallax-shape" data-parallax="0.3" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:pb-28">
+      <div className="relative mx-auto grid max-w-7xl gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:pb-28 mobile-tight-gap">
         <Reveal className="flex flex-col justify-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Premium Cleaning Company</p>
           <h1 className="mt-5 max-w-3xl text-4xl font-heading leading-tight text-brandBlue sm:text-5xl lg:text-6xl">
             PROFESSIONAL CLEANING SERVICES YOU CAN TRUST
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl mobile-hide md:block">
             Transforming Homes, Offices and Commercial Spaces Through Professional Cleaning Solutions.
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -96,7 +98,7 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 mobile-hide md:grid">
             {stats.map(stat => (
               <div key={stat.label} className="glass rounded-3xl p-5 shadow-[0_18px_45px_rgba(10,77,157,0.08)]">
                 <div className="flex items-center gap-3">
@@ -116,14 +118,14 @@ function Hero() {
         <Reveal delay={0.15} className="relative flex items-center justify-center">
           <div className="relative w-full max-w-[620px]">
             <div className="absolute -left-6 top-12 h-24 w-24 rounded-3xl bg-brandGreen/20 blur-sm" />
-            <div className="absolute -right-6 bottom-16 h-28 w-28 rounded-full bg-skyBlue/30 blur-md" />
+            <div className="absolute -right-6 bottom-16 h-28 w-28 rounded-full bg-yellow-400/25 blur-md" />
             <div className="glass relative overflow-hidden rounded-[2rem] p-4 shadow-[0_32px_90px_rgba(10,77,157,0.18)]">
               <img
                 src="/icons/professional.jpg"
                 alt="Professional cleaning team"
-                className="h-[520px] w-full rounded-[1.5rem] object-cover"
+                className="mobile-hero-media h-[520px] w-full rounded-[1.5rem] object-cover"
               />
-              <div className="absolute bottom-6 left-6 right-6 grid gap-4 rounded-[1.5rem] bg-white/85 p-5 backdrop-blur-xl sm:grid-cols-2">
+              <div className="mobile-hide absolute bottom-6 left-6 right-6 grid gap-4 rounded-[1.5rem] bg-white/85 p-5 backdrop-blur-xl sm:grid-cols-2 md:grid">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.25em] text-brandGreen">Trusted Results</p>
                   <p className="mt-2 text-lg font-heading text-brandBlue">Luxury care for homes and businesses.</p>
@@ -157,16 +159,23 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="bg-white py-20 sm:py-24">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
+        <div className="yellow-green-wash pointer-events-none absolute inset-x-0 my-20 h-56 rounded-[3rem] opacity-35 blur-3xl" />
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">About Us</p>
           <h2 className="mt-3 text-3xl font-heading text-brandBlue sm:text-4xl">About JOSHEM</h2>
-          <p className="mt-5 text-lg leading-8 text-slate-600">
+          <p className="mt-5 text-lg leading-8 text-slate-600 mobile-hide md:block">
             JOSHEM General Cleaning Services Ltd is dedicated to providing professional, affordable and high-quality
             cleaning and sanitation services for homes, offices, businesses and institutions. We combine skilled
             personnel, modern equipment and safe cleaning solutions to deliver exceptional results while conserving
             the environment.
+          </p>
+          <p className="mt-5 text-base leading-7 text-slate-600 md:hidden">
+            Professional, affordable cleaning for homes, offices, and businesses.
           </p>
           <a href="#services" className="mt-6 inline-flex items-center gap-2 font-semibold text-brandBlue">
             Learn more about us <ArrowRight size={18} />
@@ -179,7 +188,7 @@ function About() {
             <img
               src="/icons/customer.jpg"
               alt="Cleaning team with equipment"
-              className="relative h-[420px] w-full rounded-[2rem] object-cover shadow-[0_25px_75px_rgba(10,77,157,0.12)]"
+              className="relative h-[420px] w-full rounded-[2rem] object-cover shadow-[0_25px_75px_rgba(10,77,157,0.12)] md:h-[420px] max-md:h-[280px]"
             />
           </div>
         </Reveal>
@@ -190,8 +199,12 @@ function About() {
 
 function Services() {
   return (
-    <section id="services" className="bg-lightGray py-20 sm:py-24">
+    <section
+      id="services"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EFFAF1_0%,#DFF3E5_50%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-glow pointer-events-none absolute right-10 top-10 h-64 w-64 rounded-full opacity-30 blur-3xl" />
         <SectionHeading
           eyebrow="Services"
           title="Services We Offer"
@@ -208,7 +221,8 @@ function Services() {
                   <service.icon size={26} />
                 </div>
                 <h3 className="mt-4 text-xl font-heading text-brandBlue">{service.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600 mobile-hide md:block">{service.description}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600 md:hidden">Reliable, high-quality service tailored to your space.</p>
                 <button
                   type="button"
                   className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brandGreen transition group-hover:translate-x-1"
@@ -226,7 +240,11 @@ function Services() {
 
 function WhyChooseUs() {
   return (
-    <section id="why-us" className="relative overflow-hidden bg-white py-20 sm:py-24">
+    <section
+      id="why-us"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E4_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
+      <div className="yellow-green-wash absolute inset-x-0 top-0 h-40 opacity-40" />
       <div className="absolute left-0 top-16 h-64 w-64 rounded-full bg-brandGreen/10 blur-3xl parallax-shape" data-parallax="0.2" />
       <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-skyBlue/15 blur-3xl parallax-shape" data-parallax="0.35" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -243,7 +261,8 @@ function WhyChooseUs() {
                   <item.icon size={30} />
                 </div>
                 <h3 className="mt-5 text-2xl font-heading text-brandBlue">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600 mobile-hide md:block">{item.description}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600 md:hidden">Trusted, efficient, and eco-friendly service.</p>
               </article>
             </Reveal>
           ))}
@@ -255,8 +274,12 @@ function WhyChooseUs() {
 
 function Stats() {
   return (
-    <section id="stats" className="bg-[linear-gradient(180deg,#F8FAFC_0%,#E3F2FD_100%)] py-20 sm:py-24">
+    <section
+      id="stats"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_50%,#F6FBF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-glow pointer-events-none absolute left-1/2 top-8 h-72 w-72 -translate-x-1/2 rounded-full opacity-25 blur-3xl" />
         <SectionHeading
           eyebrow="Results"
           title="Numbers That Build Trust"
@@ -274,8 +297,12 @@ function Stats() {
 
 function Gallery() {
   return (
-    <section id="gallery" className="bg-white py-20 sm:py-24">
+    <section
+      id="gallery"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#F0FBF3_0%,#E0F4E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-20 h-52 opacity-25" />
         <SectionHeading
           eyebrow="Gallery"
           title="Before & After Showcase"
@@ -293,8 +320,12 @@ function Gallery() {
 
 function DomesticWorkers() {
   return (
-    <section id="domestic" className="bg-[linear-gradient(180deg,#F0F7FF_0%,#FFFFFF_100%)] py-20 sm:py-24">
+    <section
+      id="domestic"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-glow pointer-events-none absolute right-12 top-12 h-72 w-72 rounded-full opacity-25 blur-3xl" />
         <SectionHeading
           eyebrow="Domestic"
           title="Domestic Workers Services"
@@ -307,7 +338,8 @@ function DomesticWorkers() {
                 <img src={service.image} alt={service.title} className="h-56 w-full object-cover" />
                 <div className="p-6">
                   <h3 className="text-2xl font-heading text-brandBlue">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 mobile-hide md:block">{service.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 md:hidden">Reliable domestic support for your home.</p>
                 </div>
               </article>
             </Reveal>
@@ -375,8 +407,12 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section id="faq" className="bg-white py-20 sm:py-24">
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-12 h-44 opacity-25" />
         <SectionHeading
           eyebrow="FAQ"
           title="Frequently Asked Questions"
@@ -444,8 +480,12 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-[linear-gradient(180deg,#F8FAFC_0%,#FFFFFF_100%)] py-20 sm:py-24">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F2_0%,#DFF5E7_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="yellow-green-glow pointer-events-none absolute left-10 top-10 h-72 w-72 rounded-full opacity-20 blur-3xl" />
         <SectionHeading
           eyebrow="Contact"
           title="Get In Touch"
@@ -530,7 +570,7 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <aside className="rounded-[1.75rem] bg-lightGray p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8">
+            <aside className="mobile-hide rounded-[1.75rem] bg-lightGray p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8 lg:block">
               <h3 className="font-heading text-2xl text-brandBlue">Contact Details</h3>
               <div className="mt-6 space-y-4">
                 {contactDetails.map(detail => (
@@ -573,8 +613,9 @@ function Contact() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24 mobile-compact-section">
       <BubbleField count={12} small />
+      <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-0 h-28 opacity-35" />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
           <h2 className="text-3xl font-heading text-white sm:text-4xl lg:text-5xl">

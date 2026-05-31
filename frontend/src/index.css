@@ -16,7 +16,11 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #ffffff;
+  background:
+    radial-gradient(circle at top left, rgba(76, 175, 80, 0.24), transparent 30%),
+    radial-gradient(circle at top right, rgba(110, 198, 255, 0.16), transparent 28%),
+    linear-gradient(135deg, #eef9ef 0%, #e7f7ee 42%, #f4fbf7 100%);
+  background-attachment: fixed;
   color: #334155;
 }
 
@@ -32,9 +36,9 @@ h4 {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(245, 252, 255, 0.8);
   backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .reveal {
@@ -65,8 +69,8 @@ h4 {
   border-radius: 9999px;
   background: linear-gradient(
     180deg,
-    rgba(110, 198, 255, 0.2),
-    rgba(76, 175, 80, 0.12)
+    rgba(76, 175, 80, 0.24),
+    rgba(110, 198, 255, 0.1)
   );
   filter: blur(0.2px);
   animation: floatUp linear infinite;
@@ -182,7 +186,34 @@ h4 {
 
 .soft-grid {
   background-image:
-    linear-gradient(rgba(10, 77, 157, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 77, 157, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(76, 175, 80, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 77, 157, 0.03) 1px, transparent 1px);
   background-size: 36px 36px;
+}
+
+.yellow-green-wash {
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.28), rgba(132, 204, 22, 0.22), rgba(76, 175, 80, 0.08));
+}
+
+.yellow-green-glow {
+  background: radial-gradient(circle at center, rgba(250, 204, 21, 0.34), rgba(132, 204, 22, 0.18) 42%, transparent 72%);
+}
+
+@media (max-width: 767px) {
+  .mobile-compact-section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-hero-media {
+    max-height: 280px;
+  }
+
+  .mobile-tight-gap {
+    gap: 1rem !important;
+  }
 }
