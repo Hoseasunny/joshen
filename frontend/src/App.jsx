@@ -66,7 +66,7 @@ function BubbleField({ count = 16, small = false }) {
 
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-compact-section">
+    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-hero-section section-spacious">
       <BubbleField count={18} />
       <div className="soft-grid absolute inset-0 opacity-40" />
       <div className="yellow-green-wash absolute inset-x-0 top-0 h-72 opacity-70" />
@@ -86,28 +86,29 @@ function Hero() {
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <a
               href="#contact"
-              className="pulse-cta inline-flex items-center justify-center rounded-full bg-brandBlue px-8 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
+              className="pulse-cta inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90 sm:px-8 sm:py-4 sm:text-base"
             >
               Get Free Quote
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border-2 border-brandBlue px-8 py-4 font-semibold text-brandBlue transition hover:-translate-y-0.5 hover:bg-brandBlue hover:text-white"
+              className="inline-flex items-center justify-center rounded-full border-2 border-brandBlue px-6 py-3 text-sm font-semibold text-brandBlue transition hover:-translate-y-0.5 hover:bg-brandBlue hover:text-white sm:px-8 sm:py-4 sm:text-base"
             >
               Contact Us Today
             </a>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 mobile-hide md:grid">
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
             {stats.map(stat => (
-              <div key={stat.label} className="glass rounded-3xl p-5 shadow-[0_18px_45px_rgba(10,77,157,0.08)]">
+              <div key={stat.label} className="glass rounded-2xl p-3 shadow-[0_18px_45px_rgba(10,77,157,0.08)] sm:rounded-3xl sm:p-5">
                 <div className="flex items-center gap-3">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue">
-                    <stat.icon size={24} />
+                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue sm:h-12 sm:w-12">
+                    <stat.icon size={20} className="sm:hidden" />
+                    <stat.icon size={24} className="hidden sm:block" />
                   </div>
                   <div>
-                    <div className="font-heading text-2xl text-brandBlue">{stat.value}+</div>
-                    <p className="text-sm text-slate-600">{stat.label}</p>
+                    <div className="font-heading text-xl text-brandBlue sm:text-2xl">{stat.value}+</div>
+                    <p className="text-xs text-slate-600 sm:text-sm">{stat.label}</p>
                   </div>
                 </div>
               </div>
@@ -161,7 +162,7 @@ function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 my-20 h-56 rounded-[3rem] opacity-35 blur-3xl" />
@@ -201,7 +202,7 @@ function Services() {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EFFAF1_0%,#DFF3E5_50%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EFFAF1_0%,#DFF3E5_50%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute right-10 top-10 h-64 w-64 rounded-full opacity-30 blur-3xl" />
@@ -242,7 +243,7 @@ function WhyChooseUs() {
   return (
     <section
       id="why-us"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E4_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E4_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="yellow-green-wash absolute inset-x-0 top-0 h-40 opacity-40" />
       <div className="absolute left-0 top-16 h-64 w-64 rounded-full bg-brandGreen/10 blur-3xl parallax-shape" data-parallax="0.2" />
@@ -276,7 +277,7 @@ function Stats() {
   return (
     <section
       id="stats"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_50%,#F6FBF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_50%,#F6FBF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute left-1/2 top-8 h-72 w-72 -translate-x-1/2 rounded-full opacity-25 blur-3xl" />
@@ -299,7 +300,7 @@ function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#F0FBF3_0%,#E0F4E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#F0FBF3_0%,#E0F4E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-20 h-52 opacity-25" />
@@ -322,7 +323,7 @@ function DomesticWorkers() {
   return (
     <section
       id="domestic"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute right-12 top-12 h-72 w-72 rounded-full opacity-25 blur-3xl" />
@@ -409,7 +410,7 @@ function FAQ() {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-12 h-44 opacity-25" />
@@ -482,7 +483,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F2_0%,#DFF5E7_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F2_0%,#DFF5E7_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute left-10 top-10 h-72 w-72 rounded-full opacity-20 blur-3xl" />
@@ -562,7 +563,7 @@ function Contact() {
               ) : null}
               <button
                 type="submit"
-                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-brandBlue px-6 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
+                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90 sm:py-4 sm:text-base"
               >
                 Send Message
               </button>
@@ -613,7 +614,7 @@ function Contact() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24 mobile-compact-section">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24 mobile-compact-section section-spacious">
       <BubbleField count={12} small />
       <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-0 h-28 opacity-35" />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
@@ -627,13 +628,13 @@ function CTA() {
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="tel:+254700000000"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 font-semibold text-brandBlue transition hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-brandBlue transition hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-base"
             >
               Call Now
             </a>
             <a
               href="https://wa.me/254700000000"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-semibold text-white transition hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-base"
             >
               <MessageCircle size={18} /> WhatsApp Us
             </a>

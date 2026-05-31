@@ -16,11 +16,11 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 shadow-lg backdrop-blur-xl' : 'bg-transparent'
+        open || scrolled ? 'bg-white/95 shadow-lg backdrop-blur-xl' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#hero" className="font-heading text-2xl text-brandBlue">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+        <a href="#hero" className="font-heading text-xl text-brandBlue sm:text-2xl">
           {brand.name}
         </a>
 
@@ -44,37 +44,37 @@ export default function Navbar() {
         <button
           type="button"
           aria-label="Open menu"
-          className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-brandBlue shadow-sm lg:hidden"
+          className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-brandBlue shadow-sm lg:hidden"
           onClick={() => setOpen(true)}
         >
-          <Menu size={20} />
+          <Menu size={18} />
         </button>
       </div>
 
       <div className={`fixed inset-0 z-50 lg:hidden ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}>
         <div
-          className={`absolute inset-0 bg-slate-950/45 transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-slate-950/55 transition-opacity duration-300 ${
             open ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setOpen(false)}
         />
         <aside
-          className={`menu-panel absolute right-0 top-0 h-full w-[82vw] max-w-sm bg-white px-6 py-6 shadow-2xl ${
+          className={`menu-panel absolute right-0 top-0 h-dvh w-[86vw] max-w-sm border-l border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(238,249,241,0.98)_100%)] px-5 py-5 shadow-2xl backdrop-blur-2xl ${
             open ? 'open' : ''
           }`}
         >
-          <div className="flex items-center justify-between">
-            <span className="font-heading text-2xl text-brandBlue">{brand.name}</span>
+          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+            <span className="font-heading text-xl text-brandBlue">{brand.name}</span>
             <button type="button" aria-label="Close menu" onClick={() => setOpen(false)}>
               <X size={22} />
             </button>
           </div>
-          <nav className="mt-8 flex flex-col gap-4">
+          <nav className="mt-5 flex flex-col gap-3">
             {navLinks.map(link => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-2xl bg-slate-50 px-4 py-3 text-base font-medium text-slate-700"
+                className="rounded-2xl bg-white/90 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-brandGreen/10 hover:text-brandBlue"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -83,7 +83,7 @@ export default function Navbar() {
           </nav>
           <a
             href="#contact"
-            className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-brandBlue px-5 py-4 font-semibold text-white"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-brandBlue px-5 py-3.5 text-sm font-semibold text-white shadow-lg"
             onClick={() => setOpen(false)}
           >
             Get Free Quote
