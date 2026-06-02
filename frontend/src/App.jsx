@@ -80,7 +80,7 @@ function BubbleField({ count = 16, small = false }) {
 
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-hero-section section-spacious">
+    <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-hero-section section-spacious section-tight-bottom">
       <BubbleField count={18} />
       <div className="soft-grid absolute inset-0 opacity-40" />
       <div className="yellow-green-wash absolute inset-x-0 top-0 h-72 opacity-70" />
@@ -186,88 +186,83 @@ function QuickQuote() {
   const whatsappUrl = buildWhatsAppUrl(form);
 
   return (
-    <section
-      id="quick-quote"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm mobile-compact-section section-spacious"
-    >
+    <div id="quick-quote" className="relative mt-10 overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] backdrop-blur-sm mobile-compact-section section-spacious section-tight-top section-tight-bottom">
       <div className="yellow-green-wash absolute inset-x-0 top-0 h-48 opacity-30" />
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="glass rounded-[2rem] p-6 shadow-[0_20px_60px_rgba(10,77,157,0.10)] sm:p-8">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Request in 30 seconds</p>
-                <h2 className="mt-3 text-3xl font-heading text-brandBlue sm:text-4xl">Quick Quote</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-                  Share your name, phone, and service needed, then send the quickest request by WhatsApp.
-                </p>
-              </div>
-              <a
-                href={buildWhatsAppUrl({ service: 'Office cleaning' })}
-                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
-              >
-                WhatsApp Fastest
-              </a>
+      <Reveal>
+        <div className="glass rounded-[2rem] p-6 shadow-[0_20px_60px_rgba(10,77,157,0.10)] sm:p-8">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Request in 30 seconds</p>
+              <h2 className="mt-3 text-3xl font-heading text-brandBlue sm:text-4xl">Quick Quote</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+                Share your name, phone, and service needed, then send the quickest request by WhatsApp.
+              </p>
             </div>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-[1fr_1fr_1.2fr]">
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
-                <input
-                  name="name"
-                  value={form.name}
-                  onChange={update}
-                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Your name"
-                />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-slate-700">Phone</span>
-                <input
-                  name="phone"
-                  value={form.phone}
-                  onChange={update}
-                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="+254..."
-                />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-slate-700">Service Needed</span>
-                <select
-                  name="service"
-                  value={form.service}
-                  onChange={update}
-                  className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
-                >
-                  <option value="">Select a service</option>
-                  {services.map(service => (
-                    <option key={service.title} value={service.title}>
-                      {service.title}
-                    </option>
-                  ))}
-                  <option value="Domestic Workers Services">Domestic Workers Services</option>
-                </select>
-              </label>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={whatsappUrl}
-                className="inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
-              >
-                Send on WhatsApp
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center rounded-full border-2 border-brandGreen px-6 py-3 text-sm font-semibold text-brandGreen transition hover:-translate-y-0.5 hover:bg-brandGreen hover:text-white"
-              >
-                Full Quote Form
-              </a>
-            </div>
+            <a
+              href={buildWhatsAppUrl({ service: 'Office cleaning' })}
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+            >
+              WhatsApp Fastest
+            </a>
           </div>
-        </Reveal>
-      </div>
-    </section>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-[1fr_1fr_1.2fr]">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
+              <input
+                name="name"
+                value={form.name}
+                onChange={update}
+                className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                placeholder="Your name"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Phone</span>
+              <input
+                name="phone"
+                value={form.phone}
+                onChange={update}
+                className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+                placeholder="+254..."
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Service Needed</span>
+              <select
+                name="service"
+                value={form.service}
+                onChange={update}
+                className="focus-glow w-full rounded-2xl border border-slate-200 px-4 py-3"
+              >
+                <option value="">Select a service</option>
+                {services.map(service => (
+                  <option key={service.title} value={service.title}>
+                    {service.title}
+                  </option>
+                ))}
+                <option value="Domestic Workers Services">Domestic Workers Services</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={whatsappUrl}
+              className="inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
+            >
+              Send on WhatsApp
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-full border-2 border-brandGreen px-6 py-3 text-sm font-semibold text-brandGreen transition hover:-translate-y-0.5 hover:bg-brandGreen hover:text-white"
+            >
+              Full Quote Form
+            </a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
   );
 }
 
@@ -275,7 +270,7 @@ function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious section-tight-top"
     >
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 my-20 h-56 rounded-[3rem] opacity-35 blur-3xl" />
@@ -306,6 +301,9 @@ function About() {
             />
           </div>
         </Reveal>
+      </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <QuickQuote />
       </div>
     </section>
   );
@@ -915,7 +913,6 @@ export default function App() {
       <Navbar />
       <main className="pb-24 md:pb-0">
         <Hero />
-        <QuickQuote />
         <About />
         <Services />
         <WhyChooseUs />

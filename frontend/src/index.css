@@ -228,4 +228,12 @@ h4 {
     padding-top: 125px !important;
     padding-bottom: 125px !important;
   }
+
+  .section-tight-top {
+    margin-top: -3.5rem !important;
+  }
+
+  .section-tight-bottom {
+    margin-bottom: -1.5rem !important;
+  }
 }
