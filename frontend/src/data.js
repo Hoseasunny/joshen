@@ -106,6 +106,125 @@ export const services = [
   },
 ];
 
+export const extraServices = [
+  {
+    title: 'After Construction Cleaning',
+    description: 'Thorough cleanup after building works, removal of dust, debris, and residue.',
+    icon: Wand2,
+  },
+  {
+    title: 'Before & After Event Cleaning',
+    description: 'Event space preparation and post-event cleanup for a polished finish.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Workplace / Workshop Cleaning',
+    description: 'Cleaning tailored for active work areas, production floors, and workshops.',
+    icon: Building2,
+  },
+  {
+    title: 'Professional Movers',
+    description: 'Reliable moving support for houses, offices, and sensitive equipment.',
+    icon: CarFront,
+  },
+];
+
+export const serviceBreakdowns = [
+  {
+    title: 'Residential Cleaning',
+    items: [
+      'Deep house cleaning',
+      'Bathroom and toilet cleaning',
+      'Living room cleaning',
+      'Window and glass cleaning',
+      'Exterior and outdoor cleaning',
+      'Compound and yard cleaning',
+    ],
+  },
+  {
+    title: 'Office Cleaning',
+    items: [
+      'Sweeping and mopping floors',
+      'Dusting desks, chairs, shelves, and cabinets',
+      'Cleaning office tables and workstations',
+      'Emptying dustbins and replacing bin liners',
+      'Cleaning doors, handles, switches, and rails',
+      'Vacuuming carpets and rugs',
+    ],
+  },
+  {
+    title: 'Washroom & Toilet Cleaning',
+    items: [
+      'Cleaning toilets and urinals',
+      'Scrubbing sinks and taps',
+      'Disinfection and deodorizing',
+      'Cleaning mirrors',
+      'Restocking toilet paper, soap, and hand towels',
+      'Sanitizing high-touch surfaces',
+    ],
+  },
+  {
+    title: 'Regular House Cleaning',
+    items: [
+      'Daily, weekly, or monthly cleaning',
+      'Sweeping, mopping, and vacuuming floors',
+      'Dusting furniture, shelves, and surfaces',
+      'Cleaning doors, switches, and handles',
+      'Emptying trash bins',
+      'General house tidying',
+    ],
+  },
+  {
+    title: 'Deep House Cleaning',
+    items: [
+      'Detailed cleaning of all rooms',
+      'Scrubbing bathrooms and toilets',
+      'Kitchen deep cleaning',
+      'Wall washing and stain removal',
+      'Ceiling cobweb removal',
+      'Hard-to-reach areas cleaning',
+    ],
+  },
+  {
+    title: 'Kitchen Cleaning',
+    items: [
+      'Cleaning countertops and cabinets',
+      'Washing dishes (optional)',
+      'Cleaning cooker, oven, and microwave',
+      'Fridge interior and exterior cleaning',
+      'Grease and stain removal',
+    ],
+  },
+  {
+    title: 'Upholstery & Fabric Cleaning',
+    items: [
+      'Sofa set cleaning',
+      'Mattress cleaning',
+      'Chair and cushion cleaning',
+      'Curtain cleaning on-site or off-site',
+      'Carpet and rug cleaning',
+    ],
+  },
+];
+
+export const domesticPlacement = {
+  roles: [
+    'House helps',
+    'House managers',
+    'Groundsmen',
+    'Gardeners',
+    'Janitors',
+    'Receptionists',
+    'Office messengers',
+  ],
+  fees: [
+    'One-time placement fee: KSH 5,500',
+    'Qualified House Help (Live-in): KES 12,000 – 20,000 per month',
+    'Qualified House Help (Live-out): KES 16,000 – 24,000 per month',
+  ],
+  note: 'All staff undergo background checks, practical training, and professional vetting before placement.',
+};
+
 export const chooseReasons = [
   {
     title: 'Professionally Trained Staff',

@@ -24,7 +24,10 @@ import {
   chooseReasons,
   contactDetails,
   domesticServices,
+  domesticPlacement,
   faqs,
+  extraServices,
+  serviceBreakdowns,
   services,
   socialLinks,
   stats,
@@ -78,6 +81,45 @@ function BubbleField({ count = 16, small = false }) {
   );
 }
 
+function RippleDrops({ count = 7 }) {
+  const drops = useMemo(() => {
+    return Array.from({ length: count }, () => {
+      const delay = Math.random() * 7.2;
+
+      return {
+        left: 8 + Math.random() * 84,
+        top: 10 + Math.random() * 70,
+        size: 5 + Math.random() * 4,
+        ripple: 84 + Math.random() * 72,
+        delay,
+        duration: 6.2 + Math.random() * 1.4,
+      };
+    }).sort((a, b) => a.delay - b.delay);
+  }, [count]);
+
+  return (
+    <div aria-hidden className="surface-ripples" style={{ zIndex: 0 }}>
+      {drops.map((drop, index) => (
+        <span
+          key={index}
+          className="surface-drop"
+          style={{
+            left: `${drop.left}%`,
+            top: `${drop.top}%`,
+            '--drop-size': `${drop.size}px`,
+            '--ripple-size': `${drop.ripple}px`,
+            '--drop-delay': `${drop.delay}s`,
+            '--drop-duration': `${drop.duration}s`,
+          }}
+        >
+          <span className="surface-drop-core" />
+          <span className="surface-drop-wave" />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-[linear-gradient(135deg,#E6F7EA_0%,#CFEFD8_46%,#F0FBF3_100%)] pt-28 mobile-hero-section section-spacious section-tight-bottom">
@@ -91,6 +133,7 @@ function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-14 px-4 pb-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:pb-28 mobile-tight-gap">
         <Reveal className="flex flex-col justify-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Premium Cleaning Company</p>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.4em] text-brandBlue/70">JOSHEM FRESHAURA</p>
           <h1 className="mt-5 max-w-3xl text-4xl font-heading leading-tight text-brandBlue sm:text-5xl lg:text-6xl">
             PROFESSIONAL CLEANING SERVICES YOU CAN TRUST
           </h1>
@@ -115,6 +158,7 @@ function Hero() {
           <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
             {stats.map(stat => (
               <div key={stat.label} className="glass rounded-2xl p-3 shadow-[0_18px_45px_rgba(10,77,157,0.08)] sm:rounded-3xl sm:p-5">
+                <RippleDrops count={4} />
                 <div className="flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue sm:h-12 sm:w-12">
                     <stat.icon size={20} className="sm:hidden" />
@@ -135,6 +179,7 @@ function Hero() {
             <div className="absolute -left-6 top-12 h-24 w-24 rounded-3xl bg-brandGreen/20 blur-sm" />
             <div className="absolute -right-6 bottom-16 h-28 w-28 rounded-full bg-yellow-400/25 blur-md" />
             <div className="glass relative overflow-hidden rounded-[2rem] p-4 shadow-[0_32px_90px_rgba(10,77,157,0.18)]">
+              <RippleDrops count={6} />
               <img
                 src="/icons/professional.jpg"
                 alt="Professional cleaning team"
@@ -186,29 +231,30 @@ function QuickQuote() {
   const whatsappUrl = buildWhatsAppUrl(form);
 
   return (
-    <div id="quick-quote" className="relative mt-10 overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] backdrop-blur-sm mobile-compact-section section-spacious section-tight-top section-tight-bottom">
-      <div className="yellow-green-wash absolute inset-x-0 top-0 h-48 opacity-30" />
+    <div id="quick-quote" className="relative overflow-hidden bg-none backdrop-blur-sm mobile-compact-section section-tight-about">
+      <BubbleField count={8} small />
       <Reveal>
-        <div className="glass rounded-[2rem] p-6 shadow-[0_20px_60px_rgba(10,77,157,0.10)] sm:p-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="glass overflow-hidden rounded-[2rem] px-4 py-5 shadow-[0_20px_60px_rgba(10,77,157,0.10)] sm:px-8 sm:py-8 lg:px-10 lg:py-10">
+          <RippleDrops count={6} />
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-brandGreen">Request in 30 seconds</p>
-              <h2 className="mt-3 text-3xl font-heading text-brandBlue sm:text-4xl">Quick Quote</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+              <h2 className="text-2xl font-heading text-brandBlue sm:text-4xl">Quick Quote</h2>
+              <p className="max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
                 Share your name, phone, and service needed, then send the quickest request by WhatsApp.
               </p>
             </div>
             <a
               href={buildWhatsAppUrl({ service: 'Office cleaning' })}
-              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:px-5"
             >
               WhatsApp Fastest
             </a>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-[1fr_1fr_1.2fr]">
+          <div className="mt-4 grid gap-3 sm:mt-6 sm:gap-4 md:grid-cols-[1fr_1fr_1.2fr]">
             <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 sm:mb-2">Name</span>
               <input
                 name="name"
                 value={form.name}
@@ -218,7 +264,7 @@ function QuickQuote() {
               />
             </label>
             <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Phone</span>
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 sm:mb-2">Phone</span>
               <input
                 name="phone"
                 value={form.phone}
@@ -228,7 +274,7 @@ function QuickQuote() {
               />
             </label>
             <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Service Needed</span>
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 sm:mb-2">Service Needed</span>
               <select
                 name="service"
                 value={form.service}
@@ -246,16 +292,16 @@ function QuickQuote() {
             </label>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-4 flex flex-col gap-2 sm:mt-6 sm:flex-row sm:gap-3">
             <a
               href={whatsappUrl}
-              className="inline-flex items-center justify-center rounded-full bg-brandBlue px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90"
+              className="inline-flex items-center justify-center rounded-full bg-brandBlue px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-brandBlue/90 sm:px-6"
             >
               Send on WhatsApp
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border-2 border-brandGreen px-6 py-3 text-sm font-semibold text-brandGreen transition hover:-translate-y-0.5 hover:bg-brandGreen hover:text-white"
+              className="inline-flex items-center justify-center rounded-full border-2 border-brandGreen px-5 py-3 text-sm font-semibold text-brandGreen transition hover:-translate-y-0.5 hover:bg-brandGreen hover:text-white sm:px-6"
             >
               Full Quote Form
             </a>
@@ -272,6 +318,7 @@ function About() {
       id="about"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious section-tight-top"
     >
+      <BubbleField count={10} small />
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 my-20 h-56 rounded-[3rem] opacity-35 blur-3xl" />
         <Reveal>
@@ -315,6 +362,7 @@ function Services() {
       id="services"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EFFAF1_0%,#DFF3E5_50%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={10} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute right-10 top-10 h-64 w-64 rounded-full opacity-30 blur-3xl" />
         <SectionHeading
@@ -325,7 +373,8 @@ function Services() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.06}>
-              <article className="group h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_6px_28px_rgba(0,0,0,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+              <article className="card-ripple group h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_6px_28px_rgba(0,0,0,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+                <RippleDrops count={7} />
                 <div className="overflow-hidden rounded-[1.25rem]">
                   <img src={service.image} alt={service.title} className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
                 </div>
@@ -350,12 +399,81 @@ function Services() {
   );
 }
 
+function AdditionalServices() {
+  return (
+    <section
+      id="additional-services"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
+    >
+      <BubbleField count={8} small />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="More Services"
+          title="Specialized Cleaning & Moving Services"
+          subtitle="Additional services from the DOCX that extend our core offering."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {extraServices.map((service, index) => (
+            <Reveal key={service.title} delay={index * 0.06}>
+              <article className="glass h-full rounded-[1.5rem] p-6 shadow-[0_18px_45px_rgba(10,77,157,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_55px_rgba(76,175,80,0.18)]">
+                <RippleDrops count={6} />
+                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandGreen/15 text-brandGreen">
+                  <service.icon size={30} />
+                </div>
+                <h3 className="mt-5 text-2xl font-heading text-brandBlue">{service.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceBreakdown() {
+  return (
+    <section
+      id="service-breakdown"
+      className="relative overflow-hidden bg-[linear-gradient(135deg,#F7FCF8_0%,#EAF8ED_55%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
+    >
+      <BubbleField count={8} small />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Details"
+          title="What Each Service Includes"
+          subtitle="A quick breakdown of the deeper service scope from the DOCX."
+        />
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {serviceBreakdowns.map((group, index) => (
+            <Reveal key={group.title} delay={index * 0.05}>
+              <article className="card-ripple rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-[0_10px_35px_rgba(10,77,157,0.08)]">
+                <RippleDrops count={7} />
+                <h3 className="font-heading text-2xl text-brandBlue">{group.title}</h3>
+                <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+                  {group.items.map(item => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-2 h-2.5 w-2.5 rounded-full bg-brandGreen" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function WhyChooseUs() {
   return (
     <section
       id="why-us"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E4_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="yellow-green-wash absolute inset-x-0 top-0 h-40 opacity-40" />
       <div className="absolute left-0 top-16 h-64 w-64 rounded-full bg-brandGreen/10 blur-3xl parallax-shape" data-parallax="0.2" />
       <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-skyBlue/15 blur-3xl parallax-shape" data-parallax="0.35" />
@@ -369,6 +487,7 @@ function WhyChooseUs() {
           {chooseReasons.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.08}>
               <article className="glass group h-full rounded-[1.75rem] p-6 shadow-[0_18px_45px_rgba(10,77,157,0.08)] transition duration-300 hover:-translate-y-2 hover:rotate-[0.7deg] hover:shadow-[0_24px_55px_rgba(76,175,80,0.18)]">
+                <RippleDrops count={6} />
                 <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandGreen/15 text-brandGreen transition duration-300 group-hover:rotate-6">
                   <item.icon size={30} />
                 </div>
@@ -390,6 +509,7 @@ function Stats() {
       id="stats"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_50%,#F6FBF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute left-1/2 top-8 h-72 w-72 -translate-x-1/2 rounded-full opacity-25 blur-3xl" />
         <SectionHeading
@@ -413,6 +533,7 @@ function Gallery() {
       id="gallery"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#F0FBF3_0%,#E0F4E6_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-20 h-52 opacity-25" />
         <SectionHeading
@@ -436,6 +557,7 @@ function DomesticWorkers() {
       id="domestic"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EAF8ED_0%,#DDF2E2_50%,#F7FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute right-12 top-12 h-72 w-72 rounded-full opacity-25 blur-3xl" />
         <SectionHeading
@@ -446,7 +568,8 @@ function DomesticWorkers() {
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {domesticServices.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.08}>
-              <article className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_14px_45px_rgba(10,77,157,0.08)] transition duration-300 hover:-translate-y-2">
+              <article className="card-ripple overflow-hidden rounded-[1.75rem] bg-white shadow-[0_14px_45px_rgba(10,77,157,0.08)] transition duration-300 hover:-translate-y-2">
+                <RippleDrops count={6} />
                 <img src={service.image} alt={service.title} className="h-56 w-full object-cover" />
                 <div className="p-6">
                   <h3 className="text-2xl font-heading text-brandBlue">{service.title}</h3>
@@ -457,6 +580,38 @@ function DomesticWorkers() {
             </Reveal>
           ))}
         </div>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <Reveal>
+            <article className="card-ripple rounded-[1.75rem] bg-white p-6 shadow-[0_14px_45px_rgba(10,77,157,0.08)] sm:p-8">
+              <RippleDrops count={6} />
+              <h3 className="font-heading text-2xl text-brandBlue">Background-Checked Placement Roles</h3>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {domesticPlacement.roles.map(role => (
+                  <div key={role} className="rounded-2xl bg-brandGreen/10 px-4 py-3 text-sm font-medium text-brandBlue">
+                    {role}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-7 text-slate-600">{domesticPlacement.note}</p>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <article className="card-ripple rounded-[1.75rem] bg-[linear-gradient(135deg,#EEF9F1_0%,#E0F6E6_52%,#F8FCF8_100%)] p-6 shadow-[0_14px_45px_rgba(10,77,157,0.08)] sm:p-8">
+              <RippleDrops count={5} />
+              <h3 className="font-heading text-2xl text-brandBlue">Placement Charges</h3>
+              <ul className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
+                {domesticPlacement.fees.map(fee => (
+                  <li key={fee} className="flex items-start gap-3">
+                    <span className="mt-2 h-2.5 w-2.5 rounded-full bg-brandGreen" />
+                    <span>{fee}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -464,7 +619,8 @@ function DomesticWorkers() {
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24">
+    <section id="testimonials" className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24">
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           light
@@ -489,6 +645,7 @@ function Testimonials() {
           {[...testimonials, ...testimonials].map((item, index) => (
             <SwiperSlide key={`${item.name}-${index}`} className="!w-[340px]">
               <article className="glass h-full rounded-[1.5rem] border-white/20 bg-white/15 p-6 text-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+                <RippleDrops count={5} />
                 <div className="flex items-center gap-4">
                   <img
                     src={item.image}
@@ -523,6 +680,7 @@ function FAQ() {
       id="faq"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F1_0%,#DFF4E5_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-12 h-44 opacity-25" />
         <SectionHeading
@@ -534,7 +692,8 @@ function FAQ() {
           {faqs.map((faq, index) => {
             const open = openIndex === index;
             return (
-              <div key={faq.question} className="rounded-[1.5rem] border border-slate-200 bg-lightGray/80">
+              <div key={faq.question} className="card-ripple rounded-[1.5rem] border border-slate-200 bg-lightGray/80">
+                <RippleDrops count={5} />
                 <button
                   type="button"
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
@@ -597,6 +756,7 @@ function Contact() {
       id="contact"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#EEF9F2_0%,#DFF5E7_52%,#F8FCF8_100%)] py-20 backdrop-blur-sm sm:py-24 mobile-compact-section section-spacious"
     >
+      <BubbleField count={8} small />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="yellow-green-glow pointer-events-none absolute left-10 top-10 h-72 w-72 rounded-full opacity-20 blur-3xl" />
         <SectionHeading
@@ -606,7 +766,8 @@ function Contact() {
         />
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.45fr_0.9fr]">
           <Reveal>
-            <form onSubmit={submit} className="rounded-[1.75rem] bg-white p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8">
+            <form onSubmit={submit} className="card-ripple rounded-[1.75rem] bg-white p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8">
+              <RippleDrops count={7} />
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="block">
                   <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
@@ -693,11 +854,13 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <aside className="mobile-hide rounded-[1.75rem] bg-lightGray p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8 lg:block">
+            <aside className="card-ripple mobile-hide rounded-[1.75rem] bg-lightGray p-6 shadow-[0_18px_60px_rgba(10,77,157,0.08)] sm:p-8 lg:block">
+              <RippleDrops count={6} />
               <h3 className="font-heading text-2xl text-brandBlue">Contact Details</h3>
               <div className="mt-6 space-y-4">
                 {contactDetails.map(detail => (
-                  <div key={detail.title} className="rounded-2xl bg-white p-4">
+                  <div key={detail.title} className="card-ripple rounded-2xl bg-white p-4">
+                    <RippleDrops count={4} />
                     <div className="flex items-start gap-4">
                       <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue">
                         <detail.icon size={22} />
@@ -915,6 +1078,8 @@ export default function App() {
         <Hero />
         <About />
         <Services />
+        <AdditionalServices />
+        <ServiceBreakdown />
         <WhyChooseUs />
         <Stats />
         <Gallery />
