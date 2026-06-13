@@ -36,7 +36,7 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WHATSAPP_NUMBER = '254700000000';
+const WHATSAPP_NUMBER = '254717785782';
 
 function buildWhatsAppUrl({ name = '', phone = '', service = '' } = {}) {
   const lines = [
@@ -1024,7 +1024,7 @@ function MobileBottomBar() {
     <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/20 bg-[linear-gradient(135deg,rgba(245,252,245,0.98)_0%,rgba(224,246,230,0.98)_100%)] px-3 py-2 shadow-[0_-10px_30px_rgba(10,77,157,0.12)] backdrop-blur-xl md:hidden">
       <div className="mx-auto grid max-w-7xl grid-cols-3 gap-2">
         <a
-          href="tel:+254700000000"
+          href="tel:+254797923747"
           className="flex items-center justify-center gap-2 rounded-2xl bg-white/95 px-3 py-3 text-sm font-semibold text-brandBlue shadow-sm"
         >
           <Phone size={16} /> Call
@@ -1048,7 +1048,7 @@ function MobileBottomBar() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0A4D9D_0%,#4CAF50_100%)] py-20 sm:py-24 mobile-compact-section section-spacious">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0099cc_0%,#00cc99_100%)] py-20 sm:py-24 mobile-compact-section section-spacious">
       <BubbleField count={12} small />
       <div className="yellow-green-wash pointer-events-none absolute inset-x-0 top-0 h-28 opacity-35" />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
@@ -1061,13 +1061,13 @@ function CTA() {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href="tel:+254700000000"
+              href="tel:+254797923747"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-brandBlue transition hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-base"
             >
               Call Now
             </a>
             <a
-              href="https://wa.me/254700000000"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-base"
             >
               <MessageCircle size={18} /> WhatsApp Us
@@ -1124,9 +1124,16 @@ function Footer() {
           <div>
             <h3 className="font-heading text-xl">Contact Us</h3>
             <div className="mt-4 space-y-3 text-sm text-white/75">
-              <p>+254 XXX XXX XXX</p>
-              <p>info@joshemcleaning.co.ke</p>
-              <p>Nairobi, Kenya</p>
+              <div>
+                <p className="font-semibold text-white mb-1">Phone Numbers:</p>
+                <p>0717 785 782 (WhatsApp)</p>
+                <p>0797 923 747 (Calls)</p>
+                <p>0702 549 341 (Calls)</p>
+              </div>
+              <div className="pt-2">
+                <p className="font-semibold text-white mb-1">Email:</p>
+                <p>joshemcleaners@gmail.com</p>
+              </div>
             </div>
           </div>
         </div>

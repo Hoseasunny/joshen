@@ -365,8 +365,8 @@ export const faqs = [
 ];
 
 export const contactDetails = [
-  { icon: Phone, title: 'Phone', lines: ['+254 XXX XXX XXX', '+254 XXX XXX XXX'] },
-  { icon: Mail, title: 'Email', lines: ['info@joshemcleaning.co.ke'] },
+  { icon: Phone, title: 'Phone Numbers', lines: ['0717 785 782 (WhatsApp)', '0797 923 747 (Calls)', '0702 549 341 (Calls)'] },
+  { icon: Mail, title: 'Email', lines: ['joshemcleaners@gmail.com'] },
   { icon: Clock3, title: 'Business Hours', lines: ['Mon - Sat: 8:00 AM - 6:00 PM'] },
   { icon: MapPin, title: 'Location', lines: ['Nairobi, Kenya'] },
 ];
