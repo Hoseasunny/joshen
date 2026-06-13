@@ -96,7 +96,7 @@ export const services = [
     title: 'Fumigation Services',
     description: 'Effective pest control solutions for a safe, pest-free environment.',
     icon: ShieldCheck,
-    image: '/icons/safe.jpg',
+    image: '/icons/fumigation-services.png',
   },
   {
     title: 'Landscaping Design',
@@ -268,18 +268,18 @@ export const stats = [
 export const beforeAfterPairs = [
   {
     label: 'Office Refresh',
-    before: '/icons/office.jpg',
-    after: '/icons/professional.jpg',
+    before: '/icons/office-before.png',
+    after: '/icons/office-after.png',
   },
   {
     label: 'Sofa Revival',
-    before: '/icons/sofa.jpg',
-    after: '/icons/customer.jpg',
+    before: '/icons/sofa-before.png',
+    after: '/icons/sofa-after.png',
   },
   {
     label: 'Washroom Reset',
-    before: '/icons/washroom.jpg',
-    after: '/icons/safe.jpg',
+    before: '/icons/washroom-before.png',
+    after: '/icons/washroom-after.png',
   },
 ];
 

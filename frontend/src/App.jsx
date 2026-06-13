@@ -181,7 +181,7 @@ function Hero() {
             <div className="glass relative overflow-hidden rounded-[2rem] p-4 shadow-[0_32px_90px_rgba(10,77,157,0.18)]">
               <RippleDrops count={6} />
               <img
-                src="/icons/professional.jpg"
+                src="/icons/hero.png"
                 alt="Professional cleaning team"
                 className="mobile-hero-media h-[520px] w-full rounded-[1.5rem] object-cover"
               />
@@ -342,7 +342,7 @@ function About() {
           <div className="relative">
             <div className="absolute -bottom-5 -right-5 h-full w-full rounded-[2rem] bg-brandGreen/20" />
             <img
-              src="/icons/customer.jpg"
+              src="/icons/about-section.png"
               alt="Cleaning team with equipment"
               className="relative h-[420px] w-full rounded-[2rem] object-cover shadow-[0_25px_75px_rgba(10,77,157,0.12)] md:h-[420px] max-md:h-[280px]"
             />
@@ -357,6 +357,71 @@ function About() {
 }
 
 function Services() {
+  const [expandedService, setExpandedService] = useState(null);
+
+  const toggleExpanded = (index) => {
+    setExpandedService(expandedService === index ? null : index);
+  };
+
+  const serviceDetails = {
+    'Residential Cleaning': {
+      duration: '2-4 hours',
+      coverage: 'Entire home',
+      includes: ['Deep house cleaning', 'Bathroom and toilet cleaning', 'Living room cleaning', 'Window and glass cleaning', 'Exterior and outdoor cleaning'],
+      benefits: ['Fresh, healthy living space', 'Allergen removal', 'Odor elimination'],
+      cta: 'Schedule Residential Service',
+    },
+    'Office Cleaning': {
+      duration: '1-3 hours',
+      coverage: 'Full office space',
+      includes: ['Floor sweeping and mopping', 'Desk and workstation cleaning', 'Sanitizing high-touch surfaces', 'Waste management', 'Carpet vacuuming'],
+      benefits: ['Boost productivity', 'Professional appearance', 'Healthy workplace'],
+      cta: 'Book Office Cleaning',
+    },
+    'Laundry Services': {
+      duration: '1-2 days',
+      coverage: 'Bulk fabric care',
+      includes: ['Professional washing', 'Stain treatment', 'Fabric-safe drying', 'Ironing and pressing', 'Delivery available'],
+      benefits: ['Extended fabric life', 'Expert stain removal', 'Fresh-smelling results'],
+      cta: 'Order Laundry Service',
+    },
+    'Sofa Cleaning': {
+      duration: '2-3 hours',
+      coverage: 'Complete upholstery',
+      includes: ['Deep stain removal', 'Allergen extraction', 'Fabric conditioning', 'Odor treatment', 'Protective coating'],
+      benefits: ['Restored appearance', 'Hygienic surface', 'Extended furniture life'],
+      cta: 'Get Sofa Cleaned',
+    },
+    'Carpet Cleaning': {
+      duration: '2-4 hours',
+      coverage: 'Entire carpet area',
+      includes: ['Professional extraction', 'Stain and spot treatment', 'Fiber restoration', 'Deodorizing', 'Quick-dry treatment'],
+      benefits: ['Like-new appearance', 'Allergen reduction', 'Longevity boost'],
+      cta: 'Clean Your Carpets',
+    },
+    'Move-In / Move-Out': {
+      duration: '3-6 hours',
+      coverage: 'Complete property',
+      includes: ['Deep cleaning all rooms', 'Carpet shampooing', 'Window and blind cleaning', 'Appliance cleaning', 'Post-construction cleanup'],
+      benefits: ['Move-ready property', 'Deposit protection', 'Fresh start'],
+      cta: 'Schedule Move Cleaning',
+    },
+    'Fumigation Services': {
+      duration: '4-6 hours',
+      coverage: 'Entire building',
+      includes: ['Pest inspection', 'Safe chemical application', 'Follow-up treatment', 'Documentation', 'Prevention advice'],
+      benefits: ['Pest-free environment', 'Long-term protection', 'Health safety'],
+      cta: 'Book Fumigation',
+    },
+    'Landscaping Design': {
+      duration: 'Ongoing',
+      coverage: 'Full outdoor space',
+      includes: ['Garden design', 'Maintenance planning', 'Plant care', 'Lawn treatment', 'Seasonal updates'],
+      benefits: ['Curb appeal boost', 'Property value increase', 'Relaxing outdoor space'],
+      cta: 'Design Your Garden',
+    },
+  };
+
   return (
     <section
       id="services"
@@ -371,28 +436,85 @@ function Services() {
           subtitle="Comprehensive cleaning solutions tailored to your needs"
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.06}>
-              <article className="card-ripple group h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_6px_28px_rgba(0,0,0,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-glow">
-                <RippleDrops count={7} />
-                <div className="overflow-hidden rounded-[1.25rem]">
-                  <img src={service.image} alt={service.title} className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div className="mt-5 grid h-14 w-14 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue transition duration-300 group-hover:rotate-6 group-hover:bg-brandGreen/15 group-hover:text-brandGreen">
-                  <service.icon size={26} />
-                </div>
-                <h3 className="mt-4 text-xl font-heading text-brandBlue">{service.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600 mobile-hide md:block">{service.description}</p>
-                <p className="mt-3 text-sm leading-7 text-slate-600 md:hidden">Reliable, high-quality service tailored to your space.</p>
-                <button
-                  type="button"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brandGreen transition group-hover:translate-x-1"
-                >
-                  Learn More <ChevronRight size={16} />
-                </button>
-              </article>
-            </Reveal>
-          ))}
+          {services.map((service, index) => {
+            const details = serviceDetails[service.title];
+            return (
+              <Reveal key={service.title} delay={index * 0.06}>
+                <article className="card-ripple group flex flex-col h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_6px_28px_rgba(0,0,0,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+                  <RippleDrops count={7} />
+                  {/* Image - No padding, extends to edges */}
+                  <div className="overflow-hidden bg-slate-100">
+                    <img src={service.image} alt={service.title} className="h-40 sm:h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  </div>
+                  
+                  {/* Content - Flex grow to fill available space */}
+                  <div className="flex flex-col flex-grow p-4 sm:p-5">
+                    <div className="mt-1 grid h-12 sm:h-14 w-12 sm:w-14 place-items-center rounded-2xl bg-brandBlue/10 text-brandBlue transition duration-300 group-hover:rotate-6 group-hover:bg-brandGreen/15 group-hover:text-brandGreen">
+                      <service.icon size={24} />
+                    </div>
+                    <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-heading text-brandBlue">{service.title}</h3>
+                    <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-6 text-slate-600 mobile-hide md:block flex-grow">{service.description}</p>
+                    <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-6 text-slate-600 md:hidden flex-grow">Reliable, professional service for your space.</p>
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(index)}
+                      className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-brandGreen transition group-hover:translate-x-1"
+                    >
+                      Learn More
+                      <ChevronRight size={16} className={`expand-icon ${expandedService === index ? 'expanded' : ''}`} />
+                    </button>
+
+                    <div className={`expandable-content ${expandedService === index ? 'expanded' : ''}`}>
+                      <div className="space-y-3 sm:space-y-4 border-t border-slate-100 pt-3 sm:pt-4 text-xs sm:text-sm text-slate-600">
+                        {/* Duration & Coverage */}
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                          <div className="bg-brandBlue/5 rounded-lg p-2 sm:p-3">
+                            <p className="text-xs font-semibold text-brandBlue mb-1">Duration</p>
+                            <p className="text-slate-700 font-medium">{details.duration}</p>
+                          </div>
+                          <div className="bg-brandGreen/5 rounded-lg p-2 sm:p-3">
+                            <p className="text-xs font-semibold text-brandGreen mb-1">Coverage</p>
+                            <p className="text-slate-700 font-medium">{details.coverage}</p>
+                          </div>
+                        </div>
+
+                        {/* What's Included */}
+                        <div>
+                          <p className="font-semibold text-brandBlue mb-2 text-xs">What's Included:</p>
+                          <ul className="space-y-1.5 sm:space-y-2">
+                            {details.includes.slice(0, 3).map((item) => (
+                              <li key={item} className="flex items-start gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brandGreen flex-shrink-0" />
+                                <span className="text-slate-600">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Benefits */}
+                        <div>
+                          <p className="font-semibold text-brandBlue mb-2 text-xs">Key Benefits:</p>
+                          <ul className="space-y-1 sm:space-y-1.5">
+                            {details.benefits.map((benefit) => (
+                              <li key={benefit} className="flex items-start gap-2">
+                                <span className="text-brandGreen font-bold text-sm">✓</span>
+                                <span className="text-slate-600">{benefit}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* CTA */}
+                        <a href="#contact" className="inline-flex items-center gap-2 text-brandGreen font-semibold hover:translate-x-1 transition mt-3 text-xs sm:text-sm group">
+                          {details.cta} <ArrowRight size={14} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

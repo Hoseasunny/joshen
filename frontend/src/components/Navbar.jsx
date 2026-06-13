@@ -20,8 +20,9 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
-        <a href="#hero" className="font-heading text-xl text-brandBlue sm:text-2xl">
-          {brand.name}
+        <a href="#hero" className="inline-flex items-center gap-3 font-heading text-xl text-brandBlue sm:text-2xl">
+          <img src="/icons/logo.jpeg" alt={`${brand.name} logo`} className="h-11 w-auto rounded-xl object-contain" />
+          <span className="sr-only">{brand.name}</span>
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
