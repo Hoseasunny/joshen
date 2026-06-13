@@ -1,17 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navLinks, brand } from '../data';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuPanelRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+      if (open) setOpen(false);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleOutsideClick = event => {
+      if (menuPanelRef.current && !menuPanelRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [open]);
 
   return (
     <header
@@ -60,6 +82,7 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         />
         <aside
+          ref={menuPanelRef}
           className={`menu-panel absolute right-0 top-0 h-dvh w-[86vw] max-w-sm border-l border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(238,249,241,0.98)_100%)] px-5 py-5 shadow-2xl backdrop-blur-2xl ${
             open ? 'open' : ''
           }`}
