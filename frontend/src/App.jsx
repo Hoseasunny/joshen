@@ -869,7 +869,25 @@ function Contact() {
       return;
     }
 
-    setFeedback('Thanks! Your message has been sent successfully. We will contact you shortly.');
+    // Build WhatsApp message with form data
+    const whatsappMessage = `
+*NEW SERVICE REQUEST*
+
+*Name:* ${form.name}
+*Phone:* ${form.phone}
+*Email:* ${form.email}
+*Location:* ${form.location}
+*Service Needed:* ${form.service}
+
+*Message:*
+${form.message}
+    `.trim();
+
+    // Send to WhatsApp
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
+
+    setFeedback('✓ Message sent to WhatsApp! We\'ll respond shortly.');
     setForm({ name: '', phone: '', email: '', location: '', service: '', message: '' });
   };
 
