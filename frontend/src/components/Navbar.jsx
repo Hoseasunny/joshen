@@ -21,7 +21,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         <a href="#hero" className="inline-flex items-center gap-3 font-heading text-xl text-brandBlue sm:text-2xl">
-          <img src="/icons/logo.jpeg" alt={`${brand.name} logo`} className="h-11 w-auto rounded-xl object-contain" />
+          <img src="/icons/logo.png" alt={`${brand.name} logo`} className="h-11 w-auto rounded-xl object-contain" />
           <span className="sr-only">{brand.name}</span>
         </a>
 
