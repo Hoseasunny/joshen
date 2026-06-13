@@ -17,12 +17,12 @@
       content="Expert residential, office, laundry, fumigation, and domestic staffing solutions across Nairobi. Book professional cleaning today."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/icons/logo.png" />
-    <meta property="og:image:alt" content="JOSHEM General Cleaning Services Ltd logo" />
+    <meta property="og:image" content="/icons/hero.png" />
+    <meta property="og:image:alt" content="Professional cleaning team" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="JOSHEM General Cleaning Services Ltd | Professional Cleaning Services" />
     <meta name="twitter:description" content="Reliable and eco-friendly cleaning solutions for homes, offices, events, and domestic support in Nairobi." />
-    <meta name="twitter:image" content="/icons/logo.png" />
+    <meta name="twitter:image" content="/icons/hero.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,27 +36,110 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "JOSHEM General Cleaning Services Ltd",
-        "description": "Premium residential, office, laundry, fumigation, and domestic staffing services in Nairobi. Reliable, eco-friendly cleaning solutions for homes, offices, events, and move-in/move-out needs.",
-        "image": ["/icons/logo.png"],
-        "url": "/",
-        "telephone": ["0717785782", "0797923747", "0702549341"],
-        "email": "joshemcleaners@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Nairobi",
-          "addressCountry": "KE"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": -1.286389,
-          "longitude": 36.817223
-        },
-        "openingHours": ["Mo-Sa 08:00-18:00"],
-        "areaServed": "Nairobi",
-        "priceRange": "Affordable",
-        "sameAs": []
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "name": "JOSHEM General Cleaning Services Ltd",
+            "description": "Premium residential, office, laundry, fumigation, and domestic staffing services in Nairobi. Reliable, eco-friendly cleaning solutions for homes, offices, events, and move-in/move-out needs.",
+            "image": ["/icons/logo.png", "/icons/hero.png"],
+            "url": "/",
+            "telephone": ["0717785782", "0797923747", "0702549341"],
+            "email": "joshemcleaners@gmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": -1.286389,
+              "longitude": 36.817223
+            },
+            "openingHours": ["Mo-Sa 08:00-18:00"],
+            "areaServed": "Nairobi",
+            "priceRange": "Affordable",
+            "sameAs": []
+          },
+          {
+            "@type": "ImageObject",
+            "contentUrl": "/icons/hero.png",
+            "url": "/icons/hero.png",
+            "description": "Professional cleaning team",
+            "name": "JOSHEM Hero Image"
+          },
+          {
+            "@type": "Service",
+            "name": "Residential Cleaning",
+            "description": "Complete home cleaning services that keep your living space fresh, healthy, and inviting.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Office Cleaning",
+            "description": "Professional workplace cleaning to boost productivity and create a healthy environment.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Laundry Services",
+            "description": "Expert fabric care with modern equipment for pristine, fresh-smelling results.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Sofa Cleaning",
+            "description": "Deep cleaning that removes stains, allergens, and odors from your furniture.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Carpet Cleaning",
+            "description": "Specialized techniques to restore the beauty and hygiene of your carpets.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Move-In / Move-Out Cleaning",
+            "description": "Thorough cleaning services to prepare spaces for new occupants.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Fumigation Services",
+            "description": "Effective pest control solutions for a safe, pest-free environment.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Landscaping Design",
+            "description": "Beautiful outdoor spaces designed and maintained to perfection.",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "JOSHEM General Cleaning Services Ltd"
+            }
+          }
+        ]
       }
     </script>
   </head>
